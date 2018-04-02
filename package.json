@@ -1,7 +1,7 @@
 {
   "name": "bangazon-cli-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "## The Command Line Ordering System",
   "main": "index.js",
   "scripts": {
     "db:reset": "node db/database.js",
@@ -15,12 +15,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^1.1.3",
+    "chalk": "^2.3.2",
     "prompt": "^1.0.0",
-    "sqlite3": "^3.1.8"
+    "sqlite3": "^4.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^3.5.3"
-  }
+    "mocha": "^5.0.5"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chicken-sloths/bangazon-cli-sprint2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chicken-sloths/bangazon-cli-sprint2/issues"
+  },
+  "homepage": "https://github.com/chicken-sloths/bangazon-cli-sprint2#readme"
 }
