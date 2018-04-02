@@ -1,11 +1,9 @@
 # Description
 Add description about what this pull request covers.
 
-## Number of Fixes
-Type of number of fixes included in this PR.
-
 ## Related Ticket(s)
 List related ticket(s) that apply to the work done in this pull request
+If you are attempting to close an issue & want to utilize our project automation, write: `Fixes #[issue-number]`
 
 ## Problem to Solve
 Describe the problem(s) this pull request solves.
