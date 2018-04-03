@@ -15,7 +15,7 @@ module.exports = () => {
           title
         })=>{
           db.run(`INSERT INTO ProductTypes VALUES(
-            ${null},
+            ${product_type_id == undefined ? null : product_type_id},
             "${title}"
           )`);
         });
@@ -23,9 +23,3 @@ module.exports = () => {
     );
   });// End of db serialize
 };
-`product_id`,
-        `price`, 
-        `title`, 
-        `description`, 
-        `product_type_id`, 
-        `creator_id`

@@ -18,6 +18,7 @@ module.exports = () => {
       )`,
       ()=>{
         customers.forEach(({ 
+          customer_id,
           first_name, 
           last_name, 
           account_creation_date,
@@ -27,7 +28,7 @@ module.exports = () => {
           postal_code, 
           phone_number })=>{
             db.run(`INSERT INTO Customers VALUES(
-              ${null},
+              ${customer_id == undefined ? null : customer_id},
               "${first_name}",
               "${last_name}",
               "${account_creation_date}",

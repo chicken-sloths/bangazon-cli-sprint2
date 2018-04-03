@@ -5,6 +5,7 @@ const makePaymentOptionsTable = require('./makePaymentOptionsTable');
 const makeOrdersTable = require('./makeOrdersTable');
 const makeProductsTable = require('./makeProductsTable');
 const makeProductTypesTable = require('./makeProductTypesTable');
+const makeProductOrdersTable = require('./makeProductOrdersTable');
 
 let db;
 
@@ -16,6 +17,7 @@ const createTables = () =>{
     makeOrdersTable();
     makeProductsTable();
     makeProductTypesTable();
+    makeProductOrdersTable();
   });
 };
 
