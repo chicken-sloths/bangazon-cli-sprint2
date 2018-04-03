@@ -1,4 +1,6 @@
-module.exports.createCustV = [{
+'use strict';
+
+module.exports = [{
   name: 'name',
   description: 'Enter customer name (First Last)',
   type: 'string',
