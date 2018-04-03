@@ -15,13 +15,12 @@ module.exports.getActiveCustomer = () => activeCustomer;
 module.exports.setActiveCustomer = () => {
   return new Promise ((resolve, reject) => {
 
-    console.log('here are all the customers!');
+    console.log('Here are all the customers:');
     console.log('pretend like this is a long list of customers.')
 
     prompt.get(activeCustomerPrompt,
     (err, result) => {
       setActiveId(result.custId);
-      console.log(result);
       err ? reject(err) : resolve(result.custId);
     })
   })
