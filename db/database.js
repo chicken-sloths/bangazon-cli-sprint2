@@ -3,7 +3,8 @@ const path = require('path');
 const makeCustomersTable = require('./makeCustomersTable');
 const makePaymentOptionsTable = require('./makePaymentOptionsTable');
 const makeOrdersTable = require('./makeOrdersTable');
-// const makeProductsTable = require('./makeProductsTable');
+const makeProductsTable = require('./makeProductsTable');
+const makeProductTypesTable = require('./makeProductTypesTable');
 
 let db;
 
@@ -13,6 +14,8 @@ const createTables = () =>{
     makeCustomersTable();
     makePaymentOptionsTable();
     makeOrdersTable();
+    makeProductsTable();
+    makeProductTypesTable();
   });
 };
 

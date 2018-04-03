@@ -16,7 +16,7 @@ module.exports = () => {
       FOREIGN KEY (creator_id) REFERENCES Customers(customer_id)
       )`,
       ()=>{
-        orders.forEach(({ 
+        products.forEach(({ 
           product_id,
           price,
           title,
@@ -27,9 +27,9 @@ module.exports = () => {
           db.run(`INSERT INTO Products VALUES(
             ${null},
             "${price}",
-            "${title}"
-            "${description}"
-            "${product_type_id}"
+            "${title}",
+            "${description}",
+            "${product_type_id}",
             "${creator_id}"
           )`);
         });
