@@ -6,7 +6,7 @@ module.exports = () => {
     db.run(`DROP TABLE IF EXISTS Products`);
     db.run(`CREATE TABLE IF NOT EXISTS Products (
       product_id INTEGER PRIMARY KEY,
-      price TEXT,
+      current_price TEXT,
       title TEXT,
       description TEXT,
       product_type_id INTEGER,
@@ -17,7 +17,7 @@ module.exports = () => {
       ()=>{
         products.forEach(({ 
           product_id,
-          price,
+          current_price,
           title,
           description,
           product_type_id,
@@ -25,7 +25,7 @@ module.exports = () => {
         })=>{
           db.run(`INSERT INTO Products VALUES(
             ${product_id == undefined ? null : product_id},
-            "${price}",
+            "${current_price}",
             "${title}",
             "${description}",
             "${product_type_id}",

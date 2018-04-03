@@ -2,7 +2,7 @@
 const faker = require('faker');
 const randomInt = require('../randomInt');
 
-const _generateProductOrders = ({ customerAmount, maxProductsOnOrder, productAmount }, orders) => {
+const _generateProductOrders = ({ customerAmount, maxProductsOnOrder, productAmount }, orders, products) => {
   let productOrders = [];
   let curProductOrderId = 0;
 

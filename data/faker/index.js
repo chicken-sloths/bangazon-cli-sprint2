@@ -20,7 +20,7 @@ module.exports.generateProductData = () => {
         products = _generateProducts(fakerSpecs),
         paymentOptions = _generatePaymentOptions(fakerSpecs),
         orders = _generateOrders(fakerSpecs, customers, paymentOptions),
-        productOrders = _generateProductOrders(fakerSpecs, orders);
+        productOrders = _generateProductOrders(fakerSpecs, orders, products);
 
   return {customers, productTypes, products, paymentOptions, orders, productOrders};
 };
