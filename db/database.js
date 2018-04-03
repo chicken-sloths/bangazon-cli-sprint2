@@ -1,11 +1,18 @@
 const sqlite3 = require('sqlite3');
 const path = require('path');
 const { customers } = require('../data/customers');
+const { makeCustomersTable } = require('./makeCustomersTable');
+const { makeProductsTable } = require('./makeProductsTable');
+const { makeOrdersTable } = require('./makeOrdersTable');
+const { makeOptionsTable } = require('./makePaymentOptionsTable');
+
 let db;
 
 const createTables = () =>{
-  db.serialize
-}
+  db.serialize(()=>{
+    // call all 4 functions right here.
+  });
+};
 
 (function createDb() {
   // http://stackoverflow.com/questions/27766734/dealing-with-relative-paths-with-node-js
