@@ -7,10 +7,10 @@ const colors = require("colors/safe");
 const path = require('path');
 const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue("Bangazon Corp");
-const { addCustomerProduct } = require('./controllers/addCustProdC');
 
 // app modules
 const { promptNewCustomer } = require('./controllers/createCustC')
+const { addCustomerProduct } = require('./controllers/addCustProdC');
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
@@ -18,7 +18,6 @@ prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
   console.log("user input", userInput);
-  // This could get messy quickly. Maybe a better way to parse the input?
   if(userInput.choice == '1') {
     promptNewCustomer()
     .then( (custData) => {
