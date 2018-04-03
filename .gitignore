@@ -2,3 +2,4 @@ node_modules
 db/bangazon.sqlite
 .DS_Store
 package-lock.json
+*.js.swp
