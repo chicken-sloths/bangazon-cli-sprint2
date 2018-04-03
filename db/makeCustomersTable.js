@@ -1,9 +1,9 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('bangazon.sqlite');
+const db = new sqlite3.Database('db/bangazon.sqlite');
 const customers = require("../data/json/customers.json");
 
 module.exports = () => {
-  db.serialize(()=>{
+  // db.serialize(()=>{
     db.run(`DROP TABLE IF EXISTS Customers`);
     db.run(`CREATE TABLE IF NOT EXISTS Customers (
       customer_id INTEGER PRIMARY KEY,
@@ -42,5 +42,5 @@ module.exports = () => {
 
       }
     );
-  });// End of db serialize
+  // });// End of db serialize
 };

@@ -15,8 +15,8 @@ const createTables = () =>{
     makeCustomersTable();
     makePaymentOptionsTable();
     makeOrdersTable();
-    makeProductsTable();
     makeProductTypesTable();
+    makeProductsTable();
     makeProductOrdersTable();
   });
 };
