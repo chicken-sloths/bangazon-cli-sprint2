@@ -1,16 +1,17 @@
 const sqlite3 = require('sqlite3');
 const path = require('path');
 const { customers } = require('../data/customers');
-const { makeCustomersTable } = require('./makeCustomersTable');
-const { makeProductsTable } = require('./makeProductsTable');
-const { makeOrdersTable } = require('./makeOrdersTable');
-const { makeOptionsTable } = require('./makePaymentOptionsTable');
+const makeCustomersTable = require('./makeCustomersTable');
+// const { makeProductsTable } = require('./makeProductsTable');
+// const { makeOrdersTable } = require('./makeOrdersTable');
+// const { makeOptionsTable } = require('./makePaymentOptionsTable');
 
 let db;
 
 const createTables = () =>{
   db.serialize(()=>{
     // call all 4 functions right here.
+    makeCustomersTable();
   });
 };
 
