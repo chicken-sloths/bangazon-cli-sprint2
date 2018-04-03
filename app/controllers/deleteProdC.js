@@ -1,7 +1,7 @@
 'use strict';
 
 const prompt = require('prompt');
-const promptObj = require('../views/deleteProductV');
+const promptObj = require('../views/deleteProdV');
 
 module.exports.deleteProduct = () => {
   return new Promise((resolve, reject) => {
