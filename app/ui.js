@@ -10,6 +10,7 @@ prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
 const { promptNewCustomer } = require('./controllers/customerCtrl')
+const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
@@ -24,6 +25,12 @@ let mainMenuHandler = (err, userInput) => {
       console.log('customer data to save', custData );
       //save customer to db
     });
+  } else if (userInput.choice == '3'){
+    promptNewPaymentOption()
+    .then(paymentObj => {
+      console.log('payment option to save', paymentObj)
+      // TODO: save paymentObj to db
+    })
   }
 };
 
