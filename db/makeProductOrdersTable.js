@@ -8,6 +8,7 @@ module.exports = () => {
       product_order_id INTEGER PRIMARY KEY,
       product_id INT,
       order_id INT,
+      product_price TEXT,
       FOREIGN KEY (product_id) REFERENCES Products(product_id),
       FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE
       )`,
@@ -15,12 +16,14 @@ module.exports = () => {
         productOrders.forEach(({ 
           product_order_id,
           product_id,
-          order_id
+          order_id,
+          product_price
         })=>{
           db.run(`INSERT INTO productOrders VALUES(
             ${product_order_id == undefined ? null : product_order_id},
             "${product_id}",
-            "${order_id}"
+            "${order_id}",
+            "${product_price}"
           )`);
         });
       }
