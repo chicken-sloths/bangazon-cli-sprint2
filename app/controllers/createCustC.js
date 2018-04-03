@@ -1,7 +1,7 @@
 'use strict';
 
 const prompt = require('prompt');
-const promptObj = require("../views/createCustV");
+const promptObj = require('../views/createCustV');
 
 module.exports.promptNewCustomer = () => {
   return new Promise((resolve, reject) => {
