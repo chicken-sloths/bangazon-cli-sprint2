@@ -17,7 +17,8 @@ const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  // console.log("user input", userInput);
+  // TODO: check active user here and limit options accordingly
+  console.log("user input", userInput);
   if (userInput.choice == '1') {
     promptNewCustomer()
       .then((custData) => {
