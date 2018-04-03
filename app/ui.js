@@ -49,7 +49,7 @@ module.exports.displayWelcome = () => {
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
   ${magenta('4.')} Add product to shopping cart
-  ${magenta('5.')} Complete an order
+  ${magenta('5.')} Add product to shopping cart
   ${magenta('6.')} See product popularity
   ${magenta('7.')} Leave Bangazon!`);
     prompt.get([{
