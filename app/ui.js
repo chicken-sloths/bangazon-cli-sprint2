@@ -9,7 +9,7 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
-const { promptNewCustomer } = require('./controllers/customerCtrl')
+const { promptNewCustomer } = require('./controllers/createCustC.js')
 const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));

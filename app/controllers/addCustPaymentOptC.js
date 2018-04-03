@@ -2,16 +2,17 @@ const prompt = require('prompt');
 const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
 
 module.exports.promptNewPaymentOption = () => {
-  prompt.get(paymentOptionPrompts, 
-    (err, result) => {
-      // build an object of payment type and account #
-      let paymentOption = {
-        type: result.paymentType,
-        account_number: result.account_number,
-        customer_id: 'this will be an active cust id'
-      }
-
-      err ? reject(err) : resolve(paymentOption);
+  return new Promise((resolve, reject) => {
+    prompt.get(paymentOptionPrompts,
+      (err, result) => {
+        // build an object of payment type and account #
+        let paymentOption = {
+          type: result.paymentType,
+          account_number: result.accountNumber,
+          customer_id: 'this will be an active cust id'
+        }
+        err ? reject(err) : resolve(paymentOption);
+      })
   })
 }
 
