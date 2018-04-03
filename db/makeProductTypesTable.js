@@ -3,7 +3,6 @@ const db = new sqlite3.Database('db/bangazon.sqlite');
 const productTypes = require("../data/json/productTypes.json");
 
 module.exports = () => {
-  // db.serialize(()=>{
     db.run(`DROP TABLE IF EXISTS ProductTypes`);
     db.run(`CREATE TABLE IF NOT EXISTS ProductTypes (
       product_type_id INTEGER PRIMARY KEY,
@@ -21,5 +20,4 @@ module.exports = () => {
         });
       }
     );
-  // });// End of db serialize
 };

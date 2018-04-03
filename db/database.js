@@ -11,7 +11,6 @@ let db;
 
 const createTables = () =>{
   db.serialize(()=>{
-    // call all 4 functions right here.
     makeCustomersTable();
     makePaymentOptionsTable();
     makeOrdersTable();
