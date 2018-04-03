@@ -1,6 +1,6 @@
-const sqlite3 = require('sqlite3');
+const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const { customers } = require('../data/customers');
+// const { customers } = require('../data/customers');
 const makeCustomersTable = require('./makeCustomersTable');
 // const { makeProductsTable } = require('./makeProductsTable');
 // const { makeOrdersTable } = require('./makeOrdersTable');
