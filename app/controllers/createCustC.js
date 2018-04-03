@@ -1,41 +1,15 @@
 'use strict';
 
 const prompt = require('prompt');
+const promptObj = require('../views/createCustV');
 
 module.exports.promptNewCustomer = () => {
-  return new Promise( (resolve, reject) => {
-    prompt.get([{
-      name: 'name',
-      description: 'Enter customer name (First Last)',
-      type: 'string',
-      required: true
-    }, {
-      name: 'street',
-      description: 'Enter street address',
-      type: 'string',
-      required: true
-    }, {
-      name: 'city',
-      description: 'Enter city',
-      type: 'string',
-      required: true
-    }, {
-      name: 'state',
-      description: 'Enter state (KY)',
-      type: 'string',
-      required: true
-    }, {
-      name: 'zip',
-      description: 'Enter postal code',
-      type: 'string',
-      required: true
-    }, {
-      name: 'phone',
-      description: 'Enter phone number (xxx-yyy-zzzz)',
-      type: 'string',
-      required: true
-    }], function(err, results) {
+  return new Promise((resolve, reject) => {
+    prompt.get(promptObj, (err, results) => {
       if (err) return reject(err);
+      // TODO: post customer data
+      // TODO: return this promise
+      console.log('customer data to save', results);
       resolve(results);
     })
   });
