@@ -1,11 +1,28 @@
 'use strict';	
-	
-let activeCustomer = {	
-  id: null	
+const { activeCustomerPrompt } = require('../views/activeCustV');
+const prompt = require('prompt');
+
+const activeCustomer = {
+  id: null
 }	
-	
-module.exports.setActiveCustomer = (id) => {	
-  activeCustomer.id = id;	
-}	
-	
+
+const setActiveId = id => {
+  activeCustomer.id = id;
+}
+
 module.exports.getActiveCustomer = () => activeCustomer;
+
+module.exports.setActiveCustomer = () => {
+  return new Promise ((resolve, reject) => {
+
+    console.log('here are all the customers!');
+    console.log('pretend like this is a long list of customers.')
+
+    prompt.get(activeCustomerPrompt,
+    (err, result) => {
+      setActiveId(result.custId);
+      console.log(result);
+      err ? reject(err) : resolve(result.custId);
+    })
+  })
+}

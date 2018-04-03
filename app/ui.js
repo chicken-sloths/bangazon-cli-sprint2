@@ -9,7 +9,8 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue("Bangazon Corp");
 
 // app modules
-const { promptNewCustomer } = require('./controllers/customerCtrl')
+const { promptNewCustomer } = require('./controllers/createCustC');
+const { setActiveCustomer } = require('./controllers/activeCustC');
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
@@ -24,6 +25,11 @@ let mainMenuHandler = (err, userInput) => {
       console.log('customer data to save', custData );
       //save customer to db
     });
+  } else if (userInput.choice === '2') {
+    setActiveCustomer()
+      .then(id => {
+        console.log('You just selected this customer id', id);
+      });
   }
 };
 
