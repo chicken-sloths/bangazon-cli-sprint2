@@ -7,7 +7,7 @@ const colors = require("colors/safe");
 const path = require('path');
 const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue("Bangazon Corp");
-const { addCustomerProduct } = require('./controllers/addProdC');
+const { addCustomerProduct } = require('./controllers/addCustProdC');
 
 // app modules
 const { promptNewCustomer } = require('./controllers/createCustC')
