@@ -12,6 +12,7 @@ prompt.message = colors.blue('Bangazon Corp');
 const { promptNewCustomer } = require('./controllers/createCustC');
 const { addProductToOrder } = require('./controllers/addProdToOrderC');
 const { deleteProduct } = require('./controllers/deleteProdC');
+const { 
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
@@ -36,6 +37,10 @@ let mainMenuHandler = (err, userInput) => {
       .catch(err => {
         console.log('addProductToOrder error', err);
       });
+  } else if (userInput.choice == '6') {
+    completeOrderPrompt()
+      .then(({checkout, paymentOptions]) => module.exports.displayWelcome) 
+      .catch(err => {});
   } else if (userInput.choice == '7') {
     deleteProduct()
       .then(data => {
