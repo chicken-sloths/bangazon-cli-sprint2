@@ -1,16 +1,17 @@
-module.exports.getSingleOrder = orderId => {
+
+module.exports.checkForActiveOrder = customer_id => {
   // This will get the order matching the orderId
-  // This will be used by the 
-  new Promise((resolve, reject) =>{
+  // This will be used by #5 and #6 (on the white board)
+  return new Promise((resolve, reject) =>{
     db.get(
-        `SELECT * FROM Orders WHERE order_id = ${id}`,
+        `SELECT * FROM Orders o WHERE o.customer_id = ${customer_id} AND o.payment_type IS null`,
         (err, order) => err ? reject(err) : resolve(order)
       );
   });
 };
 
 module.exports.patchOrder = obj => {
-  // This function will add a payment type to an order
+  // This function will add a payment type to an order using patch-like verb like UPDATE 
 
 };
 
