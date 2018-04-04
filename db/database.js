@@ -9,7 +9,6 @@ const makeProductOrdersTable = require('./makeProductOrdersTable');
 
 const db = new sqlite3.Database('db/bangazon.sqlite');
 db.configure('busyTimeout', 1500);
-let array = [];
 const createTables = () =>{
   makeCustomersTable();
   setTimeout(makePaymentOptionsTable, 2000);

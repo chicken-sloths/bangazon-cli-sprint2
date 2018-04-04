@@ -22,9 +22,25 @@ module.exports.checkForActiveOrder = customer_id => {
   });
 };
 
-module.exports.patchPaymentTypeOntoOrder = (order_id, paymentType_id) => {
+module.exports.patchPaymentTypeOntoOrder = (order, payment_option_id) => {
   // This function will add a payment type to an order using patch-like verb like UPDATE 
-
+  return new Promise((resolve, reject)=>{
+    db.run(
+      `REPLACE INTO Orders(
+        order_id,
+        customer_id,
+        payment_option_id
+      )
+      VALUES (
+        ${order.order_id},
+        ${order.customer_id},
+        ${payment_option_id}
+      )`,
+      function(err){
+        resolve(this.lastID);
+      }
+    );
+  });
 };
 
 // This will INSERT a new order into the Orders table.
