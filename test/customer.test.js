@@ -1,9 +1,11 @@
-const { assert: {equal} } = require('chai');
+const { assert: {equal, isArray, isObject} } = require('chai');
+const { getAllCustomers } = require('../app/models/CustomersM.js')
 
 // Placed here to confirm test file runs properly
-describe('just a test', () => {
-  it('should be equal', () => {
-    equal( 3, 1 + 2)
+describe('customers functionality', () => {
+  it('should return an array of objects', () => {
+    isArray(getAllCustomers())
+    isObject(getAllCustomers()[0])
   });
 });
 
