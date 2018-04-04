@@ -1,6 +1,6 @@
 
-const { assert:{ isFunction , typeOf, isNumber, ifError } } = require('chai');
-const { checkForActiveOrder } = require('../app/models/OrdersM');
+const { assert:{ isFunction , typeOf, isNumber, isUndefined } } = require('chai');
+const { checkForActiveOrder, patchPaymentTypeOntoOrder } = require('../app/models/OrdersM');
 
 
 describe("checkForActiveOrder function", ()=>{
@@ -12,17 +12,23 @@ describe("checkForActiveOrder function", ()=>{
   });
   it("should return the order id", ()=>{
     return checkForActiveOrder(4)
-    .then(orderid=>{
-      isNumber(orderid);
+    .then(({order_id})=>{
+      typeOf(order_id, "number");
+      isNumber(order_id);
     });
   });
-  it("should pass this test ONLY if the promise rejects",()=>{
-    return checkForActiveOrder('5')
-    .then(orderid=>{
-      // isNumber(orderid);
-    })
-    .catch(err=>{
-      ifError(err);
+  it("should pass this test ONLY if the customer has no active order.",()=>{
+    return checkForActiveOrder(5)
+    .then(order=>{
+      // If customer has no active orders, "undefined" is returned
+      typeOf(order, "undefined");
+      isUndefined(order);
     });
-  })
+  });
+});
+
+describe(" patchPaymentTypeOntoOrder function: ", ()=>{
+  it("should be a function", ()=>{
+    isFunction(patchPaymentTypeOntoOrder);
+  });
 });

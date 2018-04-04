@@ -12,18 +12,17 @@ module.exports.checkForActiveOrder = customer_id => {
         AND payment_option_id IS "null";
         `,
         (err, order) => {
-          console.log('order HFOGKGFD:',order);
           if(err){
             reject(err);
           } else {
-            resolve(order.order_id);
+            resolve(order);
           } 
         }
       );
   });
 };
 
-module.exports.patchOrder = obj => {
+module.exports.patchPaymentTypeOntoOrder = (order_id, paymentType_id) => {
   // This function will add a payment type to an order using patch-like verb like UPDATE 
 
 };
