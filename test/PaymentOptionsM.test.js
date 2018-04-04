@@ -1,6 +1,6 @@
 "use strict";
 
-const { assert: { deepEqual, equal } } = require('chai'),
+const { assert: { deepEqual, equal, isEmpty } } = require('chai'),
       {
 	getPaymentOptionsForCustomer,
 	addPaymentOption
@@ -19,6 +19,12 @@ describe('PaymentOptionsModel module', () => {
 
       return getPaymentOptionsForCustomer(23)
         .then(opts => deepEqual(opts[1], option));
+    });
+
+    it('should return an empty array if cust id has no payment options', () => {
+      // customer_id: 4 has no payment options
+      return getPaymentOptionsForCustomer(4)
+	.then(resp => isEmpty(resp)); 
     });
   });
   
