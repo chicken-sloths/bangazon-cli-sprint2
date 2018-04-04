@@ -9,8 +9,9 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
-const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 const { promptNewCustomer } = require('./controllers/createCustC');
+const { setActiveCustomer } = require('./controllers/activeCustC');
+const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 const { addProductToOrder } = require('./controllers/addProdToOrderC');
 const { deleteProduct } = require('./controllers/deleteProdC');
 const { addCustomerProduct } = require('./controllers/addCustProdC');
@@ -28,6 +29,11 @@ let mainMenuHandler = (err, userInput) => {
       console.log('customer data to save', custData );
       //save customer to db
     });
+  } else if (userInput.choice === '2') {
+    setActiveCustomer()
+      .then(id => {
+        console.log('You just selected this customer id', id);
+      });
   } else if (userInput.choice == '3'){
     promptNewPaymentOption()
     .then(paymentObj => {
