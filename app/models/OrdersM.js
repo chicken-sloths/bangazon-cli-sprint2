@@ -9,7 +9,7 @@ module.exports.checkForActiveOrder = customer_id => {
         `SELECT * 
         FROM Orders 
         WHERE customer_id = ${customer_id}
-        AND payment_option_id IS "null";
+        AND payment_option_id IS null;
         `,
         (err, order) => {
           if(err){
@@ -62,7 +62,7 @@ module.exports.createNewOrder = order => {
       VALUES (
         ${null},
         ${order.customer_id},
-        "${order.payment_option_id}"
+        ${order.payment_option_id}
       )`,
       function(err){
         console.log('this.lastID', this.lastID);

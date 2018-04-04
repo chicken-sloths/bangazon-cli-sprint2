@@ -59,7 +59,7 @@ describe("patchPaymentTypeOntoOrder function: ", ()=>{
       customer_id: 100
     }
     it("should return a promise", ()=>{
-      typeOf(patchPaymentTypeOntoOrder(veryRealOrder, 10),"promise");
+      typeOf(patchPaymentTypeOntoOrder(veryRealOrder, 1000),"promise");
       typeOf(patchPaymentTypeOntoOrder(fakeOrder, 100),"promise");
     });
     it("should return the integer id of the added row",()=>{
