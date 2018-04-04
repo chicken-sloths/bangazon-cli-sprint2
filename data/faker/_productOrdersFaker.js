@@ -2,7 +2,7 @@
 const faker = require('faker');
 const randomInt = require('../randomInt');
 
-const _generateProductOrders = ({ customerAmount, maxProductsOnOrder, productAmount }, orders) => {
+const _generateProductOrders = ({ customerAmount, maxProductsOnOrder, productAmount }, orders, products) => {
   let productOrders = [];
   let curProductOrderId = 0;
 
@@ -23,7 +23,8 @@ const _generateProductOrders = ({ customerAmount, maxProductsOnOrder, productAmo
         const productOrder = {
           product_order_id: curProductOrderId,
           product_id: randomProductId,
-          order_id: customerOrder.order_id
+          order_id: customerOrder.order_id,
+          product_price: products[randomProductId].current_price
         };
 
         // Increment the current product order id for the next product
