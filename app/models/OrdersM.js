@@ -1,11 +1,24 @@
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./db/bangazon.sqlite');
 
 module.exports.checkForActiveOrder = customer_id => {
   // This will get the order matching the orderId
   // This will be used by #5 and #6 (on the white board)
   return new Promise((resolve, reject) =>{
     db.get(
-        `SELECT * FROM Orders o WHERE o.customer_id = ${customer_id} AND o.payment_type IS null`,
-        (err, order) => err ? reject(err) : resolve(order)
+        `SELECT * 
+        FROM Orders 
+        WHERE customer_id = ${customer_id}
+        AND payment_option_id IS "null";
+        `,
+        (err, order) => {
+          console.log('order HFOGKGFD:',order);
+          if(err){
+            reject(err);
+          } else {
+            resolve(order.order_id);
+          } 
+        }
       );
   });
 };
