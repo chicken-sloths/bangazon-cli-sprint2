@@ -4,8 +4,8 @@ const productTypes = require("../data/json/productTypes.json");
 
 module.exports = () => {
   db.serialize(()=>{
-    db.run(`DROP TABLE IF EXISTS ProductTypes`);
-    db.run(`CREATE TABLE IF NOT EXISTS ProductTypes (
+    db.run(`DROP TABLE IF EXISTS Product_Types`);
+    db.run(`CREATE TABLE IF NOT EXISTS Product_Types (
       product_type_id INTEGER PRIMARY KEY,
       title TEXT
       )`,
@@ -14,7 +14,7 @@ module.exports = () => {
           product_type_id,
           title
         })=>{
-          db.run(`INSERT INTO ProductTypes VALUES(
+          db.run(`INSERT INTO Product_Types VALUES(
             ${product_type_id == undefined ? null : product_type_id},
             "${title}"
           )`);
