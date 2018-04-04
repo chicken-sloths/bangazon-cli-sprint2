@@ -14,10 +14,10 @@ describe('createProduct()', () => {
   it('should return a promise', () => {
     assert.typeOf(createProduct().catch(err => {}), 'promise');
   });
-  it('should resolve into an object', () => {
+  it('should resolve into an integer', () => {
     createProduct(sampleProduct)
       .then(response => {
-        assert.isObject(response);
+        assert.isNumber(response);
       })
       .catch(err => console.log("createProduct error", err));
   });
