@@ -9,27 +9,42 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
+const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 const { promptNewCustomer } = require('./controllers/createCustC');
 const { addProductToOrder } = require('./controllers/addProdToOrderC');
 const { deleteProduct } = require('./controllers/deleteProdC');
-const { completeOrderPrompt } = require('./controllers/completeOrderC'); 
+const { completeOrderPrompt } = require('./controllers/completeOrderC');
+const { addCustomerProduct } = require('./controllers/addCustProdC');
+
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  // TODO: check active user here and limit options accordingly
-  console.log('user input', userInput);
+  console.log("user input", userInput);
   if (userInput.choice == '1') {
     promptNewCustomer()
+    .then( (custData) => {
+      console.log('customer data to save', custData );
+      //save customer to db
+    });
+  } else if (userInput.choice == '3'){
+    promptNewPaymentOption()
+    .then(paymentObj => {
+      console.log('payment option to save', paymentObj)
+      // TODO: save paymentObj to db
+    })
       .then((custData) => {
         // TODO: deal with success: go back to main menu?
       })
       .catch(err => {
         console.log('promptNewCustomer error', err);
       });
-  } else if (userInput.choice == '5') {
+    } else if(userInput.choice == '4') {
+    addCustomerProduct()
+    }
+    else if (userInput.choice == '5') {
     addProductToOrder()
       .then(data => {
         // TODO: deal with success: go back to main menu?

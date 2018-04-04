@@ -30,4 +30,4 @@ module.exports = [{
   description: 'Enter phone number (xxx-yyy-zzzz)',
   type: 'string',
   required: true
-}];
+}]
