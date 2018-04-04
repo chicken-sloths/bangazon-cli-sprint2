@@ -4,17 +4,17 @@ const makeCustomersTable = require('../db/makeCustomersTable')
 
 
 describe('Customers functionality', () => {
+
   describe('Listing all customers', () => {
     it('Should return an array of objects', () => {
       getAllCustomers()
       .then(customers => {
-        console.log('first customer', customers[0]);
         isArray(customers);
         isObject(customers[0]);
       })
     });
     it('Should bring back the correct customer objects', () => {
-      // First customer from the database, according to our current database schema
+      // First customer from the database, according to our current database schema. If we change the database schema, this test will fail!
       let firstCustomer = {
         customer_id: 0,
         first_name: 'Lennie',
@@ -37,23 +37,23 @@ describe('Customers functionality', () => {
     setTimeout(done, 200);
   })
   describe('Adding a new customer', () => {
+    //Dummy Customer Data for practice
+    let nicolasCage = {
+      first_name: 'Nicolas',
+      last_name: 'Cage',
+      account_creation_date: 'The dawn of time',
+      street_address: 'Rock and Roll Road',
+      city: 'Nashville',
+      state: 'TN',
+      postal_code: '37217',
+      phone_number: '888-888-8888'
+    }
+    // Right now the last customer id in the database is 24, so a new post should auto-increment to 25. If we change our schema to make more than 25 customers, this test will fail!
     it('Should return the id of the customer you just added', () => {
-      let nicolas = {
-        customer_id: 100,
-        first_name: 'Nicolas',
-        last_name: 'Cage',
-        account_creation_date: '100 BC',
-        street_address: 'Rock and Roll Road',
-        city: 'Nashville',
-        state: 'TN',
-        postal_code: '37217',
-        phone_number: '888-888-8888'
-      }
-      return addNewCustomer(nicolas)
+      return addNewCustomer(nicolasCage)
       .then(id => {
-        equal(100, id)
-      })
-      
+        equal(25, id)
+      }) 
     });
   })
 });
