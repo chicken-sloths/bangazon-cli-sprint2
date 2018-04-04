@@ -33,43 +33,52 @@ const escapeSingleQuotes = value =>
 // Drops the table if exists, then creates it and inserts the data from dataToIterateOver.
 // Values to Insert is what properties on each peice of data to iterate over that should be extracted
 const generateSqlTable = ({ tableName, columns, dataToIterateOver, valuesToInsert }) => {
-  db.serialize(() => {
-    db.run(`DROP TABLE IF EXISTS ${tableName}`);
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.run(`DROP TABLE IF EXISTS ${tableName}`);
 
-    db.run(`CREATE TABLE IF NOT EXISTS ${tableName} (${columns})`);
+      db.run(`CREATE TABLE IF NOT EXISTS ${tableName} (${columns})`);
 
-    dataToIterateOver.forEach(object => {
-      let SqlValues = "";
+      Promise.all(dataToIterateOver.map(object => {
+        return new Promise((resolve, reject) => {
+          let SqlValues = "";
 
-      // Iterate over the SqlValues to insert and turn them into sql code
-      for (let i = 0; i < valuesToInsert.length; i++) {
-        const value = valuesToInsert[i];
+          // Iterate over the SqlValues to insert and turn them into sql code
+          for (let i = 0; i < valuesToInsert.length; i++) {
+            const value = valuesToInsert[i];
 
-        // If the valueToInsert itself is a number, add that literal number.
-        if (Number.isInteger(value)) {
-          SqlValues += `${value}`;
-        }
+            // If the valueToInsert itself is a number, add that literal number.
+            if (Number.isInteger(value)) {
+              SqlValues += `${value}`;
+            }
 
-        // If the value on the object is an integer, add the number without quotes.  
-        else if (Number.isInteger(object[value])) {
-          SqlValues += `${object[value]}`;
-        }
-        else if (value === null) {
-          SqlValues += `${null}`
-        }
+            // If the value on the object is an integer, add the number without quotes.
+            else if (Number.isInteger(object[value])) {
+              SqlValues += `${object[value]}`;
+            }
+            else if (value === null) {
+              SqlValues += `${null}`
+            }
 
-        // Else it considers it a string
-        else {
-          SqlValues += `'${escapeSingleQuotes(object[value])}'`;
-        }
-        
-        // Add a comma to the string if it is not the final value
-        const shouldAddComma = i < valuesToInsert.length - 1 ? "," : "";
-        SqlValues += `${shouldAddComma}`;
-        
-      }
+            // Else it considers it a string
+            else {
+              SqlValues += `'${escapeSingleQuotes(object[value])}'`;
+            }
 
-      db.run(`INSERT INTO ${tableName} VALUES (${SqlValues})`);
+            // Add a comma to the string if it is not the final value
+            const shouldAddComma = i < valuesToInsert.length - 1 ? "," : "";
+            SqlValues += `${shouldAddComma}`;
+
+          }
+
+          db.run(`INSERT INTO ${tableName} VALUES (${SqlValues})`,
+            err => err ? reject(err) : resolve()
+          );
+
+        });
+      }))
+      .then(() => resolve())
+      .catch(err => reject(err))
     });
   });
 };
