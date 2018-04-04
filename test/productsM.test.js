@@ -5,7 +5,9 @@ const {
   createProduct,
   getProduct,
   getAllProducts,
-  getProductsByCreator
+  getProductsByCreator,
+  deleteProduct,
+  getAllStockedProducts
 } = require('../app/models/ProductsM');
 
 let sampleProduct = {
@@ -17,7 +19,7 @@ let sampleProduct = {
 
 describe('createProduct()', () => {
   it('should return a promise', () => {
-    assert.typeOf(createProduct().catch(err => {}), 'promise');
+    assert.typeOf(createProduct().catch(err => { }), 'promise');
   });
   it('should resolve into an integer', () => {
     createProduct(sampleProduct)
@@ -66,7 +68,7 @@ describe("getProduct(id)", () => {
 
 describe("getAllProducts()", () => {
   it("should return a promise", () => {
-    assert.typeOf(getAllProducts().catch(err => {}), "promise");
+    assert.typeOf(getAllProducts().catch(err => { }), "promise");
   });
   it("should resolve into an array of objects", () => {
     getAllProducts()
@@ -97,5 +99,47 @@ describe("getProductsByCreator", () => {
         assert.equal(response.length, 3);
       })
       .catch(err => console.log("getProductsByCreator error", err));
+  });
+});
+
+describe("deleteProduct()", () => {
+  it("returns a promise", () => {
+    createProduct(sampleProduct)
+      .then(id => {
+        assert.typeOf(deleteProduct(id).catch(err => { }), "promise");
+      });
+  });
+  it("resolves into a number", () => {
+    createProduct(sampleProduct)
+      .then(id => {
+        return deleteProduct(id);
+      })
+      .then(response => {
+        assert.isNumber(response);
+      })
+      .catch(err => console.log("deleteProduct error", err));
+  });
+  it("throws a fit if you try to delete something that isn't there", () => {
+    deleteProduct(1000)
+      .then(response => {
+        assert.isTrue(false);
+      })
+      .catch(err => {
+        assert.isTrue(true);
+      });
+  });
+});
+
+describe("getAllStockedProducts()", () => {
+  it("should return a promise", () => {
+    assert.typeOf(getAllStockedProducts().catch(err => {}), "promise");
+  });
+  it("should resolve into an array of objects", () => {
+    getAllStockedProducts()
+      .then(response => {
+        assert.isArray(response);
+        assert.isObject(response[0]);
+      })
+      .catch(err => console.log("getAllStockedProducts error", err));
   });
 });

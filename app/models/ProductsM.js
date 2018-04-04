@@ -54,4 +54,22 @@ module.exports.getProductsByCreator = creator_id => {
       resolve(data);
     });
   });
-}
+};
+
+module.exports.deleteProduct = id => {
+  return new Promise((resolve, reject) => {
+    db.run(`DELETE FROM Products WHERE product_id = ${id}`, function(err) {
+      if (err) return reject(err);
+      resolve(id);
+    });
+  });
+};
+
+module.exports.getAllStockedProducts = () => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM Products WHERE quantity > 0`, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+};
