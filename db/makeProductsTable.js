@@ -12,6 +12,7 @@ module.exports =
       product_type_id INTEGER,
       creator_id INTEGER,
       creation_date TEXT,
+      quantity INTEGER,
       FOREIGN KEY (product_type_id) REFERENCES Product_Types(product_type_id),
       FOREIGN KEY (creator_id) REFERENCES Customers(customer_id)`,
     dataToIterateOver: products,
@@ -22,6 +23,7 @@ module.exports =
       `description`,
       `product_type_id`,
       `creator_id`,
-      `creation_date`
+      `creation_date`,
+      `quantity`
     ]
   };
