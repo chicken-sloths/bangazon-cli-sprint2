@@ -3,7 +3,8 @@
 const { assert } = require('chai');
 const {
   createProduct,
-  getProduct
+  getProduct,
+  getAllProducts
 } = require('../app/models/ProductsM');
 
 let sampleProduct = {
@@ -59,5 +60,19 @@ describe("getProduct(id)", () => {
       .catch(err => {
         assert.isTrue(true);
       });
+  });
+});
+
+describe("getAllProducts()", () => {
+  it("should return a promise", () => {
+    assert.typeOf(getAllProducts().catch(err => {}), "promise");
+  });
+  it("should resolve into an array of objects", () => {
+    getAllProducts()
+      .then(response => {
+        assert.isArray(response);
+        assert.isObject(response[0]);
+      })
+      .catch(err => console.log("getAllProducts error", err));
   });
 });

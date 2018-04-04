@@ -37,3 +37,12 @@ module.exports.getProduct = id => {
     });
   });
 };
+
+module.exports.getAllProducts = () => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM Products`, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+};
