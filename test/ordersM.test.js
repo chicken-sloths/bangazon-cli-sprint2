@@ -1,6 +1,6 @@
 
 const { assert:{ isFunction , typeOf, isNumber, isUndefined } } = require('chai');
-const { checkForActiveOrder, patchPaymentTypeOntoOrder } = require('../app/models/OrdersM');
+const { checkForActiveOrder, patchPaymentTypeOntoOrder, createNewOrder } = require('../app/models/OrdersM');
 const makeOrdersTable = require('../db/makeOrdersTable');
 
 describe("checkForActiveOrder function", ()=>{
@@ -33,7 +33,7 @@ describe("checkForActiveOrder function", ()=>{
   });
 });
 
-describe(" patchPaymentTypeOntoOrder function: ", ()=>{
+describe("patchPaymentTypeOntoOrder function: ", ()=>{
   it("should be a function", ()=>{
     isFunction(patchPaymentTypeOntoOrder);
   });
@@ -41,7 +41,6 @@ describe(" patchPaymentTypeOntoOrder function: ", ()=>{
     makeOrdersTable();
     setTimeout(done, 200);
   });
-  it("should return the data after the UPDATE", ()=>{
     // NOTE: in the function below, I am actually patching a payment option
       // onto THE EXACT SAME ORDER that is owned by the customer 
       // that is being declared as the customer with an active order 
@@ -59,9 +58,20 @@ describe(" patchPaymentTypeOntoOrder function: ", ()=>{
       order_id: 100,
       customer_id: 100
     }
-    it("should ")
-    patchPaymentTypeOntoOrder(veryRealOrder, 10);
-    patchPaymentTypeOntoOrder(fakeOrder, 100);
+    it("should return a promise", ()=>{
+      typeOf(patchPaymentTypeOntoOrder(veryRealOrder, 10),"promise");
+      typeOf(patchPaymentTypeOntoOrder(fakeOrder, 100),"promise");
+    });
+    it("should return the integer id of the added row",()=>{
+      patchPaymentTypeOntoOrder(veryRealOrder, 10)
+      .then(id=>{
+        isNumber(id);
+      });
+    });
+});
 
+describe("createNewOrder function", ()=>{
+  it("should be a function",()=>{
+    isFunction(createNewOrder);
   });
 });
