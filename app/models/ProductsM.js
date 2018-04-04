@@ -7,34 +7,33 @@ const activeCustomer = require("../controllers/activeCustC");
 
 module.exports.createProduct = (product) => {
   return new Promise((resolve, reject) => {
-    if (product) {
-      let { name, price, description, productType } = product;
-      if (name && price && description && productType) {
-        db.run(`INSERT INTO Products (
-          product_id,
-          current_price,
-          title,
-          description,
-          product_type_id,
-          creator_id
-        ) VALUES (
-          null,
-          "${price}",
-          "${name}",
-          "${description}",
-          ${productType},
-          ${activeCustomer.getActiveCustomer().id}
-        )`, function(err) {
-          if (err) return reject(err);
+    let { name, price, description, productType } = product;
+    db.run(`INSERT INTO Products (
+      product_id,
+      current_price,
+      title,
+      description,
+      product_type_id,
+      creator_id
+    ) VALUES (
+      null,
+      "${price}",
+      "${name}",
+      "${description}",
+      ${productType},
+      ${activeCustomer.getActiveCustomer().id}
+    )`, function (err) {
+        if (err) return reject(err);
           resolve(this.lastID);
         });
-      } else {
-        let err = new Error("Please provide a name, price, description, and productType.");
-        reject(err);
-      }
-    } else {
-      let err = new Error("Please provide a name, price, description, and productType.");
-      reject(err);
-    }
+    });
+};
+
+module.exports.getProduct = id => {
+  return new Promise((resolve, reject) => {
+    db.get(`SELECT * FROM Products WHERE product_id = ${id}`, (err, data) => {
+      if (err) return reject(err);
+      data ? resolve(data) : reject(false);
+    });
   });
 };

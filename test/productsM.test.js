@@ -1,7 +1,10 @@
 'use strict';
 
 const { assert } = require('chai');
-const { createProduct } = require('../app/models/ProductsM');
+const {
+  createProduct,
+  getProduct
+} = require('../app/models/ProductsM');
 
 let sampleProduct = {
   name: "Name",
@@ -28,6 +31,33 @@ describe('createProduct()', () => {
       })
       .catch(err => {
         assert.isTrue(false);
+      });
+  });
+});
+
+describe("getProduct(id)", () => {
+  it("should return a promise", () => {
+    assert.typeOf(getProduct(5)
+      .catch(err => {
+        assert.isTrue(false);
+      }), "promise");
+  });
+  it("should resolve into an object", () => {
+    getProduct(5)
+      .then(response => {
+        assert.isObject(response);
+      })
+      .catch(err => {
+        console.log("getProduct error", err);
+      });
+  });
+  it("should return false if it doesn't exist", () => {
+    getProduct(-1)
+      .then(response => {
+        assert.isFalse(true);
+      })
+      .catch(err => {
+        assert.isTrue(true);
       });
   });
 });
