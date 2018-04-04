@@ -62,12 +62,12 @@ module.exports.createNewOrder = order => {
       VALUES (
         ${null},
         ${order.customer_id},
-        ${order.payment_option_id}
+        "${order.payment_option_id}"
       )`,
       function(err){
         console.log('this.lastID', this.lastID);
         resolve(this.lastID);
-        
+
       }
     );
   });

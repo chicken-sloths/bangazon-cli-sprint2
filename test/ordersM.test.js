@@ -79,7 +79,6 @@ describe("createNewOrder function", ()=>{
     isFunction(createNewOrder);
   });
   let newOrder = {
-    order_id: 88,
     customer_id: 88,
     payment_option_id: null
   };

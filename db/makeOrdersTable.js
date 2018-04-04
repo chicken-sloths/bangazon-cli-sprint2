@@ -21,7 +21,7 @@ module.exports = () => {
           db.run(`INSERT INTO Orders VALUES(
             ${order_id == undefined ? null : order_id},
             "${customer_id}",
-            "${payment_option_id}"
+            ${payment_option_id}
           )`);
         });
       }
