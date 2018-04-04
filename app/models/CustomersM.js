@@ -16,7 +16,7 @@ module.exports.getAllCustomers = () => {
 
 // This will be called in option #1 - Create Customer Account
 // Needs to check for duplicates before it posts
-module.exports.addNewCustomer = ({customer_id, first_name, last_name, account_creation_date, street_address, city, state, postal_code, phone_number}) => {
+module.exports.addNewCustomer = ({first_name, last_name, account_creation_date, street_address, city, state, postal_code, phone_number}) => {
   return new Promise((resolve, reject) => {
     db.run(`INSERT INTO Customers (
       customer_id,
@@ -29,7 +29,7 @@ module.exports.addNewCustomer = ({customer_id, first_name, last_name, account_cr
       postal_code,
       phone_number
     ) VALUES (
-       ${customer_id == undefined ? null : customer_id},
+       null,
        "${first_name}",
        "${last_name}",
        "${account_creation_date}",
