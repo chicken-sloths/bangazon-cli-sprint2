@@ -4,7 +4,8 @@ const { assert } = require('chai');
 const {
   createProduct,
   getProduct,
-  getAllProducts
+  getAllProducts,
+  getProductsByCreator
 } = require('../app/models/ProductsM');
 
 let sampleProduct = {
@@ -74,5 +75,27 @@ describe("getAllProducts()", () => {
         assert.isObject(response[0]);
       })
       .catch(err => console.log("getAllProducts error", err));
+  });
+});
+
+describe("getProductsByCreator", () => {
+  it("should return a promise", () => {
+    assert.typeOf(getProductsByCreator(3)
+      .catch(err => console.log("getProductsByCreators error", err)), "promise");
+  });
+  it("should resolve into an array of objects", () => {
+    getProductsByCreator(3)
+      .then(products => {
+        assert.isArray(products);
+        assert.isObject(products[0]);
+      })
+      .catch(err => console.log("getProductsByCreator error", err));
+  });
+  it("creator 3 should have 3 products", () => {
+    getProductsByCreator(3)
+      .then(response => {
+        assert.equal(response.length, 3);
+      })
+      .catch(err => console.log("getProductsByCreator error", err));
   });
 });
