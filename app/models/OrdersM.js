@@ -50,7 +50,7 @@ module.exports.patchPaymentTypeOntoOrder = (order, payment_option_id) => {
 //    is null, then it will add the product to that existing order
 // If a customer does not currently have an order (that contains >0 products),
 //    then it will create a new order for them
-const createNewOrder = order => {
+module.exports.createNewOrder = order => {
   // This function will create a new order for a customer wihtout an active order
   return new Promise((resolve, reject)=>{
     db.run(
