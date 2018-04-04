@@ -14,6 +14,7 @@ const { setActiveCustomer } = require('./controllers/activeCustC');
 const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 const { addProductToOrder } = require('./controllers/addProdToOrderC');
 const { deleteProduct } = require('./controllers/deleteProdC');
+const { completeOrderPrompt } = require('./controllers/completeOrderC');
 const { addCustomerProduct } = require('./controllers/addCustProdC');
 
 
@@ -57,6 +58,10 @@ let mainMenuHandler = (err, userInput) => {
       .catch(err => {
         console.log('addProductToOrder error', err);
       });
+  } else if (userInput.choice == '6') {
+    completeOrderPrompt()
+      .then(({checkout, paymentOptions}) => module.exports.displayWelcome())
+      .catch(err => {});
   } else if (userInput.choice == '7') {
     deleteProduct()
       .then(data => {
@@ -78,10 +83,15 @@ module.exports.displayWelcome = () => {
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
-  ${magenta('4.')} Add new product for customer
+  ${magenta('4.')} Add product to sell
   ${magenta('5.')} Add product to shopping cart
-  ${magenta('6.')} See product popularity
-  ${magenta('7.')} Delete a product`);
+  ${magenta('6.')} Complete an order
+  ${magenta('7.')} Remove customer product
+  ${magenta('8.')} Update product information
+  ${magenta('9.')} Show stale products
+  ${magenta('10.')} Show customer revenue report
+  ${magenta('11.')} Show overall product popularity
+  ${magenta('12.')} Leave Bangazon`);
     prompt.get([{
       name: 'choice',
       description: 'Please make a selection'
