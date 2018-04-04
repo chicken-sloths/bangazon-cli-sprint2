@@ -1,6 +1,7 @@
 const { assert: {equal, isArray, isObject, deepEqual} } = require('chai');
 const { getAllCustomers, addNewCustomer } = require('../app/models/CustomersM.js')
-const makeCustomersTable = require('../db/makeCustomersTable')
+const CustomersTable = require('../db/makeCustomersTable');
+const { generateSqlTable } = require('../db/sqlRunTemplate');
 
 
 describe('Customers functionality', () => {
@@ -17,14 +18,14 @@ describe('Customers functionality', () => {
       // First customer from the database, according to our current database schema. If we change the database schema, this test will fail!
       let firstCustomer = {
         customer_id: 0,
-        first_name: 'Lennie',
-        last_name: 'Kunze',
-        account_creation_date: '2018-04-03T15:25:47.270Z',
-        street_address: '59842 Earline Gateway',
-        city: 'South Whitneyport',
-        state: 'Indiana',
-        postal_code: '14769-1763',
-        phone_number: '1-510-550-0973'
+        first_name: "Luigi",
+        last_name: "McKenzie",
+        account_creation_date: "2018-04-04T12:48:11.283Z",
+        street_address: "937 Gideon Estate",
+        city: "Wittingbury",
+        state: "Oklahoma",
+        postal_code: "89799",
+        phone_number: "1-173-602-3290"
       }
       return getAllCustomers()
       .then(customers => {
@@ -33,8 +34,8 @@ describe('Customers functionality', () => {
     })
   })
   afterEach(done => {
-    makeCustomersTable();
-    setTimeout(done, 200);
+    generateSqlTable(CustomersTable)
+    .then(() => done());
   })
   describe('Adding a new customer', () => {
     //Dummy Customer Data for practice
@@ -53,7 +54,7 @@ describe('Customers functionality', () => {
       return addNewCustomer(nicolasCage)
       .then(id => {
         equal(25, id)
-      }) 
+      })
     });
   })
 });
