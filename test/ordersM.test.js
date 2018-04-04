@@ -71,6 +71,10 @@ describe("patchPaymentTypeOntoOrder function: ", ()=>{
 });
 
 describe("createNewOrder function", ()=>{
+  beforeEach(done=>{
+    makeOrdersTable();
+    setTimeout(done, 200);
+  });
   it("should be a function",()=>{
     isFunction(createNewOrder);
   });
@@ -81,5 +85,11 @@ describe("createNewOrder function", ()=>{
   };
   it("should return a promise", ()=>{
     typeOf(createNewOrder(newOrder), "promise")
+  });
+  it("should return the order_id of the new Order", ()=>{
+    createNewOrder(newOrder)
+    .then(order_id=>{
+      isNumber(order_id);
+    });
   });
 });

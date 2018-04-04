@@ -54,18 +54,20 @@ module.exports.createNewOrder = order => {
   // This function will create a new order for a customer wihtout an active order
   return new Promise((resolve, reject)=>{
     db.run(
-      `INSERT Orders(
+      `INSERT INTO Orders(
         order_id,
         customer_id,
         payment_option_id
       )
       VALUES (
-        ${order.order_id},
+        ${null},
         ${order.customer_id},
-        null
+        ${order.payment_option_id}
       )`,
       function(err){
+        console.log('this.lastID', this.lastID);
         resolve(this.lastID);
+        
       }
     );
   });
