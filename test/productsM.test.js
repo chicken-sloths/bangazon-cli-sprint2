@@ -4,9 +4,9 @@ const { assert } = require('chai');
 const { createProduct } = require('../app/models/ProductsM');
 
 let sampleProduct = {
-  productName: "Name",
-  productPrice: 235,
-  productDescription: "Description",
+  name: "Name",
+  price: 235,
+  description: "Description",
   productType: 3
 };
 
@@ -15,13 +15,13 @@ describe('createProduct()', () => {
     assert.typeOf(createProduct().catch(err => {}), 'promise');
   });
   it('should resolve into an object', () => {
-    createProduct()
+    createProduct(sampleProduct)
       .then(response => {
         assert.isObject(response);
       })
       .catch(err => console.log("createProduct error", err));
   });
-  it('should reject if it doesn\'t receive a productName, productPrice, productDescription, and results.productType', () => {
+  it('should reject if it doesn\'t receive a name, price, description, and productType', () => {
     createProduct(sampleProduct)
       .then(response => {
         assert.isTrue(true);
