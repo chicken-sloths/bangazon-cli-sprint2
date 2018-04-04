@@ -1,5 +1,5 @@
 const { assert: {equal, isArray, isObject, deepEqual} } = require('chai');
-const { getAllCustomers, addNewCustomer } = require('../app/models/CustomersM.js')
+const { getAllCustomers, addNewCustomer, getCustomerByPhoneNumber } = require('../app/models/CustomersM.js')
 const makeCustomersTable = require('../db/makeCustomersTable')
 
 
@@ -32,6 +32,36 @@ describe('Customers functionality', () => {
       })
     })
   })
+
+  describe('Getting a customer by their phone number', () => {
+    let testCustomer = {
+      customer_id: 2,
+      first_name: 'Isac',
+      last_name: 'Torp',
+      account_creation_date: '2018-04-03T09:54:37.468Z',
+      street_address: '0858 Kozey Meadows',
+      city: 'Lillieside',
+      state: 'Oregon',
+      postal_code: '26261',
+      phone_number: '(841) 120-4154'
+    }
+
+    it('Should return an object', () => {
+      getCustomerByPhoneNumber(testCustomer.phone_number)
+        .then(customer => {
+          isObject(customer);
+        })
+    });
+
+    it('Should return the customer with a matching phone number of the one you passed in', () => {
+      return getCustomerByPhoneNumber(testCustomer.phone_number)
+        .then(customer => {
+          deepEqual(testCustomer, customer)
+        })
+    })
+  });
+
+
   afterEach(done => {
     makeCustomersTable();
     setTimeout(done, 200);
