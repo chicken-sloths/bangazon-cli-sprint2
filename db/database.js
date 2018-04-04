@@ -8,19 +8,17 @@ const makeProductTypesTable = require('./makeProductTypesTable');
 const makeProductOrdersTable = require('./makeProductOrdersTable');
 
 let db;
-
+let array = []
 const createTables = () =>{
-  db.serialize(()=>{
-    makeCustomersTable();
-    makePaymentOptionsTable();
-    makeOrdersTable();
-    makeProductTypesTable();
-    makeProductsTable();
-    makeProductOrdersTable();
-  });
+     makeCustomersTable();
+     makePaymentOptionsTable();
+     makeOrdersTable();
+     makeProductTypesTable();
+     makeProductsTable();
+     makeProductOrdersTable();
 };
-
-(function createDb() {
-  // http://stackoverflow.com/questions/27766734/dealing-with-relative-paths-with-node-js
-  db = new sqlite3.Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'), createTables); //you will need to create this callback method
-}());
+createTables();
+// (function createDb() {
+//   // http://stackoverflow.com/questions/27766734/dealing-with-relative-paths-with-node-js
+//   db = new sqlite3.Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'), createTables); //you will need to create this callback method
+// }());
