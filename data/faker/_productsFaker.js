@@ -8,7 +8,7 @@ const _generateProducts = ({ productAmount, customerAmount, productTypesAmount }
   for (let i = 0; i < productAmount; i++) {
     const product = {
       product_id: i,
-      price: faker.commerce.price(),
+      current_price: faker.commerce.price(),
       title: faker.commerce.productName(),
       description: faker.commerce.productAdjective(),
       product_type_id: randomInt(productTypesAmount),
