@@ -74,4 +74,12 @@ describe("createNewOrder function", ()=>{
   it("should be a function",()=>{
     isFunction(createNewOrder);
   });
+  let newOrder = {
+    order_id: 88,
+    customer_id: 88,
+    payment_option_id: null
+  };
+  it("should return a promise", ()=>{
+    typeOf(createNewOrder(newOrder), "promise")
+  });
 });
