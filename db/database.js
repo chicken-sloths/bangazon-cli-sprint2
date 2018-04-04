@@ -7,15 +7,16 @@ const makeProductsTable = require('./makeProductsTable');
 const makeProductTypesTable = require('./makeProductTypesTable');
 const makeProductOrdersTable = require('./makeProductOrdersTable');
 
-let db;
-let array = []
+const db = new sqlite3.Database('db/bangazon.sqlite');
+db.configure('busyTimeout', 1500);
+let array = [];
 const createTables = () =>{
-     makeCustomersTable();
-     makePaymentOptionsTable();
-     makeOrdersTable();
-     makeProductTypesTable();
-     makeProductsTable();
-     makeProductOrdersTable();
+  makeCustomersTable();
+  setTimeout(makePaymentOptionsTable, 2000);
+  setTimeout(makeOrdersTable, 4000);
+  setTimeout(makeProductTypesTable, 6000);
+  setTimeout(makeProductsTable, 8000);
+  setTimeout(makeProductOrdersTable, 10000);
 };
 createTables();
 // (function createDb() {
