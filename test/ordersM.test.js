@@ -86,6 +86,11 @@ describe("createNewOrder function", ()=>{
     typeOf(createNewOrder(newOrder), "promise")
   });
   it("should return the order_id of the new Order", ()=>{
+    // im runing this twice here just to test the auto-increment feature
+    createNewOrder(newOrder)
+    .then(order_id=>{
+      isNumber(order_id);
+    });
     createNewOrder(newOrder)
     .then(order_id=>{
       isNumber(order_id);
