@@ -2,35 +2,36 @@
 
 const { assert: { deepEqual, equal, isEmpty } } = require('chai'),
       {
-	getPaymentOptionsForCustomer,
-	addPaymentOption
+	       getPaymentOptionsForCustomer,
+	       addPaymentOption
       } = require('../app/models/PaymentOptionsM'),
-      makePayOptTable = require('../db/makePaymentOptionsTable');
+      { generateSqlTable } = require('../db/sqlRunTemplate'),
+      PaymentOptionsTable = require('../db/makePaymentOptionsTable');
 
 describe('PaymentOptionsModel module', () => {
   describe('getPaymentOptionsForCustomer()', () => {
     it('should get all payment type options for cust id', () => {
       const option = {
-        payment_option_id: 22,
-        type: "Blood Sacrifice",
-        account_number: "22034383",
-        customer_id: 23
+        payment_option_id: 39,
+        type: "Ivory Trade",
+        account_number: "04359020",
+        customer_id: 12 
       };
 
-      return getPaymentOptionsForCustomer(23)
-        .then(opts => deepEqual(opts[1], option));
+      return getPaymentOptionsForCustomer(12)
+               .then(opts => deepEqual(opts[0], option));
     });
 
     it('should return an empty array if cust id has no payment options', () => {
-      // customer_id: 4 has no payment options
-      return getPaymentOptionsForCustomer(4)
-	.then(resp => isEmpty(resp)); 
+      // customer_id: 11 has no payment options
+      return getPaymentOptionsForCustomer(11)
+	       .then(resp => isEmpty(resp));
     });
   });
-  
-  beforeEach(done => {
-    makePayOptTable();
-    setTimeout(done, 200);
+
+  beforeEach(function(done) {
+    generateSqlTable(PaymentOptionsTable)
+    .then(() => done());
   });
 
   describe('addPaymentOption()', () => {
@@ -42,7 +43,7 @@ describe('PaymentOptionsModel module', () => {
       };
 
       return addPaymentOption(obj)
-	.then(payOptId => equal(payOptId, 25));
-    }); 
+	.then(payOptId => equal(payOptId, 50));
+    });
   });
 });
