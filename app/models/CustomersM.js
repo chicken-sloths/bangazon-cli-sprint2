@@ -3,7 +3,6 @@ const { Database } = require('sqlite3').verbose();
 const path = require('path');
 const db = new Database(path.join(__dirname, '../..', 'db', 'bangazon.sqlite'));
 
-
 // This will be called in #3- Select Active Customer
 module.exports.getAllCustomers = () => {
    return new Promise((resolve, reject) => {
@@ -12,7 +11,6 @@ module.exports.getAllCustomers = () => {
      )
    });
 }
-
 
 // This will be called in option #1 - Create Customer Account
 // Needs to check for duplicates before it posts
