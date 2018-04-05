@@ -1,9 +1,9 @@
 const prompt = require('prompt');
 const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
 const { paymentTypes } = require('../../data/faker/_paymentOptionsFaker');
+const { addPaymentOption } = require('../models/PaymentOptionsM');
 
-
-module.exports.promptNewPaymentOption = () => {
+module.exports.promptNewPaymentOption = customer_id => {
   return new Promise((resolve, reject) => {
     
     paymentTypes.forEach((pt, index)=>{
@@ -15,13 +15,18 @@ module.exports.promptNewPaymentOption = () => {
         let paymentOption = {
           type: result.paymentType,
           account_number: result.accountNumber,
-          customer_id: 'this will be an active cust id'
+          customer_id: customer_id
         }
         err ? reject(err) : resolve(paymentOption);
       })
   })
 }
 
+const saveNewPaymentOption = ({payment_option_id, type, account_number, customer_id})=>{
+  return new Promise((resolve, reject)=>{
+
+  })
+}
 // FOR REFERENCE: this is what the payment option object will look like when it eventually gets sent to the DB
 // {
 //   "payment_option_id": 0,
