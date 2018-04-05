@@ -3,7 +3,7 @@ const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
 const { paymentTypes } = require('../../data/faker/_paymentOptionsFaker');
 const { addPaymentOption } = require('../models/PaymentOptionsM');
 
-module.exports.promptNewPaymentOption = customer_id => {
+module.exports.promptNewPaymentOption = activeCustomerId => {
   return new Promise((resolve, reject) => {
     
     paymentTypes.forEach((pt, index)=>{
@@ -14,9 +14,9 @@ module.exports.promptNewPaymentOption = customer_id => {
       (err, result) => {
         // build an object of payment type and account #
         let paymentOption = {
-          type: result.paymentType,
+          type: paymentTypes[result.paymentType],
           account_number: result.accountNumber,
-          customer_id: customer_id
+          customer_id: activeCustomerId
         }
         err ? reject(err) : resolve(paymentOption);
       })
