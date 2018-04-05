@@ -14,9 +14,7 @@ const setActiveId = id => {
 module.exports.getActiveCustomer = () => activeCustomer.id;
 
 module.exports.setActiveCustomer = () => {
-  return new Promise ((resolve, reject) => {
-
-    
+  return new Promise ((resolve, reject) => {    
     getAllCustomers()
     .then(customers=>{
       console.log('Here are all the customers:');
@@ -29,7 +27,7 @@ module.exports.setActiveCustomer = () => {
           err ? reject(err) : resolve(result.custId);
         });
     });
-
-    
   });
 };
+
+
