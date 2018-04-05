@@ -1,9 +1,14 @@
 const prompt = require('prompt');
 const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
-const { getAllPaymentTypes } = require('../models/PaymentTypesM');
+const { paymentTypes } = require('../../data/faker/_paymentOptionsFaker');
+
 
 module.exports.promptNewPaymentOption = () => {
   return new Promise((resolve, reject) => {
+    
+    paymentTypes.forEach((pt, index)=>{
+      console.log(index, pt);
+    });
     prompt.get(paymentOptionPrompts,
       (err, result) => {
         // build an object of payment type and account #

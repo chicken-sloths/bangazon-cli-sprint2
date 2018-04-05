@@ -44,6 +44,7 @@ let mainMenuHandler = (err, userInput) => {
   } else if (userInput.choice == '3'){
     promptNewPaymentOption()
     .then(paymentObj => {
+      paymentObj.customer_id = getActiveCustomer();
       console.log('payment option to save', paymentObj)
       // TODO: save paymentObj to db
     })
