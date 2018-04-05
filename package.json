@@ -4,7 +4,7 @@
   "description": "## The Command Line Ordering System",
   "main": "index.js",
   "scripts": {
-    "db:reset": "node db/database.js",
+    "db:reset": "node db/build-db.js",
     "data:generate": "node data/build-data.js",
     "start": "node bin/bangazon",
     "test": "mocha -R list --watch"
