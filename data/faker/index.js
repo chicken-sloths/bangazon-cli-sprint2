@@ -8,7 +8,7 @@ const { _generateProductTypes } = require('./_productTypesFaker');
 
 module.exports.generateProductData = () => {
   const fakerSpecs = {
-    customerAmount: 25,
+    customerAmount: 50,
     orderAmount: 35,
     productAmount: 45,
     productTypesAmount: 10,
