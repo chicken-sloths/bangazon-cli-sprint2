@@ -1,34 +1,21 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('db/bangazon.sqlite');
-const paymentOptions = require("../data/json/paymentOptions.json");
+'use strict';
 
-module.exports = () => {
-  db.serialize(()=>{
+const payment_options = require("../data/json/paymentOptions.json");
 
-  
-    db.run(`DROP TABLE IF EXISTS Payment_Options`);
-    db.run(`CREATE TABLE IF NOT EXISTS Payment_Options (
-      payment_option_id INTEGER PRIMARY KEY,
-      type TEXT,
-      account_number TEXT,
-      customer_id INTEGER,
-      FOREIGN KEY(customer_id) REFERENCES Customers(customer_id)
-      )`,
-      ()=>{
-        paymentOptions.forEach(({ 
-          payment_option_id,
-          type,
-          account_number,
-          customer_id
-        })=>{
-          db.run(`INSERT INTO Payment_Options VALUES(
-            ${payment_option_id == undefined ? null : payment_option_id},
-            "${type}",
-            "${account_number}",
-            "${customer_id}"
-          )`);
-        });
-      }
-    );
-  });
-};
+module.exports =
+  {
+    tableName: `Payment_Options`,
+    columns:
+    `payment_option_id INTEGER PRIMARY KEY,
+    type TEXT,
+    account_number TEXT,
+    customer_id INTEGER,
+    FOREIGN KEY(customer_id) REFERENCES Customers(customer_id)`,
+    dataToIterateOver: payment_options,
+    valuesToInsert: [
+      `payment_option_id`,
+      `type`,
+      `account_number`,
+      `customer_id`
+    ]
+  };

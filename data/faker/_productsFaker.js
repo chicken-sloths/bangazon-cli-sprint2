@@ -11,6 +11,8 @@ const _generateProducts = ({ productAmount, customerAmount, productTypesAmount }
       current_price: faker.commerce.price(),
       title: faker.commerce.productName(),
       description: faker.commerce.productAdjective(),
+      creation_date: faker.date.recent(),
+      quantity: randomInt(50),
       product_type_id: randomInt(productTypesAmount),
       creator_id: randomInt(customerAmount)
     };
