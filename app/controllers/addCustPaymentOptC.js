@@ -9,6 +9,7 @@ module.exports.promptNewPaymentOption = customer_id => {
     paymentTypes.forEach((pt, index)=>{
       console.log(index, pt);
     });
+
     prompt.get(paymentOptionPrompts,
       (err, result) => {
         // build an object of payment type and account #
@@ -22,11 +23,17 @@ module.exports.promptNewPaymentOption = customer_id => {
   })
 }
 
-const saveNewPaymentOption = ({payment_option_id, type, account_number, customer_id})=>{
+module.exports.saveNewPaymentOption = (paymentOptionObject)=>{
   return new Promise((resolve, reject)=>{
-
-  })
-}
+    addPaymentOption(paymentOptionObject)
+    .then(paymentOptId=>{
+      resolve(paymentOptId);
+    })
+    .catch(err=>{
+      reject(err);
+    });
+  });
+};
 // FOR REFERENCE: this is what the payment option object will look like when it eventually gets sent to the DB
 // {
 //   "payment_option_id": 0,

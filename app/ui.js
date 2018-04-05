@@ -11,7 +11,7 @@ prompt.message = colors.blue('Bangazon Corp');
 // app modules
 const { promptNewCustomer } = require('./controllers/createCustC');
 const { setActiveCustomer, getActiveCustomer } = require('./controllers/activeCustC');
-const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
+const { promptNewPaymentOption, saveNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 const { addProductToOrder } = require('./controllers/addProdToOrderC');
 const { deleteProduct } = require('./controllers/deleteProdC');
 const { completeOrderPrompt } = require('./controllers/completeOrderC');
@@ -45,10 +45,11 @@ let mainMenuHandler = (err, userInput) => {
     promptNewPaymentOption(getActiveCustomer())
     .then(paymentObj => {
       console.log('payment option to save', paymentObj)
-      // TODO: save paymentObj to db
+      return saveNewPaymentOption(paymentObj);
     })
       .then((custData) => {
-        // module.exports.displayWelcome(getActiveCustomer());
+        console.log('saved succesfully!',custData);
+        module.exports.displayWelcome(getActiveCustomer());
       })
       .catch(err => {
         console.log('promptNewCustomer error', err);
