@@ -19,9 +19,6 @@ let sampleProduct = {
 };
 
 describe('createProduct()', () => {
-  it('should return a promise', () => {
-    assert.typeOf(createProduct().catch(err => { }), 'promise');
-  });
   it('should resolve into an integer', () => {
     createProduct(sampleProduct)
       .then(response => {
@@ -41,12 +38,6 @@ describe('createProduct()', () => {
 });
 
 describe('getProduct(id)', () => {
-  it('should return a promise', () => {
-    assert.typeOf(getProduct(5)
-      .catch(err => {
-        assert.isTrue(false);
-      }), 'promise');
-  });
   it('should resolve into an object', () => {
     getProduct(5)
       .then(response => {
@@ -68,9 +59,6 @@ describe('getProduct(id)', () => {
 });
 
 describe('getAllProducts()', () => {
-  it('should return a promise', () => {
-    assert.typeOf(getAllProducts().catch(err => { }), 'promise');
-  });
   it('should resolve into an array of objects', () => {
     getAllProducts()
       .then(response => {
@@ -82,10 +70,6 @@ describe('getAllProducts()', () => {
 });
 
 describe('getProductsByCreator', () => {
-  it('should return a promise', () => {
-    assert.typeOf(getProductsByCreator(3)
-      .catch(err => console.log('getProductsByCreators error', err)), 'promise');
-  });
   it('should resolve into an array of objects', () => {
     getProductsByCreator(2)
       .then(products => {
@@ -104,12 +88,6 @@ describe('getProductsByCreator', () => {
 });
 
 describe('deleteProduct()', () => {
-  it('returns a promise', () => {
-    createProduct(sampleProduct)
-      .then(id => {
-        assert.typeOf(deleteProduct(id).catch(err => { }), 'promise');
-      });
-  });
   it('resolves into a nonzero number', () => {
     createProduct(sampleProduct)
       .then(id => {
@@ -133,9 +111,6 @@ describe('deleteProduct()', () => {
 });
 
 describe('getAllStockedProducts()', () => {
-  it('should return a promise', () => {
-    assert.typeOf(getAllStockedProducts().catch(err => {}), 'promise');
-  });
   it('should resolve into an array of objects', () => {
     getAllStockedProducts()
       .then(response => {
@@ -154,9 +129,6 @@ describe('getAllStockedProducts()', () => {
 });
 
 describe('getQuantityRemaining()', () => {
-  it('should return a promise', () => {
-    assert.typeOf(getQuantityRemaining(3).catch(err => {}), 'promise');
-  });
   it('should resolve into a number', () => {
     getQuantityRemaining(3)
       .then(qty => {
