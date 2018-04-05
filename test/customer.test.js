@@ -85,5 +85,6 @@ describe('Customers functionality', () => {
         equal(25, id)
       }) 
     });
+    // add test for checking for duplicates HERE once we figure out our db stuff
   })
 });
