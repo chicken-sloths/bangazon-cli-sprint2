@@ -68,11 +68,10 @@ module.exports.deleteProduct = id => {
 module.exports.getAllStockedProducts = () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT
-      p.title,
-      p.quantity,
+      p.*,
       COUNT(*) as quantity_sold
     FROM Products p
-    JOIN Product_Orders po
+    LEFT JOIN Product_Orders po
       ON po.product_id = p.product_id
     GROUP BY p.product_id
     HAVING p.quantity > quantity_sold`, (err, data) => {

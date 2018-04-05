@@ -119,10 +119,10 @@ describe('getAllStockedProducts()', () => {
       })
       .catch(err => console.log('getAllStockedProducts error', err));
   });
-  it('should have a length of 35', () => {
+  it('should have a length of 43', () => {
     getAllStockedProducts()
       .then(response => {
-        assert.equal(response.length, 35);
+        assert.equal(response.length, 43);
       })
       .catch(err => console.log('getAllStockedProducts error', err));
   });
