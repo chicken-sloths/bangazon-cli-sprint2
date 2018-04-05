@@ -73,3 +73,17 @@ module.exports.getAllStockedProducts = () => {
     });
   });
 };
+
+// returns number of buyable products with the given id
+  // (buyable products = original quantity - number sold)
+module.exports.getInventory = product_id => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT quantity FROM Products WHERE product_id = ${product_id}`, (err, maxQty) => {
+      if (err) return reject(err);
+      db.all(`SELECT COUNT(*) as count FROM Product_Orders WHERE product_id = ${product_id}`, (err, data) => {
+        if (err) return reject(err);
+        resolve(maxQty[0].quantity - data[0].count);
+      });
+    });
+  });
+};
