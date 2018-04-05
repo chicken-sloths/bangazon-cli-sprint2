@@ -21,7 +21,7 @@ module.exports.createProduct = (product) => {
       "${name}",
       "${description}",
       ${productType},
-      ${activeCustomer.getActiveCustomer().id}
+      ${activeCustomer.getActiveCustomer()}
     )`, function (err) {
         if (err) return reject(err);
           resolve(this.lastID);
