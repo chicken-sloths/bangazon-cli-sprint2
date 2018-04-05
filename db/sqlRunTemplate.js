@@ -56,8 +56,8 @@ const generateSqlTable = ({ tableName, columns, dataToIterateOver, valuesToInser
             else if (Number.isInteger(object[value])) {
               SqlValues += `${object[value]}`;
             }
-            else if (value === null) {
-              SqlValues += `${null}`
+            else if (object[value] == undefined) {
+              SqlValues += `${null}`;
             }
 
             // Else it considers it a string
