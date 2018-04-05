@@ -86,17 +86,17 @@ describe("getProductsByCreator", () => {
       .catch(err => console.log("getProductsByCreators error", err)), "promise");
   });
   it("should resolve into an array of objects", () => {
-    getProductsByCreator(3)
+    getProductsByCreator(2)
       .then(products => {
         assert.isArray(products);
         assert.isObject(products[0]);
       })
       .catch(err => console.log("getProductsByCreator error", err));
   });
-  it("creator 3 should have 3 products", () => {
-    getProductsByCreator(3)
+  it("creator 2 should have 6 products", () => {
+    getProductsByCreator(2)
       .then(response => {
-        assert.equal(response.length, 3);
+        assert.equal(response.length, 6);
       })
       .catch(err => console.log("getProductsByCreator error", err));
   });
