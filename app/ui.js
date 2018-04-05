@@ -26,10 +26,12 @@ let mainMenuHandler = (err, userInput) => {
   console.log("user input", userInput);
   if (userInput.choice == '1') {
     promptNewCustomer()
-    .then( (custData) => {
-      console.log('customer data to save', custData );
-      //save customer to db
-    });
+    .then( custId => {
+      console.log(`You just added a customer with the id of ${custId}` );
+    })
+    .catch(errMsg => {
+      console.log(errMsg);
+    })
   } else if (userInput.choice === '2') {
     setActiveCustomer()
       .then(id => {

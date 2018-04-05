@@ -5,23 +5,22 @@ const promptObj = require('../views/createCustV');
 const {getCustomerByPhoneNumber, addNewCustomer} = require('../models/CustomersM.js')
 
 module.exports.promptNewCustomer = () => {
-
   return new Promise((resolve, reject) => {
-
-    prompt.get(promptObj, (error, results) => {
-      getCustomerByPhoneNumber(results.phone_number)
+    prompt.get(promptObj, (error, customerObj) => {
+      getCustomerByPhoneNumber(customerObj.phone_number)
       .then(data => {
-        if(data){
-          reject('This customer already exists!');
+        if(data){ 
+          reject('Error: This customer already exists!');
         } else {
-          return addNewCustomer(results);
+          return addNewCustomer(customerObj);
         }
       })
       .then(id => {
-        if(id) resolve (id);
+        resolve(id);
       })
       .catch(error => {
-        reject(error);
+        let errMsg = 'We couldn\'t add that customer, sorry!'
+        reject(errMsg);
       });
     });
   });
