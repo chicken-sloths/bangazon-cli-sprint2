@@ -16,18 +16,20 @@ module.exports.getActiveCustomer = () => activeCustomer;
 module.exports.setActiveCustomer = () => {
   return new Promise ((resolve, reject) => {
 
-    console.log('Here are all the customers:');
+    
     getAllCustomers()
     .then(customers=>{
+      console.log('Here are all the customers:');
       customers.forEach(c=>{
         console.log(c.customer_id, c.first_name, c.last_name);
       });
+      prompt.get(activeCustomerPrompt,
+        (err, result) => {
+          setActiveId(result.custId);
+          err ? reject(err) : resolve(result.custId);
+        });
     });
 
-    prompt.get(activeCustomerPrompt,
-    (err, result) => {
-      setActiveId(result.custId);
-      err ? reject(err) : resolve(result.custId);
-    });
+    
   });
 };

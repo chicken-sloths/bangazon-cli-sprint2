@@ -33,7 +33,8 @@ let mainMenuHandler = (err, userInput) => {
   } else if (userInput.choice === '2') {
     setActiveCustomer()
       .then(id => {
-        console.log('You just selected this customer id', id);
+        console.log(`You just selected this customer id: id!`);
+        module.exports.displayWelcome();
       });
   } else if (userInput.choice == '3'){
     promptNewPaymentOption()
