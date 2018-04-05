@@ -12,21 +12,20 @@ describe('PaymentOptionsModel module', () => {
   describe('getPaymentOptionsForCustomer()', () => {
     it('should get all payment type options for cust id', () => {
       const option = {
-        payment_option_id: 15,
-        type: "Bitcoin",
-        account_number: "54976262",
-        customer_id: 11
+        payment_option_id: 39,
+        type: "Ivory Trade",
+        account_number: "04359020",
+        customer_id: 12 
       };
 
-      return getPaymentOptionsForCustomer(11)
-        .then(opts => deepEqual(opts[1], option));
+      return getPaymentOptionsForCustomer(12)
+               .then(opts => deepEqual(opts[0], option));
     });
 
     it('should return an empty array if cust id has no payment options', () => {
-      // customer_id: 3 has no payment options
-      return getPaymentOptionsForCustomer(3)
-	     .then(resp => isEmpty(resp));
-      // .then(resp => console.log(resp));
+      // customer_id: 11 has no payment options
+      return getPaymentOptionsForCustomer(11)
+	       .then(resp => isEmpty(resp));
     });
   });
 
@@ -44,7 +43,7 @@ describe('PaymentOptionsModel module', () => {
       };
 
       return addPaymentOption(obj)
-	.then(payOptId => equal(payOptId, 25));
+	.then(payOptId => equal(payOptId, 50));
     });
   });
 });

@@ -18,14 +18,14 @@ describe('Customers functionality', () => {
       // First customer from the database, according to our current database schema. If we change the database schema, this test will fail!
       let firstCustomer = {
         customer_id: 0,
-        first_name: "Luigi",
-        last_name: "McKenzie",
-        account_creation_date: "2018-04-04T12:48:11.283Z",
-        street_address: "937 Gideon Estate",
-        city: "Wittingbury",
-        state: "Oklahoma",
-        postal_code: "89799",
-        phone_number: "1-173-602-3290"
+        first_name: "Rosie",
+        last_name: "Waters",
+        account_creation_date: "2018-04-05T07:56:00.279Z",
+        street_address: "4763 Kenny Turnpike",
+        city: "Huberttown",
+        state: "Georgia",
+        postal_code: "17176",
+        phone_number: "792.555.3469 x367"
       }
       return getAllCustomers()
       .then(customers => {
@@ -49,11 +49,11 @@ describe('Customers functionality', () => {
       postal_code: '37217',
       phone_number: '888-888-8888'
     }
-    // Right now the last customer id in the database is 24, so a new post should auto-increment to 25. If we change our schema to make more than 25 customers, this test will fail!
+    // Right now the last customer id in the database is 49, so a new post should auto-increment to 50. If we change our schema to make more than 50 customers, this test will fail!
     it('Should return the id of the customer you just added', () => {
       return addNewCustomer(nicolasCage)
       .then(id => {
-        equal(25, id)
+        equal(50, id)
       })
     });
   })
