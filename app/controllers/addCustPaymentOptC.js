@@ -1,5 +1,6 @@
 const prompt = require('prompt');
 const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
+const { getAllPaymentTypes } = require('../models/PaymentTypesM');
 
 module.exports.promptNewPaymentOption = () => {
   return new Promise((resolve, reject) => {

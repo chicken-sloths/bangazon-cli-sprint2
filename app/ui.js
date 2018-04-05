@@ -48,7 +48,7 @@ let mainMenuHandler = (err, userInput) => {
       // TODO: save paymentObj to db
     })
       .then((custData) => {
-        // TODO: deal with success: go back to main menu?
+        // module.exports.displayWelcome(getActiveCustomer());
       })
       .catch(err => {
         console.log('promptNewCustomer error', err);
