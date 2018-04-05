@@ -4,12 +4,12 @@ const { checkForActiveOrder, patchPaymentTypeOntoOrder, createNewOrder } = requi
 const makeOrdersTable = require('../db/makeOrdersTable');
 const {generateSqlTable} = require('../db/sqlRunTemplate');
 
-describe("checkForActiveOrder function", ()=>{
+beforeEach(done=>{
+  generateSqlTable(makeOrdersTable)
+  .then(() => done());
+});
 
-  beforeEach(done=>{
-    generateSqlTable(makeOrdersTable);
-    setTimeout(done, 200);
-  });
+describe("checkForActiveOrder function", ()=>{
 
   it("should be a function",()=>{
     isFunction(checkForActiveOrder);
@@ -38,10 +38,7 @@ describe("patchPaymentTypeOntoOrder function: ", ()=>{
   it("should be a function", ()=>{
     isFunction(patchPaymentTypeOntoOrder);
   });
-  beforeEach(done=>{
-    generateSqlTable(makeOrdersTable);
-    setTimeout(done, 200);
-  });
+  
     // NOTE: in the function below, I am actually patching a payment option
       // onto THE EXACT SAME ORDER that is owned by the customer 
       // that is being declared as the customer with an active order 
@@ -72,10 +69,7 @@ describe("patchPaymentTypeOntoOrder function: ", ()=>{
 });
 
 describe("createNewOrder function", ()=>{
-  beforeEach(done=>{
-    generateSqlTable(makeOrdersTable);
-    setTimeout(done, 200);
-  });
+  
   it("should be a function",()=>{
     isFunction(createNewOrder);
   });
