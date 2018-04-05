@@ -29,6 +29,10 @@ module.exports.completeOrderPrompt = userId => {
           getPaymentOptionsForCustomer(userId)
         ])
         .then(([{OrderTotal}, paymentOptions]) => {
+          if (typeof paymentOptions === 'undefined') {
+            return resolve('Customer has no payment options');
+          }
+
           prompt.get(
             createPrompt(OrderTotal, paymentOptions),
             (err, { checkout, paymentOpt }) => {
