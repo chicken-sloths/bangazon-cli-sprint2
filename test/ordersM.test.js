@@ -39,7 +39,7 @@ describe("patchPaymentTypeOntoOrder function: ", ()=>{
     isFunction(patchPaymentTypeOntoOrder);
   });
   beforeEach(done=>{
-    makeOrdersTable();
+    generateSqlTable(makeOrdersTable);
     setTimeout(done, 200);
   });
     // NOTE: in the function below, I am actually patching a payment option
@@ -73,7 +73,7 @@ describe("patchPaymentTypeOntoOrder function: ", ()=>{
 
 describe("createNewOrder function", ()=>{
   beforeEach(done=>{
-    makeOrdersTable();
+    generateSqlTable(makeOrdersTable);
     setTimeout(done, 200);
   });
   it("should be a function",()=>{
