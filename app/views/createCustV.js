@@ -1,12 +1,22 @@
 'use strict';
 
 module.exports = [{
-  name: 'name',
-  description: 'Enter customer name (First Last)',
+  name: 'first_name',
+  description: 'Enter customer first name',
   type: 'string',
   required: true
 }, {
-  name: 'street',
+  name: 'last_name',
+  description: 'Enter customer last name',
+  type: 'string',
+  required: true
+}, {
+  name: 'account_creation_date',
+  description: 'Please enter today\'s date',
+  type: 'string',
+  required: true
+}, {
+  name: 'street_address',
   description: 'Enter street address',
   type: 'string',
   required: true
@@ -21,12 +31,12 @@ module.exports = [{
   type: 'string',
   required: true
 }, {
-  name: 'zip',
+  name: 'postal_code',
   description: 'Enter postal code',
   type: 'string',
   required: true
 }, {
-  name: 'phone',
+  name: 'phone_number',
   description: 'Enter phone number (xxx-yyy-zzzz)',
   type: 'string',
   required: true
