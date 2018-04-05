@@ -2,11 +2,12 @@
 const { assert:{ isFunction , typeOf, isNumber, isUndefined } } = require('chai');
 const { checkForActiveOrder, patchPaymentTypeOntoOrder, createNewOrder } = require('../app/models/OrdersM');
 const makeOrdersTable = require('../db/makeOrdersTable');
+const {generateSqlTable} = require('../db/sqlRunTemplate');
 
 describe("checkForActiveOrder function", ()=>{
 
   beforeEach(done=>{
-    makeOrdersTable();
+    generateSqlTable(makeOrdersTable);
     setTimeout(done, 200);
   });
 
