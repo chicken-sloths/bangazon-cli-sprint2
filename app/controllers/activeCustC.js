@@ -1,5 +1,6 @@
 'use strict';	
 const { activeCustomerPrompt } = require('../views/activeCustV');
+const { getAllCustomers } = require('../models/CustomersM');
 const prompt = require('prompt');
 
 const activeCustomer = {
@@ -10,18 +11,23 @@ const setActiveId = id => {
   activeCustomer.id = id;
 }
 
-module.exports.getActiveCustomer = () => activeCustomer;
+module.exports.getActiveCustomer = () => activeCustomer.id;
 
 module.exports.setActiveCustomer = () => {
-  return new Promise ((resolve, reject) => {
-
-    console.log('Here are all the customers:');
-    console.log('pretend like this is a long list of customers.');
-
-    prompt.get(activeCustomerPrompt,
-    (err, result) => {
-      setActiveId(result.custId);
-      err ? reject(err) : resolve(result.custId);
+  return new Promise ((resolve, reject) => {    
+    getAllCustomers()
+    .then(customers=>{
+      console.log('Here are all the customers:');
+      customers.forEach(c=>{
+        console.log(c.customer_id, c.first_name, c.last_name);
+      });
+      prompt.get(activeCustomerPrompt,
+        (err, result) => {
+          setActiveId(result.custId);
+          err ? reject(err) : resolve(result.custId);
+        });
     });
   });
 };
+
+

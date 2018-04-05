@@ -10,7 +10,7 @@ prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
 const { promptNewCustomer } = require('./controllers/createCustC');
-const { setActiveCustomer } = require('./controllers/activeCustC');
+const { setActiveCustomer, getActiveCustomer } = require('./controllers/activeCustC');
 const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 const { addProductToOrder } = require('./controllers/addProdToOrderC');
 const { deleteProduct } = require('./controllers/deleteProdC');
@@ -32,8 +32,12 @@ let mainMenuHandler = (err, userInput) => {
     });
   } else if (userInput.choice === '2') {
     setActiveCustomer()
-      .then(id => {
-        console.log('You just selected this customer id', id);
+      .then(active_user_id => {
+        console.log(`You just selected this customer id: id!`);
+        module.exports.displayWelcome(getActiveCustomer());
+      })
+      .catch(err=>{
+        console.log('error: ',err);
       });
   } else if (userInput.choice == '3'){
     promptNewPaymentOption()
@@ -60,7 +64,7 @@ let mainMenuHandler = (err, userInput) => {
       });
   } else if (userInput.choice == '6') {
     completeOrderPrompt()
-      .then(({checkout, paymentOptions}) => module.exports.displayWelcome())
+      .then(({checkout, paymentOptions}) => module.exports.displayWelcome(getActiveCustomer()))
       .catch(err => {});
   } else if (userInput.choice == '7') {
     deleteProduct()
@@ -73,13 +77,17 @@ let mainMenuHandler = (err, userInput) => {
   }
 };
 
-module.exports.displayWelcome = () => {
+module.exports.displayWelcome = (active_user_id) => {
   let headerDivider = `${magenta('*********************************************************')}`
   return new Promise((resolve, reject) => {
     console.log(`
   ${headerDivider}
   ${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}
   ${headerDivider}
+  `,
+  active_user_id === undefined ? red(`No active customer selected!`):blue(`Active customer: ${active_user_id}`)
+  
+  ,`
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
