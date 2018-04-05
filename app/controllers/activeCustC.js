@@ -11,7 +11,7 @@ const setActiveId = id => {
   activeCustomer.id = id;
 }
 
-module.exports.getActiveCustomer = () => activeCustomer;
+module.exports.getActiveCustomer = () => activeCustomer.id;
 
 module.exports.setActiveCustomer = () => {
   return new Promise ((resolve, reject) => {
