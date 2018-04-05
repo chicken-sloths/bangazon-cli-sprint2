@@ -2,15 +2,26 @@
 
 const prompt = require('prompt');
 const promptObj = require('../views/createCustV');
+const {getCustomerByPhoneNumber, addNewCustomer} = require('../models/CustomersM.js')
 
 module.exports.promptNewCustomer = () => {
   return new Promise((resolve, reject) => {
-    prompt.get(promptObj, (err, results) => {
-      if (err) return reject(err);
-      // TODO: post customer data
-      // TODO: return this promise
-      console.log('customer data to save', results);
-      resolve(results);
-    })
+    prompt.get(promptObj, (error, customerObj) => {
+      getCustomerByPhoneNumber(customerObj.phone_number)
+      .then(data => {
+        if(data){ 
+          reject('Error: This customer already exists!');
+        } else {
+          return addNewCustomer(customerObj);
+        }
+      })
+      .then(id => {
+        resolve(id);
+      })
+      .catch(error => {
+        let errMsg = 'We couldn\'t add that customer, sorry!'
+        reject(errMsg);
+      });
+    });
   });
 };

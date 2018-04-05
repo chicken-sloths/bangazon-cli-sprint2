@@ -52,7 +52,7 @@ describe("patchPaymentTypeOntoOrder function: ", () => {
   // errors pop up, it could be due to this. But by regenerating the 
   // database in the beforeEach should avoid this conflict.
   let veryRealOrder = {
-    order_id: 6,
+    order_id: 1000000,
     customer_id: 4
   }
   let fakeOrder = {
