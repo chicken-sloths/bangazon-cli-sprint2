@@ -8,7 +8,7 @@ const {
   getProductsByCreator,
   deleteProduct,
   getAllStockedProducts,
-  getInventory
+  getQuantityRemaining
 } = require('../app/models/ProductsM');
 
 let sampleProduct = {
@@ -110,13 +110,14 @@ describe('deleteProduct()', () => {
         assert.typeOf(deleteProduct(id).catch(err => { }), 'promise');
       });
   });
-  it('resolves into a number', () => {
+  it('resolves into a nonzero number', () => {
     createProduct(sampleProduct)
       .then(id => {
         return deleteProduct(id);
       })
       .then(response => {
         assert.isNumber(response);
+        assert.isAbove(response, 0);
       })
       .catch(err => console.log('deleteProduct error', err));
   });
@@ -143,24 +144,31 @@ describe('getAllStockedProducts()', () => {
       })
       .catch(err => console.log('getAllStockedProducts error', err));
   });
+  it('should have a length of 35', () => {
+    getAllStockedProducts()
+      .then(response => {
+        assert.equal(response.length, 35);
+      })
+      .catch(err => console.log('getAllStockedProducts error', err));
+  });
 });
 
-describe('getInventory()', () => {
+describe('getQuantityRemaining()', () => {
   it('should return a promise', () => {
-    assert.typeOf(getInventory(3).catch(err => {}), 'promise');
+    assert.typeOf(getQuantityRemaining(3).catch(err => {}), 'promise');
   });
   it('should resolve into a number', () => {
-    getInventory(3)
+    getQuantityRemaining(3)
       .then(qty => {
         assert.isNumber(qty);
       })
-      .catch(err => console.log('getInventory error', err));
+      .catch(err => console.log('getQuantityRemaining error', err));
   });
-  it('getInventory(40) should return 7', () => {
-    getInventory(40)
+  it('getQuantityRemaining(40) should return 7', () => {
+    getQuantityRemaining(40)
       .then(qty => {
         assert.equal(qty, 7);
       })
-      .catch(err => console.log('getInventory() error', err));
+      .catch(err => console.log('getQuantityRemaining() error', err));
   });
 });

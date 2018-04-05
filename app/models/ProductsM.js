@@ -60,14 +60,22 @@ module.exports.deleteProduct = id => {
   return new Promise((resolve, reject) => {
     db.run(`DELETE FROM Products WHERE product_id = ${id}`, function(err) {
       if (err) return reject(err);
-      resolve(id);
+      resolve(this.changes);
     });
   });
 };
 
 module.exports.getAllStockedProducts = () => {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM Products WHERE quantity > 0`, (err, data) => {
+    db.all(`SELECT
+      p.title,
+      p.quantity,
+      COUNT(*) as quantity_sold
+    FROM Products p
+    JOIN Product_Orders po
+      ON po.product_id = p.product_id
+    GROUP BY p.product_id
+    HAVING p.quantity > quantity_sold`, (err, data) => {
       if (err) return reject(err);
       resolve(data);
     });
@@ -76,7 +84,7 @@ module.exports.getAllStockedProducts = () => {
 
 // returns number of buyable products with the given id
   // (buyable products = original quantity - number sold)
-module.exports.getInventory = product_id => {
+module.exports.getQuantityRemaining = product_id => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT quantity FROM Products WHERE product_id = ${product_id}`, (err, maxQty) => {
       if (err) return reject(err);
