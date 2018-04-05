@@ -12,7 +12,6 @@ module.exports.getAllCustomers = () => {
    });
 }
 
-<<<<<<< HEAD
 // Will be called in customers controller to check for duplicates BEFORE calling addNewCustomer
 module.exports.getCustomerByPhoneNumber = phoneNumber => {
   return new Promise((resolve, reject) => {
@@ -23,8 +22,6 @@ module.exports.getCustomerByPhoneNumber = phoneNumber => {
   });
 }
 
-=======
->>>>>>> master
 // This will be called in option #1 - Create Customer Account
 module.exports.addNewCustomer = ({first_name, last_name, account_creation_date, street_address, city, state, postal_code, phone_number}) => {
   return new Promise((resolve, reject) => {
