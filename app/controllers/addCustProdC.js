@@ -19,3 +19,5 @@ module.exports.addCustomerProduct = () => {
     // And when complete, the product should be added for the active customer
   })
 };
+
+// in this module I need to get the customers input, but in the middle of the prompt I need to list the product types so they can select a product type and then add that input to the new product object
