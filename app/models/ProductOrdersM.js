@@ -15,7 +15,7 @@ module.exports.addToProductOrders = (order_id, product) => {
   })
 }
 
-// gets the sum of a customers order
+// returns sum of a customers order
 module.exports.getOrderTotal = ( { order_id } ) => {
   return new Promise((resolve, reject) => {
     db.get(`SELECT SUM(Product_Orders.product_price) AS OrderTotal
