@@ -33,7 +33,7 @@ module.exports.getProduct = id => {
   return new Promise((resolve, reject) => {
     db.get(`SELECT * FROM Products WHERE product_id = ${id}`, (err, data) => {
       if (err) return reject(err);
-      data ? resolve(data) : reject(false);
+      data ? resolve(data) : reject(new Error("This product doesn't exist."));
     });
   });
 };

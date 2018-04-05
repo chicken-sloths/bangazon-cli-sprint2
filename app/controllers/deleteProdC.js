@@ -4,24 +4,33 @@ const prompt = require('prompt');
 const promptObj = require('../views/deleteProdV');
 const model = require("../models/ProductsM");
 const { getActiveCustomer } = require("../controllers/activeCustC");
+const { red, magenta, blue } = require('chalk');
 
 module.exports.deleteProduct = () => {
   return new Promise((resolve, reject) => {
-    console.log('Here is a list of your products:');
     model.getProductsByCreator(getActiveCustomer())
       .then(products => {
+        console.log('Here is a list of your products:');
+        if (products.length == 0) reject(new Error("You have no products."));
         products.map(p => {
-          console.log(`\n${p.product_id}. ${p.title}`);
-        })
+          console.log(`${p.product_id}. ${p.title}`);
+        });
+        prompt.get(promptObj, (err, data) => {
+          if (err) return reject(err);
+          model.getProduct(data.objectId)
+            .then(product => {
+              if (product && product.creator_id == getActiveCustomer()) {
+                return model.deleteProduct(product.product_id);
+              } else {
+                reject(new Error("This product doesn't belong to you."));
+              }
+            })
+            .then(changed => {
+              changed ? resolve(changed) : reject(new Error("Something went wrong. This product was not deleted."));
+            })
+            .catch(err => reject(err));
+        });
       })
-      .catch(err => console.log(err));
-    prompt.get(promptObj, (err, results) => {
-      if (err) return reject(err);
-      // TODO: check if product exists
-      // TODO: delete the product
-      // TODO: return that promise
-      console.log('Id of product to delete', results);
-      resolve(results);
-    })
+      .catch(err => reject(err));
   });
 };

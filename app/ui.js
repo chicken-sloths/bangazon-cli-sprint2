@@ -52,16 +52,14 @@ let mainMenuHandler = (err, userInput) => {
         console.log('promptNewCustomer error', err);
       });
     } else if(userInput.choice == '4') {
-    addCustomerProduct()
+      addCustomerProduct()
     }
     else if (userInput.choice == '5') {
     addProductToOrder()
       .then(data => {
         // TODO: deal with success: go back to main menu?
       })
-      .catch(err => {
-        console.log('addProductToOrder error', err);
-      });
+      .catch(err => {});
   } else if (userInput.choice == '6') {
     completeOrderPrompt()
       .then(({checkout, paymentOptions}) => module.exports.displayWelcome(getActiveCustomer()))
@@ -71,9 +69,7 @@ let mainMenuHandler = (err, userInput) => {
       .then(data => {
         // TODO: deal with success: go back to main menu?
       })
-      .catch(err => {
-        console.log('deleteProduct error', err);
-      });
+      .catch(err => console.log(`${red(err.message)}`));
   }
 };
 
