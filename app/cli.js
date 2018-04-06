@@ -2,6 +2,4 @@
 
 process.title = 'Bangazon CLI App';
 
-const { displayWelcome } = require('./ui');
-
-displayWelcome();
+require('./ui');

@@ -24,15 +24,6 @@ const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
 
-const warning = string => {
-  console.log(red(string));
-  module.exports.displayWelcome(getActiveCustomer());
-};
-const success = string => {
-  console.log(green(string));
-  module.exports.displayWelcome(getActiveCustomer());
-}
-
 let mainMenuHandler = (err, userInput) => {
   if (userInput.choice == '1') {
     newCustomer()
@@ -83,7 +74,7 @@ let mainMenuHandler = (err, userInput) => {
   }
 };
 
-module.exports.displayWelcome = (active_user_id) => {
+const displayWelcome = (active_user_id) => {
   let headerDivider = `${magenta('*********************************************************')}`
   return new Promise((resolve, reject) => {
     console.log(`
@@ -112,3 +103,14 @@ module.exports.displayWelcome = (active_user_id) => {
     }], mainMenuHandler);
   });
 };
+
+const warning = string => {
+  console.log(red(string));
+  displayWelcome(getActiveCustomer());
+};
+const success = string => {
+  console.log(green(string));
+  displayWelcome(getActiveCustomer());
+}
+
+module.exports = displayWelcome(getActiveCustomer());
