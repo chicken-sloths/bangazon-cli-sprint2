@@ -5,7 +5,10 @@ const db = new sqlite3.Database('db/bangazon.sqlite');
 
 module.exports.getPaymentOptionsForCustomer = id =>
   new Promise((resolve, reject) =>
-    db.all(`SELECT * FROM Payment_Options WHERE customer_id=${id}`, 
+    db.all(`SELECT po.*, pt.name 
+      FROM "Payment_Options" po
+      JOIN "Payment_Types" pt ON po.payment_type = pt.payment_type_id
+      WHERE customer_id=${id}`, 
       (err, opts) => err ? reject(err) : resolve(opts)
     )
   );

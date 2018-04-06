@@ -13,7 +13,7 @@ describe('completeOrder view module', () => {
           description: 'Choose a payment option:\n1. AmEx\n2. Visa',
           pattern: new RegExp('^[1-2]$'),
         };
-    const [a, b] = createPrompt(180, [{type:'AmEx'}, {type:'Visa'}]);
+    const [a, b] = createPrompt(180, [{name:'AmEx'}, {name:'Visa'}]);
 
     it('should create a description with the order total included', () => {
              equal(a.description, checkout.description);

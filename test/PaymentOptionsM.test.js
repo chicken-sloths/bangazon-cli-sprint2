@@ -16,17 +16,18 @@ describe('PaymentOptionsModel module', () => {
         payment_option_id: 20,
         payment_type: 15,
         account_number: "25617724",
-        customer_id: 12 
+        customer_id: 12,
+        name: "Arm and a Leg"
       };
 
       return getPaymentOptionsForCustomer(12)
-               .then(opts => deepEqual(opts[0], option));
+        .then(opts => deepEqual(opts[0], option));
     });
 
     it('should return an empty array if cust id has no payment options', () => {
       // customer_id: 1 has no payment options
       return getPaymentOptionsForCustomer(1)
-	       .then(resp => isEmpty(resp));
+	      .then(resp => isEmpty(resp));
     });
   });
 
