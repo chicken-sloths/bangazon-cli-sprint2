@@ -17,6 +17,7 @@ before(done=>{
     postal_code: "49029",
     phone_number: "(960) 532-9058 x902"
   };
+  done();
 });
 
 describe('Customers functionality', () => {
@@ -51,6 +52,7 @@ describe('Customers functionality', () => {
     it('Should return the customer with a matching phone number of the one you passed in', () => {
       return getCustomerByPhoneNumber(testCustomer.phone_number)
         .then(customer => {
+          console.log('CUSTY',customer);
           deepEqual(testCustomer, customer)
         });
     });
