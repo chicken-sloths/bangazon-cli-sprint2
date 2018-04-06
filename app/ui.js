@@ -11,7 +11,7 @@ prompt.message = colors.blue('Bangazon Corp');
 // app modules
 const { promptNewCustomer } = require('./controllers/createCustC');
 const { setActiveCustomer, getActiveCustomer } = require('./controllers/activeCustC');
-const { promptNewPaymentOption } = require('./controllers/addCustPaymentOptC');
+const { promptNewPaymentOption, saveNewPaymentOption } = require('./controllers/addCustPaymentOptC');
 const { addProductToOrder } = require('./controllers/addProdToOrderC');
 const { deleteProduct } = require('./controllers/deleteProdC');
 const { completeOrderPrompt } = require('./controllers/completeOrderC');
@@ -35,26 +35,28 @@ let mainMenuHandler = (err, userInput) => {
   } else if (userInput.choice === '2') {
     setActiveCustomer()
       .then(active_user_id => {
-        console.log(`You just selected this customer id: id!`);
         module.exports.displayWelcome(getActiveCustomer());
       })
       .catch(err=>{
         console.log('error: ',err);
       });
   } else if (userInput.choice == '3'){
-    promptNewPaymentOption()
+    promptNewPaymentOption(getActiveCustomer())
     .then(paymentObj => {
-      console.log('payment option to save', paymentObj)
-      // TODO: save paymentObj to db
+      return saveNewPaymentOption(paymentObj);
     })
       .then((custData) => {
-        // TODO: deal with success: go back to main menu?
+        module.exports.displayWelcome(getActiveCustomer());
       })
       .catch(err => {
         console.log('promptNewCustomer error', err);
       });
     } else if(userInput.choice == '4') {
       addCustomerProduct()
+      .then(data => {
+        // after success, should we direct back to main menu after adding product? ask to add another?
+      })
+      .catch(err => console.log(`${red(err.message)}`));
     }
     else if (userInput.choice == '5') {
     addProductToOrder()
