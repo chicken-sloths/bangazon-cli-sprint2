@@ -1,7 +1,6 @@
 const prompt = require('prompt');
 const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
 const { addPaymentOption } = require('../models/PaymentOptionsM');
-const paymentTypes = ['Discover', 'American Express', 'Visa', 'Gift Card', 'PayPal', 'MasterCard', 'Bank Transfer', 'Venmo', 'Blood Sacrifice', 'Sexual Favors', 'Ivory Trade', 'Knuckle Sandwich', 'Locket of Meryl Streeps Hair', 'Bitcoin', 'First Born Child', 'Arm and a Leg', 'Good Advice', 'Your Soul', '1 Wish'];
 
 module.exports.promptNewPaymentOption = activeCustomerId => {
   return new Promise((resolve, reject) => {
@@ -37,7 +36,7 @@ module.exports.saveNewPaymentOption = (paymentOptionObject)=>{
 // FOR REFERENCE: this is what the payment option object will look like when it eventually gets sent to the DB
 // {
 //   "payment_option_id": 0,
-//   "type": "withdrawal",
+//   "type": "5",
 //   "account_number": "12556622",
 //   "customer_id": 1
 // }
