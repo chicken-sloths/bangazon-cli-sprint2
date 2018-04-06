@@ -15,7 +15,7 @@ module.exports =
     dataToIterateOver: payment_options,
     valuesToInsert: [
       `payment_option_id`,
-      `type`,
+      `payment_type`,
       `account_number`,
       `customer_id`
     ]
