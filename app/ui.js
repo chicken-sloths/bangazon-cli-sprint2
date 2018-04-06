@@ -63,9 +63,14 @@ let mainMenuHandler = (err, userInput) => {
       })
       .catch(err => { });
   } else if (userInput.choice == '6') {
-    completeOrder()
-      .then(({ checkout, paymentOptions }) => module.exports.displayWelcome(getActiveCustomer()))
-      .catch(err => { });
+    completeOrder(getActiveCustomer())
+      .then(resp => {
+        console.log(resp);
+        module.exports.displayWelcome(getActiveCustomer());
+      })
+      .catch(err => {
+        module.exports.displayWelcome(getActiveCustomer())
+      });
   } else if (userInput.choice == '7') {
     deleteProduct()
       .then(data => {
@@ -83,9 +88,9 @@ module.exports.displayWelcome = (active_user_id) => {
   ${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}
   ${headerDivider}
   `,
-      active_user_id === undefined ? red(`No active customer selected!`) : blue(`Active customer: ${active_user_id}`)
+  active_user_id === undefined ? red(`No active customer selected!`):blue(`Active customer: ${active_user_id}`)
 
-      , `
+  ,`
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
