@@ -4,11 +4,10 @@ const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('db/bangazon.sqlite');
 
 module.exports.getPaymentOptionsForCustomer = id =>
-  new Promise((resolve, reject) =>
+  new Promise((resolve, reject) => {
     db.all(`SELECT * FROM Payment_Options WHERE customer_id=${id}`, 
-      (err, opts) => err ? reject(err) : resolve(opts)
-    )
-  );
+      (err, opts) => err ? reject(err) : resolve(opts));
+  });
 
 module.exports.addPaymentOption = ({type, account_number, customer_id}) =>
   new Promise((resolve, reject) =>

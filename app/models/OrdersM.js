@@ -15,7 +15,7 @@ module.exports.checkForActiveOrder = customer_id => {
         if (err) {
           reject(err);
         } else {
-          resolve(order);
+          order ? resolve(order) : reject("This customer has no active orders.");
         }
       }
     );

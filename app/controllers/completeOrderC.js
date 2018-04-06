@@ -1,42 +1,37 @@
+
 "use strict";
 
 const prompt = require('prompt'),
-  {
-    createPrompt
-  } = require('../views/completeOrderV'),
+  { createPrompt } = require('../views/completeOrderV'),
   {
     checkForActiveOrder,
     createNewOrder,
     patchPaymentTypeOntoOrder
   } = require('../models/OrdersM'),
-  {
-    getOrderTotal
-  } = require('../models/ProductOrdersM'),
-  {
-    getPaymentOptionsForCustomer
-  } = require('../models/PaymentOptionsM');
+  { getOrderTotal } = require('../models/ProductOrdersM'),
+  { getPaymentOptionsForCustomer } = require('../models/PaymentOptionsM'),
+  { getActiveCustomer } = require('./activeCustC');
 
-module.exports.completeOrder = userId => {
+module.exports.completeOrder = () => {
   return new Promise((resolve, reject) => {
+    let userId = getActiveCustomer();
     checkForActiveOrder(userId)
       .then(order => {
-        if (typeof order === 'undefined') {
-          return reject("This customer has no active orders.");
-        }
         Promise.all([
           getOrderTotal(order),
           getPaymentOptionsForCustomer(userId)
         ])
           .then(([{ OrderTotal }, paymentOptions]) => {
-            if (typeof paymentOptions === 'undefined') {
+            if (!paymentOptions || paymentOptions.length == 0) {
               return reject('Customer has no payment options.');
             }
 
             prompt.get(
               createPrompt(OrderTotal, paymentOptions),
               (err, { checkout, paymentOpt }) => {
+                if (err) return reject(err);
                 if (checkout === 'N') {
-                  return resolve('');
+                  return resolve(`Order not completed.`);
                 }
 
                 patchPaymentTypeOntoOrder(
