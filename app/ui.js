@@ -58,8 +58,8 @@ let mainMenuHandler = (err, userInput) => {
     }
     else if (userInput.choice == '5') {
     addProductToOrder()
-      .then(data => {
-        console.log('data from adding prod to order');
+      .then(() => {
+        console.log('Product added!');
       })
       .catch(err => console.log('Error', error));
   } else if (userInput.choice == '6') {

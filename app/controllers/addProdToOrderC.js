@@ -8,28 +8,17 @@ const { checkForActiveOrder, createNewOrder } = require('../models/OrdersM.js');
 const { addToProductOrders } = require('../models/ProductOrdersM');
 const { getProduct } = require('../models/ProductsM');
 
-// Promises to print all products and in a numbered list to the terminal
-const listAllProds = () => {
-  return new Promise((resolve, reject) => {
-    getAllProducts()
-      .then(products => {
-        console.log('Here are all the products:');
-        products.forEach((product, i) => {
-          console.log(`${i}. ${product.title}`)
-        });
-      });
-  })
-}
-
 // Promises to add a product to a customer's order
-const addProduct = (order, prodId) => {
+const addProduct = (orderId, prodId) => {
   return new Promise((resolve, reject) => {
     getProduct(prodId)
     .then(productObj => {
-      return addToProductOrders(order_id, productObj)
+      // this takes the whole product obect (rather than just the id) because we have the join table referencing current price
+      return addToProductOrders(orderId, productObj)
     })
     .then(changes => {
       resolve(changes);
+      console.log('Product added!');
     })
     .catch(err => {
       reject(err);
@@ -47,7 +36,7 @@ const createNewThenAdd = (customerId, prodId) => {
   return new Promise((resolve, reject) => {
     createNewOrder(order)
       .then(orderId => {
-        return addProduct(orderId)
+        return addProduct(orderId, prodId)
       })
   })
 }
@@ -55,23 +44,30 @@ const createNewThenAdd = (customerId, prodId) => {
 
 module.exports.addProductToOrder = () => {
   let customerId = getActiveCustomer();
-  console.log('active customer id', customerId);
   return new Promise((resolve, reject) => {
-    listAllProds()
-      .then(() => {
-        prompt.get(promptObj, (err, prodId) => {
-          console.log('product id', prodId);
+    getAllProducts()
+      .then(products => {
+        // List all the products
+        console.log('Here are all the products:');
+        products.forEach((product, i) => {
+          console.log(`${i}. ${product.title}`);
+        });
+        // Prompt the user to enter a product id  
+        prompt.get(promptObj, (err, { prodId }) => {
           if (err) return reject(err);
+          // Check to see if the customer already has an active order
           return checkForActiveOrder(customerId)
           .then(order => {
+            // If they do, add the selected product to that order
             if (order){
-              return addProduct(order);
+              return addProduct(order.order_id, prodId);
+            // If not, create a new empty order and THEN add the selected product
             } else {
               return createNewThenAdd(customerId, prodId)
             }
           })
-          .then(data => {
-            resolve(data);
+          .then(() => {
+            resolve();
           })
           .catch(err => {
             reject(err);
