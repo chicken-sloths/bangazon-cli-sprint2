@@ -14,7 +14,7 @@ module.exports.promptNewPaymentOption = activeCustomerId => {
         (err, result) => {
           // build an object of payment type and account #
           let paymentOption = {
-            payment_type: paymentTypes[result.payment_type],
+            payment_type: result.paymentType,
             account_number: result.accountNumber,
             customer_id: activeCustomerId
           }
