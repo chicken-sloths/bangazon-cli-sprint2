@@ -5,6 +5,8 @@ const { _generatePaymentOptions } = require('./_paymentOptionsFaker');
 const { _generateProductOrders } = require('./_productOrdersFaker');
 const { _generateProducts } = require('./_productsFaker');
 const { _generateProductTypes } = require('./_productTypesFaker');
+const { _generatePaymentTypes } = require('./_paymentTypesFaker');
+
 
 module.exports.generateProductData = () => {
   const fakerSpecs = {
