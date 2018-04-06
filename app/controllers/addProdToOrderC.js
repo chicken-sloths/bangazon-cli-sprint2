@@ -4,7 +4,9 @@ const prompt = require('prompt');
 const promptObj = require('../views/addProdToOrderV');
 const { getAllProducts } = require('../models/ProductsM');
 const { getActiveCustomer } = require('../controllers/activeCustC');
-const { checkForActiveOrder } = require('../')
+const { checkForActiveOrder, createNewOrder } = require('../models/OrdersM.js');
+const { addToProductOrders } = require('../models/ProductOrdersM');
+const { getProduct } = require('../models/ProductsM');
 
 // Promises to print all products and in a numbered list to the terminal
 const listAllProds = () => {
@@ -19,25 +21,62 @@ const listAllProds = () => {
   })
 }
 
+// Promises to add a product to a customer's order
+const addProduct = (order, prodId) => {
+  return new Promise((resolve, reject) => {
+    getProduct(prodId)
+    .then(productObj => {
+      return addToProductOrders(order_id, productObj)
+    })
+    .then(changes => {
+      resolve(changes);
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })
+}
+
+// Creates a new order (with a null payment id) for the active customer and then calls addProduct
+const createNewThenAdd = (customerId, prodId) => {
+  let order = {
+    order_id: null,
+    customer_id: customerId,
+    payment_option_id: null
+  }
+  return new Promise((resolve, reject) => {
+    createNewOrder(order)
+      .then(orderId => {
+        return addProduct(orderId)
+      })
+  })
+}
 
 
 module.exports.addProductToOrder = () => {
+  let customerId = getActiveCustomer();
+  console.log('active customer id', customerId);
   return new Promise((resolve, reject) => {
     listAllProds()
       .then(() => {
-        prompt.get(promptObj, (err, results) => {
+        prompt.get(promptObj, (err, prodId) => {
+          console.log('product id', prodId);
           if (err) return reject(err);
-          let customerId = getActiveCustomer();
-          console.log('should be active customer id', customerId);
-          return checkForActiveOrder(customerId);
-          // TODO: check if active customer has active order
-          // TODO: if not, create new
-          // TODO: add product to order
-          // TODO: return that promise (resolve/reject based on that promise's results)
-          console.log('Id of object to add to order', results);
-          resolve(results);
+          return checkForActiveOrder(customerId)
+          .then(order => {
+            if (order){
+              return addProduct(order);
+            } else {
+              return createNewThenAdd(customerId, prodId)
+            }
+          })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(err => {
+            reject(err);
+          });
         });
-
     })
   });
 };
