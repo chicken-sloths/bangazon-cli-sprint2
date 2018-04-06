@@ -9,8 +9,8 @@ module.exports.addToProductOrders = (order_id, product) => {
     db.run(`INSERT INTO product_orders
     VALUES(null,  ${product.product_id}, ${order_id}, "${product.current_price}")`, 
     function(err) {
-      if (err) reject (err);
-      resolve({ productsAdded: this.changes });
+      if (err) return reject (err);
+      resolve(this.changes);
     })
   })
 }
@@ -22,7 +22,7 @@ module.exports.getOrderTotal = ( { order_id } ) => {
     FROM Product_Orders
     JOIN Orders ON Orders.order_id = Product_Orders.order_id
     WHERE Orders.order_id = ${order_id}`, function(err, result){
-      if (err) reject (err);
+      if (err) return reject (err);
       resolve(result);
     })
   })
