@@ -47,10 +47,12 @@ let mainMenuHandler = (err, userInput) => {
         })
         .catch(err => warning(err));
     } else if (userInput.choice == '3') {
-      newPaymentOption()
+      promptNewPaymentOption(getActiveCustomer())
         .then(paymentObj => {
-          success('payment option to save', paymentObj)
-          // TODO: save paymentObj to db
+          return saveNewPaymentOption(paymentObj);
+        })
+        .then((data) => {
+          success(data);
         })
         .catch(err => warning(err));
     } else if (userInput.choice == '4') {

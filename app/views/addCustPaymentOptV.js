@@ -1,7 +1,7 @@
 module.exports.paymentOptionPrompts = [
   {
     name: 'paymentType',
-    description: 'Please enter a payment option (e.g. Visa, Mastercard, etc)',
+    description: 'Please enter a payment option : ',
     required: true,
     type: 'string'
   },
