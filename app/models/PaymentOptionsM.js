@@ -18,12 +18,12 @@ module.exports.addPaymentOption = ({type, account_number, customer_id}) =>
         account_number,
         customer_id)
       VALUES(
-	null,
-	"${type}",
-	"${account_number}",
-	${customer_id}
+      	null,
+      	"${type}",
+      	"${account_number}",
+      	${customer_id}
       )`, function(err) {
-	err ? reject(err) : resolve(this.lastID)
+      	err ? reject(err) : resolve(this.lastID)
       }
     )
   );

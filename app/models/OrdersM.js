@@ -32,18 +32,20 @@ module.exports.patchPaymentTypeOntoOrder = (order, payment_option_id) => {
   // This function will add a payment type to an order using patch-like verb like UPDATE 
   return new Promise((resolve, reject) => {
     db.run(
-      `REPLACE INTO Orders(
+      `REPLACE INTO Orders (
         order_id,
         customer_id,
-        payment_option_id
+        payment_option_id,
+        creation_date
       )
       VALUES (
         ${order.order_id},
         ${order.customer_id},
-        ${payment_option_id}
+        ${payment_option_id},
+        "${order.creation_date}"
       )`,
       function (err) {
-        resolve(this.lastID);
+        resolve(this.changes);
       }
     );
   });
