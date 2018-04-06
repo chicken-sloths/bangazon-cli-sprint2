@@ -10,22 +10,26 @@ const { getProduct } = require('../models/ProductsM');
 
 // Promises to add a product to a customer's order
 const addProduct = (order, prodId) => {
-  console.log('order id in addProduct', orderId);
+  console.log('order', order);
+  // Declare an empty variable that we'll define once we figure out if there's an order or not
+  let orderId = null;
 
   // If no order parameter gets passed in, create a new order and grab its id
   if(!order){
-    console.log('no order was passed in!');
     createOrder(getActiveCustomer())
     .then(newId => {
-      console.log('Shoo! now we have an order id!');
       orderId = newId;
     });
+  } else {
+    // If they already have an order, grab its id
+    orderId = order.order_id;
+    console.log('There was already an order! Its id is: ', orderId);
   }
 
   return new Promise((resolve, reject) => {
     getProduct(prodId)
     .then(productObj => {
-      // this takes the whole product obect (rather than just the id) because we have the join table referencing current price
+      // addToProductOrders takes the whole product obect (rather than just the id) because we have the join table referencing current price
       return addToProductOrders(orderId, productObj)
     })
     .then(changes => {
@@ -80,11 +84,10 @@ module.exports.addProductToOrder = () => {
           // Check to see if the customer already has an active order
           return checkForActiveOrder(customerId)
           .then(order => {
-            console.log('order in getAllProducts for customer 2', order)
-            return addProduct(order.order_id, prodId)
+            console.log('order right after check for active orders', order);
+            return addProduct(order, prodId)
           })
           .then((msg) => {
-            console.log('msg in getAllProducts', msg);
             resolve(msg);
           })
           .catch(err => {

@@ -1,4 +1,4 @@
-const { assert: {equal, deepEqual, isArray, isObject, isNumber} } = require('chai');
+const { assert: { equal, deepEqual, isArray, isObject, isNumber } } = require('chai');
 const { addToProductOrders, getOrderTotal } = require('../app/models/ProductOrdersM');
 
 describe('ProductOrdersM', () => {
