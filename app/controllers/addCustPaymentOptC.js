@@ -1,7 +1,7 @@
 const prompt = require('prompt');
 const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
-const { paymentTypes } = require('../../data/faker/_paymentOptionsFaker');
 const { addPaymentOption } = require('../models/PaymentOptionsM');
+const paymentTypes = ['Discover', 'American Express', 'Visa', 'Gift Card', 'PayPal', 'MasterCard', 'Bank Transfer', 'Venmo', 'Blood Sacrifice', 'Sexual Favors', 'Ivory Trade', 'Knuckle Sandwich', 'Locket of Meryl Streeps Hair', 'Bitcoin', 'First Born Child', 'Arm and a Leg', 'Good Advice', 'Your Soul', '1 Wish'];
 
 module.exports.promptNewPaymentOption = activeCustomerId => {
   return new Promise((resolve, reject) => {
