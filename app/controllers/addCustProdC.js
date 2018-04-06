@@ -4,6 +4,7 @@ const prompt = require('prompt');
 const { addCustProdV } = require('../views/addCustProdV');
 const { activeCustomer } = require('./activeCustC');
 const { getProductTypes } = require('../models/ProductTypesM');
+const { createProduct } = require('../models/ProductsM');
 
 module.exports.addCustomerProduct = () => {
   return new Promise( (resolve, reject) => {
@@ -14,20 +15,22 @@ module.exports.addCustomerProduct = () => {
         console.log(`${pt.product_type_id}. ${pt.title}`);
       })
       prompt.get(addCustProdV, (err,results) => {
-        // Get customer ID
-        // console.log(activeCustomer.id);
-        // Then the user should be prompted to enter in all appropriate information for a product (customer is displayed with list of their own product types)
+        if (err) return reject(err);
         let newProduct = {
           price: results.productPrice,
           name: results.productName,
           description: results.productDescription,
-          product_type_id: results.productType,
           productType: results.productType
         };
-        console.log(newProduct);
-        // And when complete, the product should be added for the active customer
+        console.log('in ctrl', newProduct);
+        return createProduct(newProduct)
+        .then( (newProd) => {
+          console.log(newProd);
+        })
+        .catch(err => reject(err));
       })
-    });
+    })
+    .catch(err => reject(err));
   })
 };
 
