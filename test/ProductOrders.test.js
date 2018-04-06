@@ -1,14 +1,14 @@
-const { assert: {equals, deepEqual, isArray, isObject} } = require('chai');
+const { assert: {equal, deepEqual, isArray, isObject, isNumber} } = require('chai');
 const { addToProductOrders, getOrderTotal } = require('../app/models/ProductOrdersM');
 
 describe('ProductOrdersM', () => {
   let product = {"product_id":1,"current_price":"356.00","title":"Gorgeous Wooden Fish","description":"Tasty","product_type_id":2,"creator_id":12};
   describe('addProdsToOrder()', () => {
-    it('should return an object', () => {
+    it('should return a number', () => {
       return addToProductOrders(1, product)
       .then( (prodAdded) => {
-        isObject(prodAdded);
-        deepEqual({ productsAdded: 1 }, prodAdded, "this.changes should reflect one product was added");
+        isNumber(prodAdded);
+        equal(1, prodAdded, "this.changes should reflect one product was added");
       })
     });
   })

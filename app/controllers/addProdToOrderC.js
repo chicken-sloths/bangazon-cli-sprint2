@@ -9,7 +9,19 @@ const { addToProductOrders } = require('../models/ProductOrdersM');
 const { getProduct } = require('../models/ProductsM');
 
 // Promises to add a product to a customer's order
-const addProduct = (orderId, prodId) => {
+const addProduct = (order, prodId) => {
+  console.log('order id in addProduct', orderId);
+
+  // If no order parameter gets passed in, create a new order and grab its id
+  if(!order){
+    console.log('no order was passed in!');
+    createOrder(getActiveCustomer())
+    .then(newId => {
+      console.log('Shoo! now we have an order id!');
+      orderId = newId;
+    });
+  }
+
   return new Promise((resolve, reject) => {
     getProduct(prodId)
     .then(productObj => {
@@ -26,7 +38,7 @@ const addProduct = (orderId, prodId) => {
 }
 
 // Creates a new order (with a null payment id) for the active customer and then calls addProduct
-const createNewThenAdd = (customerId, prodId) => {
+const createOrder = (customerId) => {
 
   const date = new Date();
   const isoDate = date.toISOString();
@@ -41,8 +53,7 @@ const createNewThenAdd = (customerId, prodId) => {
   return new Promise((resolve, reject) => {
     createNewOrder(order)
       .then(orderId => {
-        // resolve(orderId);
-        return addProduct(orderId, prodId)
+        resolve(orderId);
       })
       .catch(err => {
         reject(err);
@@ -70,13 +81,7 @@ module.exports.addProductToOrder = () => {
           return checkForActiveOrder(customerId)
           .then(order => {
             console.log('order in getAllProducts for customer 2', order)
-            // If they do, add the selected product to that order
-            if (order){
-              return addProduct(order.order_id, prodId);
-            // If not, create a new empty order and THEN add the selected product
-            } else {
-              return createNewThenAdd(customerId, prodId)
-            }
+            return addProduct(order.order_id, prodId)
           })
           .then((msg) => {
             console.log('msg in getAllProducts', msg);
