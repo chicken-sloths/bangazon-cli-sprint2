@@ -1,11 +1,11 @@
 'use strict';
 const { _generateCustomers } = require('./_customersFaker');
 const { _generateOrders } = require('./_ordersFaker');
+const { _generatePaymentTypes } = require('./_paymentTypesFaker');
 const { _generatePaymentOptions } = require('./_paymentOptionsFaker');
 const { _generateProductOrders } = require('./_productOrdersFaker');
 const { _generateProducts } = require('./_productsFaker');
 const { _generateProductTypes } = require('./_productTypesFaker');
-const { _generatePaymentTypes } = require('./_paymentTypesFaker');
 
 
 module.exports.generateProductData = () => {
@@ -21,7 +21,7 @@ module.exports.generateProductData = () => {
         productTypes = _generateProductTypes(fakerSpecs),
         products = _generateProducts(fakerSpecs),
         paymentTypes = _generatePaymentTypes(),
-        paymentOptions = _generatePaymentOptions(fakerSpecs),
+        paymentOptions = _generatePaymentOptions(fakerSpecs, paymentTypes),
         orders = _generateOrders(fakerSpecs, customers, paymentOptions),
         productOrders = _generateProductOrders(fakerSpecs, orders, products);
 

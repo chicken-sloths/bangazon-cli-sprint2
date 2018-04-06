@@ -7,10 +7,10 @@ module.exports =
     tableName: `Payment_Types`,
     columns:
     `payment_type_id INTEGER PRIMARY KEY,
-    title TEXT`,
-    dataToIterateOver: productTypes,
+    name TEXT`,
+    dataToIterateOver: paymentTypes,
     valuesToInsert: [
       `payment_type_id`,
-      `title`
+      `name`
     ]
   };

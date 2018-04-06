@@ -2,8 +2,7 @@
 const faker = require('faker');
 const randomInt = require('../randomInt');
 
-
-const _generatePaymentOptions = ({customerAmount}) => {
+const _generatePaymentOptions = ({customerAmount}, paymentTypes) => {
   let paymentOptions = [];
   
   for (let i = 0; i < customerAmount; i++) {
@@ -19,6 +18,5 @@ const _generatePaymentOptions = ({customerAmount}) => {
 };
 
 module.exports = {
-  _generatePaymentOptions,
-  paymentTypes
+  _generatePaymentOptions
 };
