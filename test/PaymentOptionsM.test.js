@@ -37,13 +37,13 @@ describe('PaymentOptionsModel module', () => {
   describe('addPaymentOption()', () => {
     it('should add a payment option for the given customer id', () => {
       const obj = {
-	type: "American Express",
-	account_number: "17251823",
-	customer_id: 23
+      	type: "American Express",
+      	account_number: "17251823",
+      	customer_id: 23
       };
 
       return addPaymentOption(obj)
-	.then(payOptId => equal(payOptId, 50));
+	     .then(payOptId => equal(payOptId, 52));
     });
   });
 });

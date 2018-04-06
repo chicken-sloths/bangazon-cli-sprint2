@@ -26,10 +26,12 @@ let mainMenuHandler = (err, userInput) => {
   console.log("user input", userInput);
   if (userInput.choice == '1') {
     promptNewCustomer()
-    .then( (custData) => {
-      console.log('customer data to save', custData );
-      //save customer to db
-    });
+    .then( custId => {
+      console.log(`You just added a customer with the id of ${custId}` );
+    })
+    .catch(errMsg => {
+      console.log(errMsg);
+    })
   } else if (userInput.choice === '2') {
     setActiveCustomer()
       .then(active_user_id => {
@@ -52,28 +54,29 @@ let mainMenuHandler = (err, userInput) => {
         console.log('promptNewCustomer error', err);
       });
     } else if(userInput.choice == '4') {
-    addCustomerProduct()
+      addCustomerProduct()
     }
     else if (userInput.choice == '5') {
     addProductToOrder()
       .then(data => {
         // TODO: deal with success: go back to main menu?
       })
-      .catch(err => {
-        console.log('addProductToOrder error', err);
-      });
-  } else if (userInput.choice == '6') {
-    completeOrderPrompt()
-      .then(({checkout, paymentOptions}) => module.exports.displayWelcome(getActiveCustomer()))
       .catch(err => {});
+  } else if (userInput.choice == '6') {
+    completeOrderPrompt(getActiveCustomer())
+      .then(resp => {
+        console.log(resp);
+        module.exports.displayWelcome(getActiveCustomer());
+      })
+      .catch(err => {
+        module.exports.displayWelcome(getActiveCustomer())
+      });
   } else if (userInput.choice == '7') {
     deleteProduct()
       .then(data => {
         // TODO: deal with success: go back to main menu?
       })
-      .catch(err => {
-        console.log('deleteProduct error', err);
-      });
+      .catch(err => console.log(`${red(err.message)}`));
   }
 };
 
@@ -86,7 +89,7 @@ module.exports.displayWelcome = (active_user_id) => {
   ${headerDivider}
   `,
   active_user_id === undefined ? red(`No active customer selected!`):blue(`Active customer: ${active_user_id}`)
-  
+
   ,`
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
