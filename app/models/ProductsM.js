@@ -3,11 +3,10 @@
 const { Database } = require('sqlite3').verbose();
 const path = require('path');
 const db = new Database(path.join(__dirname, '../..', 'db', 'bangazon.sqlite'));
-const activeCustomer = require("../controllers/activeCustC");
 
 module.exports.createProduct = (product) => {
   return new Promise((resolve, reject) => {
-    let { name, price, description, productType, quantity } = product;
+    let { id, name, price, description, productType, quantity } = product;
     db.run(`INSERT INTO Products (
       product_id,
       current_price,
@@ -23,7 +22,7 @@ module.exports.createProduct = (product) => {
       "${name}",
       "${description}",
       ${productType},
-      ${activeCustomer.getActiveCustomer()},
+      ${id},
       date('now'),
       ${quantity}
     )`, function (err) {

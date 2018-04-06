@@ -2,7 +2,7 @@
 
 const prompt = require('prompt');
 const { addCustProdV } = require('../views/addCustProdV');
-const { activeCustomer } = require('./activeCustC');
+const { getActiveCustomer } = require('./activeCustC');
 const { getProductTypes } = require('../models/ProductTypesM');
 const { createProduct } = require('../models/ProductsM');
 const { red, green } = require('chalk');
@@ -20,6 +20,7 @@ module.exports.addCustomerProduct = () => {
       prompt.get(addCustProdV, (err,results) => {
         if (err) return reject(err);
         let newProduct = {
+          id: getActiveCustomer(),
           price: results.productPrice,
           name: results.productName,
           description: results.productDescription,
