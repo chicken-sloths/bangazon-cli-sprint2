@@ -62,12 +62,14 @@ module.exports.createNewOrder = order => {
       `INSERT INTO Orders(
         order_id,
         customer_id,
-        payment_option_id
+        payment_option_id,
+        creation_date
       )
       VALUES (
         ${null},
         ${order.customer_id},
-        ${order.payment_option_id}
+        ${order.payment_option_id},
+        '${order.creation_date}'
       )`,
       function (err) {
         resolve(this.lastID);

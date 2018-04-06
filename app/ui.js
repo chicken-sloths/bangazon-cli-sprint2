@@ -52,14 +52,7 @@ let mainMenuHandler = (err, userInput) => {
         })
         .then((response) => success(response))
         .catch(err => warning(err));
-    } /*
-    else if (userInput.choice == '5') {
-      addProductToOrder()
-        .then(data => {
-          success();
-        })
-        .catch(err => warning(err));
-    } */
+    }
   }
 };
 
