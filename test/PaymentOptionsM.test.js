@@ -7,6 +7,7 @@ const { assert: { deepEqual, equal, isEmpty } } = require('chai'),
       } = require('../app/models/PaymentOptionsM'),
       { generateSqlTable } = require('../db/sqlRunTemplate'),
       PaymentOptionsTable = require('../db/makePaymentOptionsTable');
+      // Lord have mercy on this syntax, my dudes ^^^
 
 describe('PaymentOptionsModel module', () => {
   describe('getPaymentOptionsForCustomer()', () => {
