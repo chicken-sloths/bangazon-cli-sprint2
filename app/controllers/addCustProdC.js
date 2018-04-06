@@ -8,7 +8,7 @@ module.exports.addCustomerProduct = () => {
   prompt.get(addCustProdV, (err,results) => {
     // Get customer ID
     // console.log(activeCustomer.id);
-    // Then the user should be prompted to enter in all appropriate information for a product
+    // Then the user should be prompted to enter in all appropriate information for a product (customer is displayed with list of their own product types)
     let newProduct = {
       price: results.productPrice,
       name: results.productName,
