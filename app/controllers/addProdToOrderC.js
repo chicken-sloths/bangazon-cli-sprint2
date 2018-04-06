@@ -10,34 +10,50 @@ const { getProduct } = require('../models/ProductsM');
 
 // Promises to add a product to a customer's order
 const addProduct = (order, prodId) => {
-  console.log('order', order);
-  // Declare an empty variable that we'll define once we figure out if there's an order or not
-  let orderId = null;
+  return new Promise((resolve, reject) => {
+    // Declare an empty variable that we'll define once we figure out if there's an order or not
+    let orderId = null;
+  
+    // If no order parameter gets passed in, create a new order and grab its id
+    if(!order){
+      createOrder(getActiveCustomer())
+      .then(newId => {
+        orderId = newId;
+        return addProductToExistingOrder(orderId, prodId)
+      })
+      .catch(err => {
+        reject('Create order failed');
+      })
+      .then(msg => {
+        resolve(msg);
+      })
+    } else {
+      // If they already have an order, grab its id
+      orderId = order.order_id;
+      return addProductToExistingOrder(orderId, prodId)
+        .catch(err => {
+          reject('Create order failed');
+        })
+        .then(msg => {
+          resolve(msg);
+        })
+    }
+  })
+}
 
-  // If no order parameter gets passed in, create a new order and grab its id
-  if(!order){
-    createOrder(getActiveCustomer())
-    .then(newId => {
-      orderId = newId;
-    });
-  } else {
-    // If they already have an order, grab its id
-    orderId = order.order_id;
-    console.log('There was already an order! Its id is: ', orderId);
-  }
-
+const addProductToExistingOrder = (orderId, prodId) => {
   return new Promise((resolve, reject) => {
     getProduct(prodId)
-    .then(productObj => {
-      // addToProductOrders takes the whole product obect (rather than just the id) because we have the join table referencing current price
-      return addToProductOrders(orderId, productObj)
-    })
-    .then(changes => {
-      changes > 0 ? resolve('Product added') : reject('We couldn\'t add that product.')
-    })
-    .catch(err => {
-      reject('Add to order or get product didn\'t work.');
-    })
+      .then(productObj => {
+        // addToProductOrders takes the whole product obect (rather than just the id) because we have the join table referencing current price
+        return addToProductOrders(orderId, productObj)
+      })
+      .then(changes => {
+        changes > 0 ? resolve('Product added') : reject('We couldn\'t add that product.')
+      })
+      .catch(err => {
+        reject('Add to order or get product didn\'t work.');
+      })
   })
 }
 
@@ -84,7 +100,6 @@ module.exports.addProductToOrder = () => {
           // Check to see if the customer already has an active order
           return checkForActiveOrder(customerId)
           .then(order => {
-            console.log('order right after check for active orders', order);
             return addProduct(order, prodId)
           })
           .then((msg) => {
