@@ -5,7 +5,8 @@ const { promptNewCustomer } = require('../app/controllers/createCustC.js');
 const CustomersTable = require('../db/makeCustomersTable');
 const { generateSqlTable } = require('../db/sqlRunTemplate');
 
-before(done=>{
+
+describe('Customers functionality', () => {
   let testCustomer = {
     customer_id: 0,
     first_name: "Gayle",
@@ -17,10 +18,6 @@ before(done=>{
     postal_code: "49029",
     phone_number: "(960) 532-9058 x902"
   };
-  done();
-});
-
-describe('Customers functionality', () => {
 
   describe('Listing all customers', () => {
     it('Should return an array of objects', () => {
