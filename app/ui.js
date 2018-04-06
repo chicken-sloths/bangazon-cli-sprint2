@@ -58,7 +58,8 @@ let mainMenuHandler = (err, userInput) => {
     }
     else if (userInput.choice == '5') {
     addProductToOrder()
-      .then(() => {
+      .then((msg) => {
+        console.log(msg);
         module.exports.displayWelcome(getActiveCustomer());
       })
       .catch(err => console.log('Error: ', err));

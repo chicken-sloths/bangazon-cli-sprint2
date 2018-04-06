@@ -10,7 +10,7 @@ module.exports.addToProductOrders = (order_id, product) => {
     VALUES(null,  ${product.product_id}, ${order_id}, "${product.current_price}")`, 
     function(err) {
       if (err) reject (err);
-      resolve({ productsAdded: this.changes });
+      resolve(this.changes);
     })
   })
 }

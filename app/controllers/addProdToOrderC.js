@@ -17,33 +17,42 @@ const addProduct = (orderId, prodId) => {
       return addToProductOrders(orderId, productObj)
     })
     .then(changes => {
-      resolve(changes);
-      console.log('Product added!');
+      changes > 0 ? resolve('Product added') : reject('We couldn\'t add that product.')
     })
     .catch(err => {
-      reject(err);
+      reject('Add to order or get product didn\'t work.');
     })
   })
 }
 
 // Creates a new order (with a null payment id) for the active customer and then calls addProduct
 const createNewThenAdd = (customerId, prodId) => {
+
+  const date = new Date();
+  const isoDate = date.toISOString();
+
   let order = {
     order_id: null,
     customer_id: customerId,
-    payment_option_id: null
+    payment_option_id: null,
+    creation_date: isoDate
   }
+
   return new Promise((resolve, reject) => {
     createNewOrder(order)
       .then(orderId => {
+        // resolve(orderId);
         return addProduct(orderId, prodId)
+      })
+      .catch(err => {
+        reject(err);
       })
   })
 }
 
 
 module.exports.addProductToOrder = () => {
-  
+
   let customerId = getActiveCustomer();
 
   return new Promise((resolve, reject) => {
@@ -60,6 +69,7 @@ module.exports.addProductToOrder = () => {
           // Check to see if the customer already has an active order
           return checkForActiveOrder(customerId)
           .then(order => {
+            console.log('order in getAllProducts for customer 2', order)
             // If they do, add the selected product to that order
             if (order){
               return addProduct(order.order_id, prodId);
@@ -68,8 +78,9 @@ module.exports.addProductToOrder = () => {
               return createNewThenAdd(customerId, prodId)
             }
           })
-          .then(() => {
-            resolve();
+          .then((msg) => {
+            console.log('msg in getAllProducts', msg);
+            resolve(msg);
           })
           .catch(err => {
             reject(err);
