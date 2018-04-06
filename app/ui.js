@@ -59,9 +59,9 @@ let mainMenuHandler = (err, userInput) => {
     else if (userInput.choice == '5') {
     addProductToOrder()
       .then(() => {
-        console.log('Product added!');
+        module.exports.displayWelcome(getActiveCustomer());
       })
-      .catch(err => console.log('Error', error));
+      .catch(err => console.log('Error: ', err));
   } else if (userInput.choice == '6') {
     completeOrderPrompt(getActiveCustomer())
       .then(resp => {

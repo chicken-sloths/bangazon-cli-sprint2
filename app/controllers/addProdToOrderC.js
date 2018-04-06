@@ -43,7 +43,9 @@ const createNewThenAdd = (customerId, prodId) => {
 
 
 module.exports.addProductToOrder = () => {
+  
   let customerId = getActiveCustomer();
+
   return new Promise((resolve, reject) => {
     getAllProducts()
       .then(products => {
