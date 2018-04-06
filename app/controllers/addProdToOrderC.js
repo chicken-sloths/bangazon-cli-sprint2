@@ -21,21 +21,22 @@ const addProduct = (order, prodId) => {
         orderId = newId;
         return addProductToExistingOrder(orderId, prodId)
       })
-      .catch(err => {
-        reject('Create order failed');
-      })
       .then(msg => {
         resolve(msg);
+      })
+      .catch(err => {
+        reject('Create order failed');
       })
     } else {
       // If they already have an order, grab its id
       orderId = order.order_id;
+
       return addProductToExistingOrder(orderId, prodId)
-        .catch(err => {
-          reject('Create order failed');
-        })
         .then(msg => {
           resolve(msg);
+        })
+        .catch(err => {
+          reject('Create order failed');
         })
     }
   })
