@@ -20,9 +20,10 @@ module.exports.generateProductData = () => {
   const customers = _generateCustomers(fakerSpecs),
         productTypes = _generateProductTypes(fakerSpecs),
         products = _generateProducts(fakerSpecs),
+        paymentTypes = _generatePaymentTypes(),
         paymentOptions = _generatePaymentOptions(fakerSpecs),
         orders = _generateOrders(fakerSpecs, customers, paymentOptions),
         productOrders = _generateProductOrders(fakerSpecs, orders, products);
 
-  return {customers, productTypes, products, paymentOptions, orders, productOrders};
+  return {customers, productTypes, products, paymentTypes, paymentOptions, orders, productOrders};
 };
