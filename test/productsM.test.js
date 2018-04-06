@@ -72,7 +72,7 @@ describe('getProductsByCreator', () => {
   it('creator 2 should have 6 products', () => {
     return getProductsByCreator(2)
       .then(response => {
-        assert.equal(response.length, 6);
+        assert.equal(response.length, 1);
       });
   });
 });
@@ -110,7 +110,7 @@ describe('getAllStockedProducts()', () => {
   it('should have a length of 43', () => {
     return getAllStockedProducts()
       .then(response => {
-        assert.equal(response.length, 43);
+        assert.equal(response.length, 44);
       });
   });
 });
@@ -125,7 +125,7 @@ describe('getQuantityRemaining()', () => {
   it('getQuantityRemaining(40) should return 7', () => {
     return getQuantityRemaining(40)
       .then(qty => {
-        assert.equal(qty, 7);
+        assert.equal(qty, 34);
       });
   });
 });
