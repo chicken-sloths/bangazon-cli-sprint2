@@ -1,7 +1,7 @@
 'use strict';
 
 // 3rd party libs
-const { red, magenta, blue } = require('chalk');
+const { red, blue, magenta, green } = require('chalk');
 const prompt = require('prompt');
 const colors = require('colors/safe');
 const path = require('path');
@@ -15,68 +15,70 @@ const {
   addCustomerProduct,
   addProductToOrder,
   completeOrder,
+  deleteProduct,
   newCustomer,
-  deleteProduct
+  newPaymentOption
 } = require("./controllers/index");
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
 
+const warning = string => {
+  console.log(red(string));
+};
+const success = string => {
+  console.log(green(string));
+  module.exports.displayWelcome(getActiveCustomer());
+}
+
 let mainMenuHandler = (err, userInput) => {
-  if (userInput.choice == '1') {
-    newCustomer()
-      .then(custId => {
-        console.log(`You just added a customer with the id of ${custId}`);
-      })
-      .catch(errMsg => {
-        console.log(errMsg);
-      })
-  } else if (userInput.choice === '2') {
-    setActiveCustomer()
-      .then(active_user_id => {
-        console.log(`You just selected this customer id: id!`);
-        module.exports.displayWelcome(getActiveCustomer());
-      })
-      .catch(err => {
-        console.log('error: ', err);
-      });
-  } else if (userInput.choice == '3') {
-    promptNewPaymentOption()
-      .then(paymentObj => {
-        console.log('payment option to save', paymentObj)
-        // TODO: save paymentObj to db
-      })
-      .then((custData) => {
-        // TODO: deal with success: go back to main menu?
-      })
-      .catch(err => {
-        console.log('newCustomer error', err);
-      });
-  } else if (userInput.choice == '4') {
-    addCustomerProduct()
-  }
-  else if (userInput.choice == '5') {
-    addProductToOrder()
-      .then(data => {
-        // TODO: deal with success: go back to main menu?
-      })
-      .catch(err => { });
-  } else if (userInput.choice == '6') {
-    completeOrder(getActiveCustomer())
-      .then(resp => {
-        console.log(resp);
-        module.exports.displayWelcome(getActiveCustomer());
-      })
-      .catch(err => {
-        module.exports.displayWelcome(getActiveCustomer())
-      });
-  } else if (userInput.choice == '7') {
-    deleteProduct()
-      .then(data => {
-        // TODO: deal with success: go back to main menu?
-      })
-      .catch(err => console.log(`${red(err.message)}`));
+  if (userInput.choice != '12') {
+    if (userInput.choice == '1') {
+      newCustomer()
+        .then(custId => {
+          success(`You just added a customer with the id of ${custId}`);
+        })
+        .catch(err => warning(err));
+    } else if (userInput.choice === '2') {
+      setActiveCustomer()
+        .then(id => {
+          success(`You just selected this customer id: ${id}`);
+        })
+        .catch(err => warning(err));
+    } else if (userInput.choice == '3') {
+      newPaymentOption()
+        .then(paymentObj => {
+          success('payment option to save', paymentObj)
+          // TODO: save paymentObj to db
+        })
+        .catch(err => warning(err));
+    } else if (userInput.choice == '4') {
+      addCustomerProduct()
+        .then(response => {
+          success("You have added the product.");
+        })
+        .catch(err => warning(err));
+    }
+    else if (userInput.choice == '5') {
+      addProductToOrder()
+        .then(data => {
+          success("You have added the product to your cart.");
+        })
+        .catch(err => warning(err));
+    } else if (userInput.choice == '6') {
+      completeOrder(getActiveCustomer())
+        .then(data => {
+          success(data);
+        })
+        .catch(err => warning(err));
+    } else if (userInput.choice == '7') {
+      deleteProduct()
+        .then(data => {
+          success(data);
+        })
+        .catch(err => warning(err));
+    }
   }
 };
 
@@ -88,9 +90,9 @@ module.exports.displayWelcome = (active_user_id) => {
   ${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}
   ${headerDivider}
   `,
-  active_user_id === undefined ? red(`No active customer selected!`):blue(`Active customer: ${active_user_id}`)
+      active_user_id === undefined ? red(`No active customer selected!`) : blue(`Active customer: ${active_user_id}`)
 
-  ,`
+      , `
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option

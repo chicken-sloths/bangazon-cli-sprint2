@@ -16,18 +16,7 @@ const prompt = require('prompt'),
     getPaymentOptionsForCustomer
   } = require('../models/PaymentOptionsM');
 
-<<<<<<< HEAD
-module.exports.completeOrder = userId =>
-  new Promise((resolve, reject) =>
-    Promise.all([getSingleOrder(userId), getPaymentOptions(userId)])
-      .then((orderTotal, paymentOptions) => 
-        prompt.get(
-          createPrompt(orderTotal, paymentOptions), (err, result) => {
-	   resolve(result);
-           // patchOrder(paymentOption)
-	   // .then(() => resolve())
-=======
-module.exports.completeOrderPrompt = userId => {
+module.exports.completeOrder = userId => {
   return new Promise((resolve, reject) => {
     checkForActiveOrder(userId)
       .then(order => {
@@ -59,7 +48,6 @@ module.exports.completeOrderPrompt = userId => {
               .catch(err => reject(err));
             }
           );
->>>>>>> ba12eced0e303aaa0410e5f6f0710b6d8609078f
         })
         .catch(err => reject(err));
       })
