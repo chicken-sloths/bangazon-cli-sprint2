@@ -38,7 +38,7 @@ module.exports.saveNewPaymentOption = (paymentOptionObject)=>{
 // FOR REFERENCE: this is what the payment option object will look like when it eventually gets sent to the DB
 // {
 //   "payment_option_id": 0,
-//   "type": "5",
+//   "type": 5,
 //   "account_number": "12556622",
 //   "customer_id": 1
 // }
