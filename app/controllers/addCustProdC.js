@@ -13,6 +13,7 @@ module.exports.addCustomerProduct = () => {
       price: results.productPrice,
       name: results.productName,
       description: results.productDescription,
+      product_type_id: results.productType,
       productType: results.productType
     };
     console.log(newProduct);
