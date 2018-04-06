@@ -21,7 +21,7 @@ module.exports.completeOrder = userId => {
     checkForActiveOrder(userId)
       .then(order => {
         if (typeof order === 'undefined') {
-          return reject('Customer has no active orders.');
+          return reject("This customer has no active orders.");
         }
         Promise.all([
           getOrderTotal(order),
