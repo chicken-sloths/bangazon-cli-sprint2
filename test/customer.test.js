@@ -1,5 +1,5 @@
 "use strict"
-const { assert: {equal, isArray, isObject, deepEqual, notEqual } } = require('chai');
+const { assert: {equal, isArray, isObject, deepEqual, notEqual, isNumber } } = require('chai');
 const { getAllCustomers, addNewCustomer, getCustomerByPhoneNumber } = require('../app/models/CustomersM.js');
 const { promptNewCustomer } = require('../app/controllers/createCustC.js');
 const CustomersTable = require('../db/makeCustomersTable');
@@ -76,7 +76,7 @@ describe('Customers functionality', () => {
     it('Should return the id of the customer you just added', () => {
       return addNewCustomer(nicolasCage)
       .then(id => {
-        equal(50, id)
+        isNumber(id);
       })
     });
   })

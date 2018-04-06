@@ -110,7 +110,7 @@ describe('getAllStockedProducts()', () => {
   it('should have a length of 43', () => {
     return getAllStockedProducts()
       .then(response => {
-        assert.equal(response.length, 44);
+        assert.equal(response.length, 43);
       });
   });
 });

@@ -19,7 +19,7 @@ module.exports.addPaymentOption = ({payment_type, account_number, customer_id}) 
         customer_id)
       VALUES(
       	null,
-      	"${payment_type}",
+      	${payment_type},
       	"${account_number}",
       	${customer_id}
       )`, function(err) {
