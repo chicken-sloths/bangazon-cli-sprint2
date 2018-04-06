@@ -15,7 +15,7 @@ module.exports.addCustProdV = [{
 },{
   name: 'productPrice',
   description: 'Enter product price',
-  pattern: /^[0-9 ]*$/,
+  pattern: /^\d+\.\d{2}$/,
   message: colors.red("Selection invalid: price must only include integers"),
   required: true
 }, {

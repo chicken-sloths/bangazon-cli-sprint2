@@ -18,6 +18,8 @@ let sampleProduct = {
   productType: 3,
   quantity: 4
 };
+const { generateSqlTable } = require('../db/sqlRunTemplate');
+const makeProductsTable = require('../db/makeProductsTable');
 
 describe('createProduct()', () => {
   it('should resolve into an integer', () => {
@@ -112,6 +114,10 @@ describe('deleteProduct()', () => {
 });
 
 describe('getAllStockedProducts()', () => {
+  beforeEach(done => {
+    generateSqlTable(makeProductsTable)
+      .then(() => done());
+  });
   it('should resolve into an array of objects', () => {
     getAllStockedProducts()
       .then(response => {
