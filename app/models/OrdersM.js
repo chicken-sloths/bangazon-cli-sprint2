@@ -1,13 +1,23 @@
+'use strict';
+
+/**
+ * A module that accesses the Orders table in the bangazon.sqlite DB
+ * @module ordersModel
+ */
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/bangazon.sqlite');
 
+/**
+ * @function checkForActiveOrder
+ * @param {number} customer_id - The customer ID of the customer whose active order status is requested
+ * @returns {Promise} A promise representing an object containing all the properties of the currently active order. An empty object if no active order
+ * @description Checks Orders for any orders with the given customer_id & which have not had a payment option added to the order (meaning the order is still active)
+ */
 module.exports.checkForActiveOrder = customer_id => {
-  // This will get the order matching the orderId
-  // This will be used by #5 and #6 (on the white board)
   return new Promise((resolve, reject) => {
     db.get(
-      `SELECT * 
-        FROM Orders 
+      `SELECT *
+        FROM Orders
         WHERE customer_id = ${customer_id}
         AND payment_option_id IS null;
         `,
@@ -22,14 +32,14 @@ module.exports.checkForActiveOrder = customer_id => {
   });
 };
 
-// If a customer HAS an order already that contains products, but that orders payment type
-//    is null, then it will add the product to that existing order
-// If a customer does not currently have an order (that contains >0 products),
-//    then it will create a new order for them
-// This function should only be called if a customer has an order with products on it
-// but that order does not have a payment_option_id on it
+/**
+ * @function patchPaymentTypeOntoOrder
+ * @param {object} order - Contains all properties: order_id, customer_id & creation_date
+ * @param {number} payment_option_id - The ID of the payment option to be added to the order (thus closing it)
+ * @returns {Promise} A promise representing the number of changes made to the Orders table (1 if successful)
+ * @description Changes the payment_option_id on an order from null to the specified ID, thus making the order 'closed'. NOTE: If the customer has no active orders, this will create a new order for the customer
+ */
 module.exports.patchPaymentTypeOntoOrder = (order, payment_option_id) => {
-  // This function will add a payment type to an order using patch-like verb like UPDATE 
   return new Promise((resolve, reject) => {
     db.run(
       `REPLACE INTO Orders (
@@ -51,11 +61,16 @@ module.exports.patchPaymentTypeOntoOrder = (order, payment_option_id) => {
   });
 };
 
-// This will INSERT a new order into the Orders table.
-// It will be used by #5 (on the white board), adding a product to an order. 
-
+/**
+ * @function createNewOrder
+ * @param {object} order
+ * @param {number} order.customer_id - Customer's ID
+ * @param {number} order.payment_option_id - will be null
+ * @param {string} order.creation_date - Date, in ISO format, of the order's creation
+ * @returns {Promise} A promise representing the ID of the order after its successful addition to the Orders table
+ * @description Creates a new, empty & active order for a customer to be able to add products to
+ */
 module.exports.createNewOrder = order => {
-  // This function will create a new order for a customer wihtout an active order
   return new Promise((resolve, reject) => {
     db.run(
       `INSERT INTO Orders(
