@@ -4,7 +4,7 @@ const prompt = require('prompt');
 const promptObj = require('../views/createCustV');
 const {getCustomerByPhoneNumber, addNewCustomer} = require('../models/CustomersM.js')
 
-module.exports.promptNewCustomer = () => {
+module.exports.newCustomer = () => {
   return new Promise((resolve, reject) => {
     prompt.get(promptObj, (error, customerObj) => {
       getCustomerByPhoneNumber(customerObj.phone_number)

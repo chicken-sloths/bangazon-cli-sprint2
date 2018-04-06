@@ -5,7 +5,7 @@ const prompt = require('prompt'),
       { getSingleOrder, patchOrder } = require('../models/OrdersM'),
       { getPaymentOptions } = require('../models/PaymentOptionsM');
 
-module.exports.completeOrderPrompt = userId =>
+module.exports.completeOrder = userId =>
   new Promise((resolve, reject) =>
     Promise.all([getSingleOrder(userId), getPaymentOptions(userId)])
       .then((orderTotal, paymentOptions) => 
