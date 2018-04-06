@@ -10,16 +10,16 @@ module.exports.getPaymentOptionsForCustomer = id =>
     )
   );
 
-module.exports.addPaymentOption = ({type, account_number, customer_id}) =>
+module.exports.addPaymentOption = ({payment_type, account_number, customer_id}) =>
   new Promise((resolve, reject) =>
     db.run(`INSERT INTO Payment_Options(
         payment_option_id,
-        type,
+        payment_type,
         account_number,
         customer_id)
       VALUES(
       	null,
-      	"${type}",
+      	"${payment_type}",
       	"${account_number}",
       	${customer_id}
       )`, function(err) {
