@@ -26,6 +26,7 @@ prompt.start();
 
 const warning = string => {
   console.log(red(string));
+  module.exports.displayWelcome(getActiveCustomer());
 };
 const success = string => {
   console.log(green(string));
@@ -33,54 +34,52 @@ const success = string => {
 }
 
 let mainMenuHandler = (err, userInput) => {
-  if (userInput.choice != '12') {
-    if (userInput.choice == '1') {
-      newCustomer()
-        .then(custId => {
-          success(`You just added a customer with the id of ${custId}`);
-        })
-        .catch(err => warning(err));
-    } else if (userInput.choice === '2') {
-      setActiveCustomer()
-        .then(id => {
-          success(`You just selected this customer id: ${id}`);
-        })
-        .catch(err => warning(err));
-    } else if (userInput.choice == '3') {
-      promptNewPaymentOption(getActiveCustomer())
-        .then(paymentObj => {
-          return saveNewPaymentOption(paymentObj);
-        })
-        .then((data) => {
-          success(data);
-        })
-        .catch(err => warning(err));
-    } else if (userInput.choice == '4') {
-      addCustomerProduct()
-        .then(response => {
-          success("You have added the product.");
-        })
-        .catch(err => warning(err));
-    }
-    else if (userInput.choice == '5') {
-      addProductToOrder()
-        .then(data => {
-          success("You have added the product to your cart.");
-        })
-        .catch(err => warning(err));
-    } else if (userInput.choice == '6') {
-      completeOrder(getActiveCustomer())
-        .then(data => {
-          success(data);
-        })
-        .catch(err => warning(err));
-    } else if (userInput.choice == '7') {
-      deleteProduct()
-        .then(data => {
-          success(data);
-        })
-        .catch(err => warning(err));
-    }
+  if (userInput.choice == '1') {
+    newCustomer()
+      .then(custId => {
+        success(`You just added a customer with the id of ${custId}`);
+      })
+      .catch(err => warning(err));
+  } else if (userInput.choice === '2') {
+    setActiveCustomer()
+      .then(id => {
+        success(`You just selected this customer id: ${id}`);
+      })
+      .catch(err => warning(err));
+  } else if (userInput.choice == '3') {
+    promptNewPaymentOption(getActiveCustomer())
+      .then(paymentObj => {
+        return saveNewPaymentOption(paymentObj);
+      })
+      .then((data) => {
+        success(data);
+      })
+      .catch(err => warning(err));
+  } else if (userInput.choice == '4') {
+    addCustomerProduct()
+      .then(response => {
+        success("You have added the product.");
+      })
+      .catch(err => warning(err));
+  }
+  else if (userInput.choice == '5') {
+    addProductToOrder()
+      .then(data => {
+        success("You have added the product to your cart.");
+      })
+      .catch(err => warning(err));
+  } else if (userInput.choice == '6') {
+    completeOrder(getActiveCustomer())
+      .then(data => {
+        success(data);
+      })
+      .catch(err => warning(err));
+  } else if (userInput.choice == '7') {
+    deleteProduct()
+      .then(data => {
+        data ? success("You have successfully deleted the product.") : warning("The product was not deleted. Try again later.");
+      })
+      .catch(err => warning(err));
   }
 };
 
