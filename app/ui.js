@@ -55,6 +55,10 @@ let mainMenuHandler = (err, userInput) => {
       });
     } else if(userInput.choice == '4') {
       addCustomerProduct()
+      .then(data => {
+        // after success, should we direct back to main menu after adding product? ask to add another?
+      })
+      .catch(err => console.log(`${red(err.message)}`));
     }
     else if (userInput.choice == '5') {
     addProductToOrder()

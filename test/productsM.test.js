@@ -15,7 +15,8 @@ let sampleProduct = {
   name: 'Name',
   price: 235,
   description: 'Description',
-  productType: 3
+  productType: 3,
+  quantity: 4
 };
 
 describe('createProduct()', () => {

@@ -6,10 +6,8 @@ const db = new Database(path.join(__dirname, '../..', 'db', 'bangazon.sqlite'));
 const activeCustomer = require("../controllers/activeCustC");
 
 module.exports.createProduct = (product) => {
-  console.log('ready to add', product);
   return new Promise((resolve, reject) => {
     let { name, price, description, productType, quantity } = product;
-    console.log("name, price, description, productType", name, price, description, productType);
     db.run(`INSERT INTO Products (
       product_id,
       current_price,
