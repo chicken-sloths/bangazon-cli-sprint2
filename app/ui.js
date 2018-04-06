@@ -35,7 +35,6 @@ let mainMenuHandler = (err, userInput) => {
   } else if (userInput.choice === '2') {
     setActiveCustomer()
       .then(active_user_id => {
-        console.log(`You just selected this customer id: id!`);
         module.exports.displayWelcome(getActiveCustomer());
       })
       .catch(err=>{
@@ -44,11 +43,9 @@ let mainMenuHandler = (err, userInput) => {
   } else if (userInput.choice == '3'){
     promptNewPaymentOption(getActiveCustomer())
     .then(paymentObj => {
-      console.log('payment option to save', paymentObj)
       return saveNewPaymentOption(paymentObj);
     })
       .then((custData) => {
-        console.log('saved succesfully!',custData);
         module.exports.displayWelcome(getActiveCustomer());
       })
       .catch(err => {
