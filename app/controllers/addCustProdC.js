@@ -32,7 +32,7 @@ module.exports.addCustomerProduct = () => {
           console.log(green('Success! Your product has been added.'));
         })
         .catch( (err) => {
-          console.log(red('Success! Your product has been added.'));
+          console.log(red('Oh No! Something went wrong - your product was not added'));
           reject(err);
         })
       });
