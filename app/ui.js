@@ -52,13 +52,7 @@ let mainMenuHandler = (err, userInput) => {
         })
         .then((response) => success(response))
         .catch(err => warning(err));
-    } /* else if (userInput.choice == '4') {
-      addCustomerProduct()
-        .then(response => {
-          success("You have added the product.");
-        })
-        .catch(err => warning(err));
-    } 
+    } /*
     else if (userInput.choice == '5') {
       addProductToOrder()
         .then(data => {

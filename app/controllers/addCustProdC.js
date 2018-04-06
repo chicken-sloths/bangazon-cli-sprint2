@@ -29,11 +29,10 @@ module.exports.addCustomerProduct = () => {
         // sends newProduct object to controller for adding to DB
         return createProduct(newProduct)
         .then( (added) => {
-          console.log(green('Success! Your product has been added.'));
+          resolve('Success! Your product has been added.');
         })
         .catch( (err) => {
-          console.log(red('Oh No! Something went wrong - your product was not added'));
-          reject(err);
+          reject('Oh No! Something went wrong - your product was not added');
         })
       });
     })
