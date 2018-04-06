@@ -17,6 +17,7 @@ module.exports.completeOrder = () => {
     let userId = getActiveCustomer();
     checkForActiveOrder(userId)
       .then(order => {
+        if (!order) return reject("This customer has no active orders.");
         Promise.all([
           getOrderTotal(order),
           getPaymentOptionsForCustomer(userId)
