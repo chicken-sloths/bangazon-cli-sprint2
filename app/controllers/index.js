@@ -1,7 +1,7 @@
 "use strict";
 
 const { setActiveCustomer, getActiveCustomer } = require('./activeCustC');
-const { newPaymentOption } = require('./addCustPaymentOptC');
+const { newPaymentOption, saveNewPaymentOption } = require('./addCustPaymentOptC');
 const { addCustomerProduct } = require('./addCustProdC');
 const { addProductToOrder } = require('./addProdToOrderC');
 const { completeOrder } = require('./completeOrderC');
@@ -16,5 +16,6 @@ module.exports = {
   completeOrder,
   deleteProduct,
   newCustomer,
-  newPaymentOption
+  newPaymentOption,
+  saveNewPaymentOption
 };

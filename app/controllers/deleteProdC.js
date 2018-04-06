@@ -11,7 +11,7 @@ module.exports.deleteProduct = () => {
     model.getProductsByCreator(getActiveCustomer())
       .then(products => {
         console.log('Here is a list of your products:');
-        if (products.length == 0) reject(new Error("You have no products."));
+        if (products.length == 0) reject("This customer has no products.");
         products.map(p => {
           console.log(`${p.product_id}. ${p.title}`);
         });
@@ -22,11 +22,11 @@ module.exports.deleteProduct = () => {
               if (product && product.creator_id == getActiveCustomer()) {
                 return model.deleteProduct(product.product_id);
               } else {
-                reject(new Error("This product doesn't belong to you."));
+                reject("This product doesn't belong to you.");
               }
             })
             .then(changed => {
-              changed ? resolve(changed) : reject(new Error("Something went wrong. This product was not deleted."));
+              changed ? resolve("You have successfully deleted the product.") : reject("Something went wrong. This product was not deleted.");
             })
             .catch(err => reject(err));
         });

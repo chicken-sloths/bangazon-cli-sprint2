@@ -17,60 +17,55 @@ const {
   completeOrder,
   deleteProduct,
   newCustomer,
-  newPaymentOption
+  newPaymentOption,
+  saveNewPaymentOption
 } = require("./controllers/index");
+
+let options = {
+  1: newCustomer,
+  2: setActiveCustomer,
+  4: addCustomerProduct,
+  5: addProductToOrder,
+  6: completeOrder,
+  7: deleteProduct
+};
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  if (userInput.choice == '1') {
-    newCustomer()
-      .then(custId => {
-        success(`You just added a customer with the id of ${custId}`);
-      })
-      .catch(err => warning(err));
-  } else if (userInput.choice === '2') {
-    setActiveCustomer()
-      .then(id => {
-        success(`You just selected this customer id: ${id}`);
-      })
-      .catch(err => warning(err));
-  } else if (userInput.choice == '3') {
-    promptNewPaymentOption(getActiveCustomer())
-      .then(paymentObj => {
-        return saveNewPaymentOption(paymentObj);
-      })
-      .then((data) => {
-        success(data);
-      })
-      .catch(err => warning(err));
-  } else if (userInput.choice == '4') {
-    addCustomerProduct()
-      .then(response => {
-        success("You have added the product.");
-      })
-      .catch(err => warning(err));
-  }
-  else if (userInput.choice == '5') {
-    addProductToOrder()
-      .then(data => {
-        success("You have added the product to your cart.");
-      })
-      .catch(err => warning(err));
-  } else if (userInput.choice == '6') {
-    completeOrder(getActiveCustomer())
-      .then(data => {
-        success(data);
-      })
-      .catch(err => warning(err));
-  } else if (userInput.choice == '7') {
-    deleteProduct()
-      .then(data => {
-        data ? success("You have successfully deleted the product.") : warning("The product was not deleted. Try again later.");
-      })
-      .catch(err => warning(err));
+  // if there is no activeCustomer and there has to be...
+  if (userInput.choice != '2' && userInput.choice != '1' && getActiveCustomer() == null) {
+    warning("Please select an active customer.");
+  } else {
+    if (options.hasOwnProperty(userInput.choice)) {
+      options[userInput.choice]()
+        .then(response => {
+          success(response);
+        })
+        .catch(err => warning(err));
+    } else if (userInput.choice == '3') {
+      newPaymentOption(getActiveCustomer())
+        .then(paymentObj => {
+          return saveNewPaymentOption(paymentObj);
+        })
+        .then((response) => success(response))
+        .catch(err => warning(err));
+    } /* else if (userInput.choice == '4') {
+      addCustomerProduct()
+        .then(response => {
+          success("You have added the product.");
+        })
+        .catch(err => warning(err));
+    } 
+    else if (userInput.choice == '5') {
+      addProductToOrder()
+        .then(data => {
+          success();
+        })
+        .catch(err => warning(err));
+    } */
   }
 };
 
