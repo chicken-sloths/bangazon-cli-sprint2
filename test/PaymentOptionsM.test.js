@@ -43,7 +43,6 @@ describe('PaymentOptionsModel module', () => {
       	customer_id: 23
       };
 
-    
       return addPaymentOption(fakePaymentOption)
 	     .then(payOptId => isNumber(payOptId));
     });

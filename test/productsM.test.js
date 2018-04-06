@@ -107,11 +107,16 @@ describe('getAllStockedProducts()', () => {
         assert.isObject(response[0]);
       });
   });
-  it('should have a length of 43', () => {
-    return getAllStockedProducts()
-      .then(response => {
-        assert.equal(response.length, 43);
-      });
+  it('should have less than or equal to stocked products than total products', () => {
+    let allProdsLength;
+    return getAllProducts()
+    .then(allProds=>{
+      allProdsLength = allProds.length;
+      return getAllStockedProducts()
+    })
+    .then(response => {
+      assert.isTrue(response.length <= allProdsLength);
+    });
   });
 });
 
