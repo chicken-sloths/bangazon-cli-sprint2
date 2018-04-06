@@ -24,7 +24,7 @@ describe('PaymentOptionsModel module', () => {
     });
 
     it('should return an empty array if cust id has no payment options', () => {
-      // customer_id: 11 has no payment options
+      // customer_id: 1 has no payment options
       return getPaymentOptionsForCustomer(1)
 	       .then(resp => isEmpty(resp));
     });
