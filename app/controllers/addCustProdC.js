@@ -20,7 +20,8 @@ module.exports.addCustomerProduct = () => {
           price: results.productPrice,
           name: results.productName,
           description: results.productDescription,
-          productType: results.productType
+          productType: results.productType,
+          quantity: results.productQuantity
         };
         console.log('in ctrl', newProduct);
         return createProduct(newProduct)

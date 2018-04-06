@@ -8,7 +8,7 @@ const activeCustomer = require("../controllers/activeCustC");
 module.exports.createProduct = (product) => {
   console.log('ready to add', product);
   return new Promise((resolve, reject) => {
-    let { name, price, description, productType } = product;
+    let { name, price, description, productType, quantity } = product;
     console.log("name, price, description, productType", name, price, description, productType);
     db.run(`INSERT INTO Products (
       product_id,
@@ -16,14 +16,18 @@ module.exports.createProduct = (product) => {
       title,
       description,
       product_type_id,
-      creator_id
+      creator_id,
+      creation_date,
+      quantity
     ) VALUES (
       null,
       "${price}",
       "${name}",
       "${description}",
       ${productType},
-      ${activeCustomer.getActiveCustomer()}
+      ${activeCustomer.getActiveCustomer()},
+      date('now'),
+      ${quantity}
     )`, function (err) {
         if (err) return reject(err);
           resolve(this.lastID);
