@@ -13,9 +13,9 @@ describe('PaymentOptionsModel module', () => {
   describe('getPaymentOptionsForCustomer()', () => {
     it('should get all payment type options for cust id', () => {
       const option = {
-        payment_option_id: 39,
-        payment_type: 4,
-        account_number: "04359020",
+        payment_option_id: 20,
+        payment_type: 15,
+        account_number: "25617724",
         customer_id: 12 
       };
 
