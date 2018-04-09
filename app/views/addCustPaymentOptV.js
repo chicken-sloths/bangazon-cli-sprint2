@@ -7,7 +7,7 @@ module.exports.paymentOptionPrompts = (paymentTypesArray)=>{
       description: 'Please enter a payment option',
       required: true,
       conform: (userInput)=>{
-        return (userInput < paymentTypesArray.length) && (userInput >= 0) ? true : false;
+        return (userInput < paymentTypesArray.length) && (userInput >= 0) && Number.isInteger(+userInput) ? true : false;
       }
     },
     {

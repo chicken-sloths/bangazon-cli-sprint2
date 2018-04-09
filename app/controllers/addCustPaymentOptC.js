@@ -15,7 +15,7 @@ module.exports.newPaymentOption = () => {
         console.log(pt.payment_type_id, pt.name);
       });
 
-      prompt.get(paymentOptionPrompts(allPaymentTypes),
+      prompt.get(paymentOptionPrompts(paymentTypes),
         (err, {paymentType, accountNumber}) => {
           if (err) return reject(err);
           // build an object of payment type and account #
