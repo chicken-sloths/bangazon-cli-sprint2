@@ -26,7 +26,7 @@ module.exports.getPaymentOptionsForCustomer = id =>
 /**
  * @function addPaymentOption
  * @param {Object} paymentOption
- * @param {string} paymentOption.type - The name of payment type
+ * @param {string} paymentOption.payment_type - The name of payment type
  * @param {string} paymentOption.account_number - The account number for that payment type
  * @param {number} paymentOption.customer_id - The customer id of the active customer
  * @returns {Promise} A Promise that represents the payment_option_id of the newly added payment option
