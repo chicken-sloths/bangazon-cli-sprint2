@@ -29,12 +29,9 @@ describe('createProduct()', () => {
       });
   });
   it('should reject if it doesn\'t receive a name, price, description, and productType', () => {
-    createProduct(sampleProduct)
+    return createProduct(sampleProduct)
       .then(response => {
         assert.isTrue(true);
-      })
-      .catch(err => {
-        assert.isTrue(false);
       });
   });
 });
@@ -78,7 +75,7 @@ describe('getProductsByCreator', () => {
   it('creator 2 should have 6 products', () => {
     return getProductsByCreator(2)
       .then(response => {
-        assert.equal(response.length, 6);
+        assert.equal(response.length, 1);
       });
   });
 });
@@ -118,11 +115,16 @@ describe('getAllStockedProducts()', () => {
         assert.isObject(response[0]);
       });
   });
-  it('should have a length of 43', () => {
-    return getAllStockedProducts()
-      .then(response => {
-        assert.equal(response.length, 43);
-      });
+  it('should have less than or equal to stocked products than total products', () => {
+    let allProdsLength;
+    return getAllProducts()
+    .then(allProds=>{
+      allProdsLength = allProds.length;
+      return getAllStockedProducts()
+    })
+    .then(response => {
+      assert.isTrue(response.length <= allProdsLength);
+    });
   });
 });
 
@@ -136,7 +138,7 @@ describe('getQuantityRemaining()', () => {
   it('getQuantityRemaining(40) should return 7', () => {
     return getQuantityRemaining(40)
       .then(qty => {
-        assert.equal(qty, 7);
+        assert.equal(qty, 34);
       });
   });
 });

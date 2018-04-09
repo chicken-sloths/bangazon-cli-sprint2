@@ -15,7 +15,10 @@ const db = new sqlite3.Database('db/bangazon.sqlite');
  */
 module.exports.getPaymentOptionsForCustomer = id =>
   new Promise((resolve, reject) =>
-    db.all(`SELECT * FROM Payment_Options WHERE customer_id=${id}`,
+    db.all(`SELECT po.*, pt.name
+      FROM "Payment_Options" po
+      JOIN "Payment_Types" pt ON po.payment_type = pt.payment_type_id
+      WHERE customer_id=${id}`,
       (err, opts) => err ? reject(err) : resolve(opts)
     )
   );
@@ -30,16 +33,16 @@ module.exports.getPaymentOptionsForCustomer = id =>
  * @description Adds a payment option for the active customer to the Payment_Options table in the baganzon.sqlite DB
  */
 
-module.exports.addPaymentOption = ({type, account_number, customer_id}) =>
+module.exports.addPaymentOption = ({payment_type, account_number, customer_id}) =>
   new Promise((resolve, reject) =>
     db.run(`INSERT INTO Payment_Options(
         payment_option_id,
-        type,
+        payment_type,
         account_number,
         customer_id)
       VALUES(
       	null,
-      	"${type}",
+      	${payment_type},
       	"${account_number}",
       	${customer_id}
       )`, function(err) {
