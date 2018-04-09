@@ -6,9 +6,9 @@ module.exports.createPrompt = numberOfCustomers => {
         name: 'custId',
         description: 'Please choose a customer from the list.',
         required: true,
-        conform: userChoice => userChoice >= 0 && userChoice < numberOfCustomers ? true : false
+        conform: userChoice => userChoice >= 0 && userChoice < numberOfCustomers && Number.isInteger(+userChoice) ? true : false
+        
     }]
-
     return activeCustomerPrompt;
 }
 
