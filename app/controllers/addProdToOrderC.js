@@ -89,7 +89,7 @@ module.exports.addProductToOrder = () => {
   return new Promise((resolve, reject) => {
     getAllStockedProducts()
       .then(products => {
-        // List all the products
+        // List all the products with current quantity > 0
         console.log('Here are all the products:');
         products.forEach((product, i) => {
           console.log(`**${product.title}**`);
@@ -99,10 +99,10 @@ module.exports.addProductToOrder = () => {
         // Prompt the user to enter a product id  
         prompt.get(promptObj, (err, { prodId }) => {
           if (err) return reject(err);
-          // Check to see if the customer already has an active order
+          //checks the remaining quantity of the product selected, if product quantity <= 0, promise rejects.
           getQuantityRemaining(prodId)
-          .then(prodQuantity => {
-            console.log("current quantity", prodQuantity);
+          .then(prodQuantity => { 
+            // Check to see if the customer already has an active order
             return checkForActiveOrder(customerId)
           }) 
             .then(order => {
