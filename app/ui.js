@@ -24,6 +24,7 @@ const {
 let options = {
   1: newCustomer,
   2: setActiveCustomer,
+  3: newPaymentOption,
   4: addCustomerProduct,
   5: addProductToOrder,
   6: completeOrder,
@@ -44,13 +45,6 @@ let mainMenuHandler = (err, userInput) => {
         .then(response => {
           success(response);
         })
-        .catch(err => warning(err));
-    } else if (userInput.choice == '3') {
-      newPaymentOption(getActiveCustomer())
-        .then(paymentObj => {
-          return saveNewPaymentOption(paymentObj);
-        })
-        .then((response) => success(response))
         .catch(err => warning(err));
     }
   }
