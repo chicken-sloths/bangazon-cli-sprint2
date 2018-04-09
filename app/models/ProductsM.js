@@ -118,7 +118,7 @@ module.exports.getAllStockedProducts = () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT
       p.*,
-      COUNT(*) as quantity_sold
+      COUNT(po.order_id) as quantity_sold
     FROM Products p
     LEFT JOIN Product_Orders po
       ON po.product_id = p.product_id

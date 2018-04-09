@@ -2,11 +2,12 @@
 
 const prompt = require('prompt');
 const promptObj = require('../views/addProdToOrderV');
-const { getAllProducts } = require('../models/ProductsM');
+const { getAllStockedProducts } = require('../models/ProductsM');
 const { getActiveCustomer } = require('../controllers/activeCustC');
 const { checkForActiveOrder, createNewOrder } = require('../models/OrdersM.js');
 const { addToProductOrders } = require('../models/ProductOrdersM');
 const { getProduct } = require('../models/ProductsM');
+
 
 // Promises to add a product to a customer's order
 const addProduct = (order, prodId) => {
@@ -86,12 +87,14 @@ module.exports.addProductToOrder = () => {
   let customerId = getActiveCustomer();
 
   return new Promise((resolve, reject) => {
-    getAllProducts()
+    getAllStockedProducts()
       .then(products => {
         // List all the products
         console.log('Here are all the products:');
         products.forEach((product, i) => {
-          console.log(`${i}. ${product.title}`);
+          console.log(`${product.title}`);
+          console.log(`-Purchase Code: ${product.product_id}`);
+          console.log("          ");
         });
         // Prompt the user to enter a product id  
         prompt.get(promptObj, (err, { prodId }) => {
