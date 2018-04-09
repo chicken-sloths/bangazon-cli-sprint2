@@ -9,10 +9,10 @@ module.exports.addCustProdV = [{
   required: true
 }, {
   name: 'productName',
-  description: 'Enter Product name',
+  description: 'Enter product name',
   type: 'string',
   required: true
-},{
+}, {
   name: 'productPrice',
   description: 'Enter product price',
   pattern: /^\d+\.\d{2}$/,
@@ -23,10 +23,10 @@ module.exports.addCustProdV = [{
   description: 'Enter product description',
   type: 'string',
   required: true
-},
-{
+}, {
   name: 'productQuantity',
-  description: 'Enter Product Quantity',
-  type: 'integer',
+  description: 'Enter product quantity',
+  pattern: /^\d+$/,
+  message: colors.red("Please enter a whole, positive integer"),
   required: true
-}]
+}];
