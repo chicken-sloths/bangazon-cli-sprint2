@@ -36,7 +36,10 @@ prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
   // if there is no activeCustomer and there has to be...
-  if (userInput.choice != '2' && userInput.choice != '1' && getActiveCustomer() == null) {
+  let intChoice = parseInt(userInput.choice);
+  if (intChoice > 13 || intChoice < 0) {
+    warning("Please select a number corresponding to an option on the menu.");
+  } else if (intChoice > 2 && getActiveCustomer() == null) {
     warning("Please select an active customer.");
   } else {
     if (options.hasOwnProperty(userInput.choice)) {
@@ -45,13 +48,15 @@ let mainMenuHandler = (err, userInput) => {
           success(response);
         })
         .catch(err => warning(err));
-    } else if (userInput.choice == '3') {
+    } else if (intChoice == 3) {
       newPaymentOption(getActiveCustomer())
         .then(paymentObj => {
           return saveNewPaymentOption(paymentObj);
         })
         .then((response) => success(response))
         .catch(err => warning(err));
+    } else if (intChoice != 12) {
+      warning("This option is not avaible at this time.");
     }
   }
 };
