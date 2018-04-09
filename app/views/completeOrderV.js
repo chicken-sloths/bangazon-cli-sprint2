@@ -13,12 +13,12 @@ module.exports.createPrompt = (total, opts) => {
       name: "checkout",
       description: checkoutMsg,
       message: "Please enter Y or N",
-      pattern: /^[NY]$/,
+      pattern: /^[NY]$/i,
       required: true
     },
     {
       name: "paymentOpt",
-      description: `Choose a payment option:\n${optionsMsg}`,
+      description: `\nAvailable Payment Options:\n${optionsMsg}\nChoose a payment option:`,
       pattern: optionsRegEx,
       required: true,
       ask: function () {
