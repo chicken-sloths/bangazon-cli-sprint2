@@ -36,7 +36,7 @@ prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
   // if there is no activeCustomer and there has to be...
-  if (userInput.choice != '2' && userInput.choice != '1' && getActiveCustomer() == null) {
+  if (userInput.choice != '2' && userInput.choice != '1' && userInput.choice != '12' && getActiveCustomer() == null) {
     warning("Please select an active customer.");
   } else {
     if (options.hasOwnProperty(userInput.choice)) {
