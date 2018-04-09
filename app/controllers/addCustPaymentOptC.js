@@ -10,7 +10,7 @@ module.exports.newPaymentOption = (activeCustomerId) => {
       paymentTypes.forEach(pt=>{
         console.log(pt.payment_type_id, pt.name);
       });
-      prompt.get(paymentOptionPrompts(allPaymentTypes),
+      prompt.get(paymentOptionPrompts(paymentTypes),
         (err, result) => {
           // build an object of payment type and account #
           let paymentOption = {
