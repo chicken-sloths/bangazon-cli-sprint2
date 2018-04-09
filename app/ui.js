@@ -86,7 +86,10 @@ const displayWelcome = (active_user_id) => {
   ${magenta('12.')} Leave Bangazon`);
     prompt.get([{
       name: 'choice',
-      description: 'Please make a selection'
+      description: 'Please make a selection',
+      conform: (userInput)=>{
+        return (/^[0-9]+$/.test(userInput) && parseInt(userInput) > 0 && parseInt(userInput) <= 12);
+      }
     }], mainMenuHandler);
   });
 };
