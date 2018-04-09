@@ -1,7 +1,8 @@
 'use strict';	
-const { activeCustomerPrompt } = require('../views/activeCustV');
+const { createPrompt } = require('../views/activeCustV');
 const { getAllCustomers } = require('../models/CustomersM');
 const prompt = require('prompt');
+
 
 const activeCustomer = {
   id: null
@@ -21,7 +22,8 @@ module.exports.setActiveCustomer = () => {
       customers.forEach(c=>{
         console.log(c.customer_id, c.first_name, c.last_name);
       });
-      prompt.get(activeCustomerPrompt,
+      console.log('customers.length', customers.length);
+      prompt.get(createPrompt(customers.length),
         (err, result) => {
           setActiveId(result.custId);
           err ? reject(err) : resolve(`You just selected this customer id: ${result.custId}.`);
