@@ -8,7 +8,7 @@
     "data:generate": "node data/build-data.js",
     "start": "node bin/bangazon",
     "test": "mocha -R list --watch",
-    "docs:generate": "jsdoc -c conf.json app/"
+    "docs:generate": "jsdoc -c conf.json app/ ./README.md"
   },
   "bin": {
     "bangazon": "bin/bangazon"
