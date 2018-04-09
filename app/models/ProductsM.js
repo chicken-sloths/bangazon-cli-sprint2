@@ -146,3 +146,39 @@ module.exports.getQuantityRemaining = product_id => {
     });
   });
 };
+
+/**
+ * @function updateProduct
+ * @param {object} product - An object containing all responses from the prompt
+ * @param {number} id
+ * @param {string} product.name - Name of the product
+ * @param {string} product.price - A floating point integer, saved as a string for SQLite's restrictions on data types
+ * @param {string} product.description - Description of the product
+ * @param {number} product.productType - ID of the product type
+ * @param {number} product.quantity - Initial quantity of the product
+ * @returns {Promise} A promise representing the number of successful changes made to the database.
+ * @description Updates an existing product
+ */
+module.exports.updateProduct = (id, product) => {
+  return new Promise((resolve, reject) => {
+    let { name, price, description, productType, quantity } = product;
+    db.run(`REPLACE INTO Products (
+      product_id,
+      current_price,
+      title,
+      description,
+      product_type_id,
+      quantity
+    ) VALUES (
+        ${id},
+        "${price}",
+        "${name}",
+        "${description}",
+        ${productType},
+        ${quantity}
+    )`, function(err) {
+      if (err) return reject(err);
+      resolve(this.changes);
+    })
+  });
+};
