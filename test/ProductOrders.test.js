@@ -17,7 +17,7 @@ describe('ProductOrdersM', () => {
       return getOrderTotal({ order_id: 2 })
       .then( (orderTotal) => {
         isObject(orderTotal);
-        deepEqual({ OrderTotal: 3377 }, orderTotal, 'order total of order_id: 2 should be 3377, test may fail if db has been changed recently');
+        deepEqual({ orderTotal: 397 }, orderTotal, 'order total of order_id: 2 should be 397, test may fail if db has been changed recently');
       })
     });
   })

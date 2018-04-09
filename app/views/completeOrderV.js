@@ -5,7 +5,7 @@ const prompt = require('prompt'),
 
 module.exports.createPrompt = (total, opts) => {
  const checkoutMsg = `Your order total is ${green('$' + total)}. Ready to purchase?\n(Y/N)`;
- const optionsMsg = opts.map((opt, idx) => `${idx + 1}. ${opt.type}`).join('\n');
+ const optionsMsg = opts.map((opt, idx) => `${idx + 1}. ${opt.name}`).join('\n');
  const optionsRegEx = new RegExp(`^[1-${opts.length}]$`);
 
   const checkoutPrompt = [

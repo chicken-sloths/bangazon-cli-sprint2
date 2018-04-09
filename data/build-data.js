@@ -27,6 +27,7 @@ const writeJson = (jsonDir) => {
     customers,
     productTypes,
     products,
+    paymentTypes,
     paymentOptions,
     orders,
     productOrders
@@ -37,6 +38,8 @@ const writeJson = (jsonDir) => {
   fs.createWriteStream(jsonDir+"/productTypes.json").write(JSON.stringify(productTypes));
 
   fs.createWriteStream(jsonDir+"/products.json").write(JSON.stringify(products));
+
+  fs.createWriteStream(jsonDir+"/paymentTypes.json").write(JSON.stringify(paymentTypes));
 
   fs.createWriteStream(jsonDir+"/paymentOptions.json").write(JSON.stringify(paymentOptions));
 

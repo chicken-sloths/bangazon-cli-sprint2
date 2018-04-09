@@ -16,11 +16,11 @@ describe("checkForActiveOrder function", () => {
     isFunction(checkForActiveOrder);
   });
   it("should return a promise", () => {
-    typeOf(checkForActiveOrder(3), "promise");
+    typeOf(checkForActiveOrder(33), "promise");
   });
 
   it("should return the order id as an integer", () => {
-    return checkForActiveOrder(3)
+    return checkForActiveOrder(33)
       .then((order) => {
         typeOf(order.order_id, "number");
         isNumber(order.order_id);
