@@ -2,7 +2,7 @@
 
 const prompt = require('prompt');
 const promptObj = require('../views/addProdToOrderV');
-const { getAllStockedProducts } = require('../models/ProductsM');
+const { getAllStockedProducts, getQuantityRemaining } = require('../models/ProductsM');
 const { getActiveCustomer } = require('../controllers/activeCustC');
 const { checkForActiveOrder, createNewOrder } = require('../models/OrdersM.js');
 const { addToProductOrders } = require('../models/ProductOrdersM');
@@ -100,7 +100,11 @@ module.exports.addProductToOrder = () => {
         prompt.get(promptObj, (err, { prodId }) => {
           if (err) return reject(err);
           // Check to see if the customer already has an active order
-          checkForActiveOrder(customerId)
+          getQuantityRemaining(prodId)
+          .then(prodQuantity => {
+            console.log("current quantity", prodQuantity);
+            return checkForActiveOrder(customerId)
+          }) 
             .then(order => {
               return addProduct(order, prodId)
             })

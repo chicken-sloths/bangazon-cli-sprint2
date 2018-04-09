@@ -141,7 +141,12 @@ module.exports.getQuantityRemaining = product_id => {
       if (err) return reject(err);
       db.all(`SELECT COUNT(*) as count FROM Product_Orders WHERE product_id = ${product_id}`, (err, data) => {
         if (err) return reject(err);
-        resolve(maxQty[0].quantity - data[0].count);
+        if (maxQty[0].quantity - data[0].count <= 0) {
+          reject("I'm sorry, this product is no longer available.");
+        }
+        else {
+          resolve(maxQty[0].quantity - data[0].count);
+        }
       });
     });
   });
