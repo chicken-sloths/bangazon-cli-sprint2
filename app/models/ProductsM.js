@@ -14,12 +14,12 @@ const db = new Database(path.join(__dirname, '../..', 'db', 'bangazon.sqlite'));
 /**
  * @function createProduct
  * @param {object} product - An object containing all responses from the prompt
- * @param {number} id - The active customer's id
- * @param {string} price - A floating point integer, saved as a string for SQLite's restrictions on data types
- * @param {string} name - Name of the product
- * @param {string} description - Description of the product
- * @param {number} productType - ID of the product type
- * @param {number} quantity - Initial quantity of the product
+ * @param {number} product.id - The active customer's id
+ * @param {string} product.price - A floating point integer, saved as a string for SQLite's restrictions on data types
+ * @param {string} product.name - Name of the product
+ * @param {string} product.description - Description of the product
+ * @param {number} product.productType - ID of the product type
+ * @param {number} product.quantity - Initial quantity of the product
  * @returns {Promise} A promise representing the product_id of the product added to the database
  * @description Adds a new product to the Products table
  */
