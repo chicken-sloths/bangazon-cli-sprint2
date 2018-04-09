@@ -3,8 +3,8 @@ const colors = require('colors/safe');
 
 module.exports.addCustProdV = [{
   name: 'productType',
-  description: 'Enter product category by number',
-  pattern: /^[0-9 ]*$/,
+  description: 'Enter Product Category by number',
+  pattern: /^[0-9]$/,
   message: colors.red("Selection invalid: product type does not exist, please select a numerical value from the list above"),
   required: true
 }, {
