@@ -39,7 +39,9 @@ let mainMenuHandler = (err, userInput) => {
   let intChoice = parseInt(userInput.choice);
   if (intChoice > 13 || intChoice <= 0) {
     warning("Please select a number corresponding to an option on the menu.");
-  } else if (intChoice > 2 && getActiveCustomer() == null) {
+  } else if (intChoice > 7 && intChoice != 12) {
+    warning("This option is not avaible at this time.");
+  } else if (intChoice > 2 && intChoice != 12 && getActiveCustomer() == null) {
     warning("Please select an active customer.");
   } else {
     if (options.hasOwnProperty(userInput.choice)) {
@@ -55,8 +57,6 @@ let mainMenuHandler = (err, userInput) => {
         })
         .then((response) => success(response))
         .catch(err => warning(err));
-    } else if (intChoice != 12) {
-      warning("This option is not avaible at this time.");
     }
   }
 };
