@@ -28,7 +28,7 @@ module.exports.saveNewPaymentOption = (paymentOptionObject)=>{
   return new Promise((resolve, reject)=>{
     addPaymentOption(paymentOptionObject)
     .then(paymentOptId=>{
-      resolve(paymentOptId);
+      resolve("Your payment option has been added.");
     })
     .catch(err=>{
       reject(err);
