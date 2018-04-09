@@ -22,7 +22,6 @@ module.exports.setActiveCustomer = () => {
       customers.forEach(c=>{
         console.log(c.customer_id, c.first_name, c.last_name);
       });
-      console.log('customers.length', customers.length);
       prompt.get(createPrompt(customers.length),
         (err, result) => {
           setActiveId(result.custId);
