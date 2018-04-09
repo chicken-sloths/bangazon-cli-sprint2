@@ -12,7 +12,7 @@ module.exports.newPaymentOption = (activeCustomerId) => {
       });
       prompt.get(paymentOptionPrompts,
         (err, result) => {
-          if(+result.paymentType> allPaymentTypes.length || +result.paymentType < 0){
+          if(+result.paymentType>= allPaymentTypes.length || +result.paymentType < 0){
             reject(console.log("That is not a valid payment type, ya jabroni!"))
           }
           // build an object of payment type and account #
