@@ -1,44 +1,47 @@
 const prompt = require('prompt');
 const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
-const { addPaymentOption } = require('../models/PaymentOptionsM');
+const {
+  addPaymentOption,
+  getPaymentOptionsForCustomer
+} = require('../models/PaymentOptionsM');
 const { getAllPaymentTypes } = require('../models/PaymentTypesM');
+const { getActiveCustomer } = require('./activeCustC');
 
-module.exports.newPaymentOption = (activeCustomerId) => {
+module.exports.newPaymentOption = () => {
   return new Promise((resolve, reject) => {
     getAllPaymentTypes()
     .then(paymentTypes=>{
       paymentTypes.forEach(pt=>{
         console.log(pt.payment_type_id, pt.name);
       });
+
       prompt.get(paymentOptionPrompts(paymentTypes),
-        (err, result) => {
+        (err, {paymentType, accountNumber}) => {
+          if (err) return reject(err);
           // build an object of payment type and account #
-          let paymentOption = {
-            payment_type: result.paymentType,
-            account_number: result.accountNumber,
-            customer_id: activeCustomerId
-          }
-          err ? reject(err) : resolve(paymentOption);
+          const paymentOption = {
+            payment_type: paymentType,
+            account_number: accountNumber,
+            customer_id: getActiveCustomer()
+          };
+
+          getPaymentOptionsForCustomer(paymentOption.customer_id)
+            .then(options => {
+              if (payOptCheck(options, +paymentType)) {
+                return reject("Customer already has a payment type of that kind");
+              }
+              return addPaymentOption(paymentOption)
+            })
+            .then(paymentOptId => {
+              resolve("Your payment option has been added.");
+            })
+            .catch(err => reject(err));
         });
     });
   });
-}
-
-module.exports.saveNewPaymentOption = (paymentOptionObject)=>{
-  return new Promise((resolve, reject)=>{
-    addPaymentOption(paymentOptionObject)
-    .then(paymentOptId=>{
-      resolve("Your payment option has been added.");
-    })
-    .catch(err=>{
-      reject(err);
-    });
-  });
 };
-// FOR REFERENCE: this is what the payment option object will look like when it eventually gets sent to the DB
-// {
-//   "payment_option_id": 0,
-//   "type": 5,
-//   "account_number": "12556622",
-//   "customer_id": 1
-// }
+
+// Checks that customer does not have a payment type of the kind
+// input already. E.g., customer can't have two 'Visa' payment options
+const payOptCheck = (array, check) =>
+  array.find(({payment_type}) => payment_type === check);
