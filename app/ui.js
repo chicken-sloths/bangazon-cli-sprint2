@@ -37,7 +37,12 @@ prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
   // if there is no activeCustomer and there has to be...
-  if (userInput.choice != '2' && userInput.choice != '1' && getActiveCustomer() == null) {
+  let intChoice = parseInt(userInput.choice);
+  if (intChoice > 13 || intChoice <= 0) {
+    warning("Please select a number corresponding to an option on the menu.");
+  } else if (intChoice > 7 && intChoice != 12) {
+    warning("This option is not avaible at this time.");
+  } else if (intChoice > 2 && intChoice != 12 && getActiveCustomer() == null) {
     warning("Please select an active customer.");
   } else {
     if (options.hasOwnProperty(userInput.choice)) {
@@ -75,7 +80,10 @@ const displayWelcome = (active_user_id) => {
   ${magenta('12.')} Leave Bangazon`);
     prompt.get([{
       name: 'choice',
-      description: 'Please make a selection'
+      description: 'Please make a selection',
+      conform: (userInput)=>{
+        return (/^[0-9]+$/.test(userInput) && parseInt(userInput) > 0 && parseInt(userInput) <= 12);
+      }
     }], mainMenuHandler);
   });
 };

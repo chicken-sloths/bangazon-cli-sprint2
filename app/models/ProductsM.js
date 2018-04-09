@@ -118,7 +118,7 @@ module.exports.getAllStockedProducts = () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT
       p.*,
-      COUNT(*) as quantity_sold
+      COUNT(po.order_id) as quantity_sold
     FROM Products p
     LEFT JOIN Product_Orders po
       ON po.product_id = p.product_id
@@ -141,7 +141,12 @@ module.exports.getQuantityRemaining = product_id => {
       if (err) return reject(err);
       db.all(`SELECT COUNT(*) as count FROM Product_Orders WHERE product_id = ${product_id}`, (err, data) => {
         if (err) return reject(err);
-        resolve(maxQty[0].quantity - data[0].count);
+        if (maxQty[0].quantity - data[0].count <= 0) {
+          reject("I'm sorry, this product is no longer available.");
+        }
+        else {
+          resolve(maxQty[0].quantity - data[0].count);
+        }
       });
     });
   });

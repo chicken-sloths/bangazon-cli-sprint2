@@ -2,11 +2,12 @@
 
 const prompt = require('prompt');
 const promptObj = require('../views/addProdToOrderV');
-const { getAllProducts } = require('../models/ProductsM');
+const { getAllStockedProducts, getQuantityRemaining } = require('../models/ProductsM');
 const { getActiveCustomer } = require('../controllers/activeCustC');
 const { checkForActiveOrder, createNewOrder } = require('../models/OrdersM.js');
 const { addToProductOrders } = require('../models/ProductOrdersM');
 const { getProduct } = require('../models/ProductsM');
+
 
 // Promises to add a product to a customer's order
 const addProduct = (order, prodId) => {
@@ -86,18 +87,22 @@ module.exports.addProductToOrder = () => {
   let customerId = getActiveCustomer();
 
   return new Promise((resolve, reject) => {
-    getAllProducts()
+    getAllStockedProducts()
       .then(products => {
-        // List all the products
+        // List all the products with current quantity > 0
         console.log('Here are all the products:');
-        products.forEach((product, i) => {
-          console.log(`${i}. ${product.title}`);
+        products.forEach((product) => {
+          console.log(`${product.product_id}. ${product.title}`);
         });
         // Prompt the user to enter a product id  
         prompt.get(promptObj, (err, { prodId }) => {
           if (err) return reject(err);
-          // Check to see if the customer already has an active order
-          checkForActiveOrder(customerId)
+          //checks the remaining quantity of the product selected, if product quantity <= 0, promise rejects.
+          getQuantityRemaining(prodId)
+          .then(prodQuantity => { 
+            // Check to see if the customer already has an active order
+            return checkForActiveOrder(customerId)
+          }) 
             .then(order => {
               return addProduct(order, prodId)
             })

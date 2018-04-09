@@ -10,8 +10,8 @@ const { getActiveCustomer } = require('./activeCustC');
 module.exports.newPaymentOption = () => {
   return new Promise((resolve, reject) => {
     getAllPaymentTypes()
-    .then(allPaymentTypes => {
-      allPaymentTypes.forEach(pt => {
+    .then(paymentTypes=>{
+      paymentTypes.forEach(pt=>{
         console.log(pt.payment_type_id, pt.name);
       });
 
