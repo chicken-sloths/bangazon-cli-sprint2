@@ -3,16 +3,16 @@ const colors = require('colors/safe');
 
 module.exports.addCustProdV = [{
   name: 'productType',
-  description: 'Enter Product Category by number',
+  description: 'Enter product category by number',
   pattern: /^[0-9 ]*$/,
   message: colors.red("Selection invalid: product type does not exist, please select a numerical value from the list above"),
   required: true
 }, {
   name: 'productName',
-  description: 'Enter Product name',
+  description: 'Enter product name',
   type: 'string',
   required: true
-},{
+}, {
   name: 'productPrice',
   description: 'Enter product price',
   pattern: /^\d+\.\d{2}$/,
@@ -23,10 +23,10 @@ module.exports.addCustProdV = [{
   description: 'Enter product description',
   type: 'string',
   required: true
-},
-{
+}, {
   name: 'productQuantity',
-  description: 'Enter Product Quantity',
-  type: 'integer',
+  description: 'Enter product quantity',
+  pattern: /^\d+$/,
+  message: colors.red("Please enter a whole, positive integer"),
   required: true
-}]
+}];
