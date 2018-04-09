@@ -6,12 +6,15 @@ const { getAllPaymentTypes } = require('../models/PaymentTypesM');
 module.exports.newPaymentOption = (activeCustomerId) => {
   return new Promise((resolve, reject) => {
     getAllPaymentTypes()
-    .then(paymentTypes=>{
-      paymentTypes.forEach(pt=>{
+    .then(allPaymentTypes=>{
+      allPaymentTypes.forEach(pt=>{
         console.log(pt.payment_type_id, pt.name);
       });
-      prompt.get(paymentOptionPrompts,
+      prompt.get(paymentOptionPrompts(allPaymentTypes),
         (err, result) => {
+          if(+result.paymentType>= allPaymentTypes.length || +result.paymentType < 0){
+            reject("That is not a valid payment type, ya jabroni!")
+          }
           // build an object of payment type and account #
           let paymentOption = {
             payment_type: result.paymentType,
@@ -35,10 +38,4 @@ module.exports.saveNewPaymentOption = (paymentOptionObject)=>{
     });
   });
 };
-// FOR REFERENCE: this is what the payment option object will look like when it eventually gets sent to the DB
-// {
-//   "payment_option_id": 0,
-//   "type": 5,
-//   "account_number": "12556622",
-//   "customer_id": 1
-// }
+
