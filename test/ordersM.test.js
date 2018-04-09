@@ -1,5 +1,5 @@
 
-const { assert: { isFunction, typeOf, isNumber, isUndefined } } = require('chai');
+const { assert: { isFunction, typeOf, isNumber, equal } } = require('chai');
 const { checkForActiveOrder, patchPaymentTypeOntoOrder, createNewOrder } = require('../app/models/OrdersM');
 const makeOrdersTable = require('../db/makeOrdersTable');
 const { generateSqlTable } = require('../db/sqlRunTemplate');
@@ -30,10 +30,9 @@ describe("checkForActiveOrder function", () => {
   it("should pass this test ONLY if the customer has no active order.", () => {
     return checkForActiveOrder(0)
       .then(order => {
-        // If customer has no active orders, "undefined" is returned
-        typeOf(order, "undefined");
-        isUndefined(order);
-      });
+        equal(0,1);
+      })
+      .catch(err => equal(1,1));
   });
 });
 

@@ -13,34 +13,33 @@ const addProduct = (order, prodId) => {
   return new Promise((resolve, reject) => {
     // Declare an empty variable that we'll define once we figure out if there's an order or not
     let orderId = null;
-  
+
     // If no order parameter gets passed in, create a new order and grab its id
-    if(!order){
+    if (!order) {
       createOrder(getActiveCustomer())
-      .then(newId => {
-        orderId = newId;
-        return addProductToExistingOrder(orderId, prodId)
-      })
-      .then(msg => {
-        resolve(msg);
-      })
-      .catch(err => {
-        reject('Create order failed');
-      })
+        .then(newId => {
+          orderId = newId;
+          return addProductToExistingOrder(orderId, prodId)
+        })
+        .catch(err => {
+          reject('Failed to create a new order. Please try again later.');
+        })
+        .then(msg => {
+          resolve(msg);
+        });
     } else {
       // If they already have an order, grab its id
       orderId = order.order_id;
-
       return addProductToExistingOrder(orderId, prodId)
         .then(msg => {
           resolve(msg);
         })
         .catch(err => {
-          reject('Create order failed');
-        })
+          reject('Failed to create a new order. Please try again later.');
+        });
     }
-  })
-}
+  });
+};
 
 const addProductToExistingOrder = (orderId, prodId) => {
   return new Promise((resolve, reject) => {
@@ -54,9 +53,9 @@ const addProductToExistingOrder = (orderId, prodId) => {
       })
       .catch(err => {
         reject('Add to order or get product didn\'t work.');
-      })
-  })
-}
+      });
+  });
+};
 
 // Creates a new order (with a null payment id) for the active customer and then calls addProduct
 const createOrder = (customerId) => {
@@ -69,7 +68,7 @@ const createOrder = (customerId) => {
     customer_id: customerId,
     payment_option_id: null,
     creation_date: isoDate
-  }
+  };
 
   return new Promise((resolve, reject) => {
     createNewOrder(order)
@@ -78,10 +77,9 @@ const createOrder = (customerId) => {
       })
       .catch(err => {
         reject(err);
-      })
-  })
-}
-
+      });
+  });
+};
 
 module.exports.addProductToOrder = () => {
 
@@ -99,17 +97,17 @@ module.exports.addProductToOrder = () => {
         prompt.get(promptObj, (err, { prodId }) => {
           if (err) return reject(err);
           // Check to see if the customer already has an active order
-          return checkForActiveOrder(customerId)
-          .then(order => {
-            return addProduct(order, prodId)
-          })
-          .then((msg) => {
-            resolve(msg);
-          })
-          .catch(err => {
-            reject(err);
-          });
+          checkForActiveOrder(customerId)
+            .then(order => {
+              return addProduct(order, prodId)
+            })
+            .then((msg) => {
+              return resolve(msg);
+            })
+            .catch(err => {
+              return reject(err);
+            });
         });
-    })
+      });
   });
 };

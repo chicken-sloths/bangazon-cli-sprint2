@@ -3,7 +3,7 @@ const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
 const { addPaymentOption } = require('../models/PaymentOptionsM');
 const { getAllPaymentTypes } = require('../models/PaymentTypesM');
 
-module.exports.promptNewPaymentOption = activeCustomerId => {
+module.exports.newPaymentOption = (activeCustomerId) => {
   return new Promise((resolve, reject) => {
     getAllPaymentTypes()
     .then(paymentTypes=>{
@@ -28,7 +28,7 @@ module.exports.saveNewPaymentOption = (paymentOptionObject)=>{
   return new Promise((resolve, reject)=>{
     addPaymentOption(paymentOptionObject)
     .then(paymentOptId=>{
-      resolve(paymentOptId);
+      resolve("Your payment option has been added.");
     })
     .catch(err=>{
       reject(err);

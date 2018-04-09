@@ -1,13 +1,18 @@
 "use strict";
 
 const { assert: { equal } } = require('chai'),
-      { completeOrderPrompt } = require('../app/controllers/completeOrderC');
+      { completeOrder } = require('../app/controllers/completeOrderC');
 
 describe('completeOrder controller module', () => {
-  describe('completeOrderPrompt()', () => {
+  describe('completeOrder()', () => {
     it('should return the string "Customer has no active orders" if they don\'t', () => {
-      return completeOrderPrompt(1)
-	.then(resp => equal(resp, 'Customer has no active orders'));
+      return completeOrder(2)
+	      .then(response => {
+          equal(0,1);
+        })
+        .catch(err => {
+          equal(err, "This customer has no active orders.")
+        });
     });
   });
 });

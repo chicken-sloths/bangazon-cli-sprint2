@@ -10,7 +10,7 @@ describe('completeOrder view module', () => {
           description: `Your order total is ${green('$180')}. Ready to purchase?\n(Y/N)`
         },
         payment = {
-          description: 'Choose a payment option:\n1. AmEx\n2. Visa',
+          description: '\nAvailable Payment Options:\n1. AmEx\n2. Visa\nChoose a payment option:',
           pattern: new RegExp('^[1-2]$'),
         };
     const [a, b] = createPrompt(180, [{name:'AmEx'}, {name:'Visa'}]);

@@ -1,7 +1,7 @@
 "use strict"
 const { assert: {equal, isArray, isObject, deepEqual, notEqual, isNumber } } = require('chai');
 const { getAllCustomers, addNewCustomer, getCustomerByPhoneNumber } = require('../app/models/CustomersM.js');
-const { promptNewCustomer } = require('../app/controllers/createCustC.js');
+const { newCustomer } = require('../app/controllers/createCustC.js');
 const CustomersTable = require('../db/makeCustomersTable');
 const { generateSqlTable } = require('../db/sqlRunTemplate');
 

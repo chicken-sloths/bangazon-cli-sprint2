@@ -55,6 +55,7 @@ module.exports.patchPaymentTypeOntoOrder = (order, payment_option_id) => {
         "${order.creation_date}"
       )`,
       function (err) {
+        if (err) return reject(err);
         resolve(this.changes);
       }
     );

@@ -24,7 +24,7 @@ module.exports.setActiveCustomer = () => {
       prompt.get(activeCustomerPrompt,
         (err, result) => {
           setActiveId(result.custId);
-          err ? reject(err) : resolve(result.custId);
+          err ? reject(err) : resolve(`You just selected this customer id: ${result.custId}.`);
         });
     });
   });
