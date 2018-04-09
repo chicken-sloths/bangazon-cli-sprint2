@@ -10,7 +10,7 @@ module.exports.newPaymentOption = (activeCustomerId) => {
       allPaymentTypes.forEach(pt=>{
         console.log(pt.payment_type_id, pt.name);
       });
-      prompt.get(paymentOptionPrompts,
+      prompt.get(paymentOptionPrompts(allPaymentTypes),
         (err, result) => {
           if(+result.paymentType>= allPaymentTypes.length || +result.paymentType < 0){
             reject("That is not a valid payment type, ya jabroni!")
