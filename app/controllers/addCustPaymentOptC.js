@@ -26,7 +26,6 @@ module.exports.newPaymentOption = (activeCustomerId) => {
 
 module.exports.saveNewPaymentOption = (paymentOptionObject)=>{
   return new Promise((resolve, reject)=>{
-    console.log(paymentOptionObject);
     addPaymentOption(paymentOptionObject)
     .then(paymentOptId=>{
       resolve(paymentOptId);
