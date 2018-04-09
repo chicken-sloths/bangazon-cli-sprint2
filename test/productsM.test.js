@@ -8,7 +8,8 @@ const {
   getProductsByCreator,
   deleteProduct,
   getAllStockedProducts,
-  getQuantityRemaining
+  getQuantityRemaining,
+  updateProduct
 } = require('../app/models/ProductsM');
 
 let sampleProduct = {
@@ -141,5 +142,26 @@ describe('getQuantityRemaining()', () => {
       .then(qty => {
         assert.equal(qty, 34);
       });
+  });
+});
+
+describe("updateProduct()", () => {
+  it("should resolve into a number", () => {
+    return updateProduct(3,sampleProduct)
+      .then(id => {
+        assert.isNumber(id);
+      });
+  });
+  it("should work", () => {
+    return updateProduct(5, sampleProduct)
+      .then(changes => {
+        assert.equal(changes, 1);
+        return getProduct(5);
+      })
+      .then(product => {
+        assert.equal(product.title, 'Name');
+        assert.equal(product.description, 'Description');
+        assert.equal(product.quantity, 4);
+      })
   });
 });
