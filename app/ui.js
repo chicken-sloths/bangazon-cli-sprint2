@@ -37,7 +37,7 @@ prompt.start();
 let mainMenuHandler = (err, userInput) => {
   // if there is no activeCustomer and there has to be...
   let intChoice = parseInt(userInput.choice);
-  if (intChoice > 13 || intChoice < 0) {
+  if (intChoice > 13 || intChoice <= 0) {
     warning("Please select a number corresponding to an option on the menu.");
   } else if (intChoice > 2 && getActiveCustomer() == null) {
     warning("Please select an active customer.");
