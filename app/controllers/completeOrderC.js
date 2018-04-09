@@ -22,13 +22,13 @@ module.exports.completeOrder = () => {
           getOrderTotal(order),
           getPaymentOptionsForCustomer(userId)
         ])
-          .then(([{ OrderTotal }, paymentOptions]) => {
+          .then(([{ orderTotal }, paymentOptions]) => {
             if (!paymentOptions || paymentOptions.length == 0) {
               return reject('Customer has no payment options.');
             }
 
             prompt.get(
-              createPrompt(OrderTotal, paymentOptions),
+              createPrompt(orderTotal, paymentOptions),
               (err, { checkout, paymentOpt }) => {
                 if (err) return reject(err);
                 if (checkout === 'N') {
