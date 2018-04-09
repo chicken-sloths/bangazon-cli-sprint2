@@ -91,10 +91,8 @@ module.exports.addProductToOrder = () => {
       .then(products => {
         // List all the products with current quantity > 0
         console.log('Here are all the products:');
-        products.forEach((product, i) => {
-          console.log(`**${product.title}**`);
-          console.log(`Purchase Code: ${product.product_id}`);
-          console.log("          ");
+        products.forEach((product) => {
+          console.log(`${product.product_id}. ${product.title}`);
         });
         // Prompt the user to enter a product id  
         prompt.get(promptObj, (err, { prodId }) => {
