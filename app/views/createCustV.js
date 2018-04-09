@@ -11,11 +11,6 @@ module.exports = [{
   type: 'string',
   required: true
 }, {
-  name: 'account_creation_date',
-  description: 'Please enter today\'s date',
-  type: 'string',
-  required: true
-}, {
   name: 'street_address',
   description: 'Enter street address',
   type: 'string',
