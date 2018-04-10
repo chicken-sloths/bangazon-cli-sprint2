@@ -55,6 +55,7 @@ module.exports.updateProduct = () => {
             }
             updateProduct(updatedProductId, newProductObject)
             .then(prodId=>{
+              resolve(`Product has been succesffully updated in the database, my dude!`);
             })
           });
           
