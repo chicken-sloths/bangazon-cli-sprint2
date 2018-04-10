@@ -18,7 +18,7 @@ const { getActiveCustomer } = require('./activeCustC');
 /**
  * @function newPaymentOption
  * @returns {Promise} 
- * @description Promises to list all payment types, prompt the user to create a new payment option, and then send their new payment option to the Payment Option Modle
+ * @description Promises to list all payment types, prompt the user to create a new payment option, and then send their new payment option to the Payment Option Module
  */
 
 module.exports.newPaymentOption = () => {
