@@ -1,4 +1,9 @@
 'use strict';
+/**
+ * A module that connects the Add Products To Order prompt interface to the Product Orders Model
+ * Allows the active customer to add products to their shopping cart
+ * @module addCustomerPaymentOption
+ */
 
 const prompt = require('prompt');
 const promptObj = require('../views/addProdToOrderV');
@@ -8,6 +13,13 @@ const { checkForActiveOrder, createNewOrder } = require('../models/OrdersM.js');
 const { addToProductOrders } = require('../models/ProductOrdersM');
 const { getProduct } = require('../models/ProductsM');
 
+/**
+ * @function addProduct()
+ * @returns {Promise} 
+ * @param {Object} order The whole order object, will eventually extract the order id
+ * @param {String} prodId The numerical ID of the product they want to add, which is stored as a string
+ * @description This is function's main purpose is to figure out if the active user already has an open order and call other functions accordingly. If they do have an active order, it calls the function addProductToExistingOrder(). If not, it creates a new order and then calls addProductToExistingOrder(). 
+ */
 
 // Promises to add a product to a customer's order
 const addProduct = (order, prodId) => {
@@ -42,6 +54,14 @@ const addProduct = (order, prodId) => {
   });
 };
 
+/**
+ * @function addProductToExistingOrder()
+ * @returns {Promise} 
+ * @param {Integer} orderId The id of the active customer's active order
+ * @param {String} prodId The numerical ID of the product they want to add, which is stored as a string
+ * @description This function assumes that the active customer has an open order. It takes the selected product and adds it to their active order. (To be specific: adding a product to an order means adding a new entry to the Product_Orders table in the Bangazon DB. The Product_Orders table includes product_id, order_id, and current_price),  
+ */
+
 const addProductToExistingOrder = (orderId, prodId) => {
   return new Promise((resolve, reject) => {
     getProduct(prodId)
@@ -58,7 +78,12 @@ const addProductToExistingOrder = (orderId, prodId) => {
   });
 };
 
-// Creates a new order (with a null payment id) for the active customer and then calls addProduct
+/**
+ * @function createOrder()
+ * @returns {Promise} 
+ * @param {Integer} customerId The id of the active customer
+ * @description  Creates a new order (with a null payment id) for the active customer 
+ */
 const createOrder = (customerId) => {
 
   const date = new Date();
@@ -82,6 +107,12 @@ const createOrder = (customerId) => {
   });
 };
 
+
+/**
+ * @function addProductToOrder()
+ * @returns {Promise} 
+ * @description  Promises to list all the products, prompt user for a product id to add to their order, check to make sure the selected product isn't sold out, and then call the appropriate functions to add the product to their order.
+ */
 module.exports.addProductToOrder = () => {
 
   let customerId = getActiveCustomer();
