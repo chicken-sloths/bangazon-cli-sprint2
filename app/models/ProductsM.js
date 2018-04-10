@@ -87,10 +87,17 @@ module.exports.getAllProducts = () => {
  */
 module.exports.getProductsByCreator = creator_id => {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM Products WHERE creator_id = ${creator_id}`, (err, data) => {
-      if (err) return reject(err);
-      resolve(data);
-    });
+    db.all(`SELECT p.*, COUNT(po.product_id) AS quantity_sold
+    FROM Products p
+    LEFT JOIN Product_Orders po
+    ON p.product_id = po.product_id
+    WHERE p.creator_id=${creator_id}
+    GROUP BY p.product_id`,
+      (err, data) => {
+        if (err) return reject(err);
+        resolve(data);
+      }
+    );
   });
 };
 
