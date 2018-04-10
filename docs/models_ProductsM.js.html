@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/ProductsM.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/ProductsM.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+/**
+ * A module that accesses the Products table in the bangazon.sqlite DB
+ * @module productsModel
+ */
+
+/**
+ * This module requires sqlite3
+ */
+const { Database } = require('sqlite3').verbose();
+const path = require('path');
+const db = new Database(path.join(__dirname, '../..', 'db', 'bangazon.sqlite'));
+
+/**
+ * @function createProduct
+ * @param {object} product - An object containing all responses from the prompt
+ * @param {number} product.id - The active customer's id
+ * @param {string} product.price - A floating point integer, saved as a string for SQLite's restrictions on data types
+ * @param {string} product.name - Name of the product
+ * @param {string} product.description - Description of the product
+ * @param {number} product.productType - ID of the product type
+ * @param {number} product.quantity - Initial quantity of the product
+ * @returns {Promise} A promise representing the product_id of the product added to the database
+ * @description Adds a new product to the Products table
+ */
+module.exports.createProduct = (product) => {
+  return new Promise((resolve, reject) => {
+    let { id, name, price, description, productType, quantity } = product;
+    db.run(`INSERT INTO Products (
+      product_id,
+      current_price,
+      title,
+      description,
+      product_type_id,
+      creator_id,
+      creation_date,
+      quantity
+    ) VALUES (
+      null,
+      "${price}",
+      "${name}",
+      "${description}",
+      ${productType},
+      ${id},
+      date('now'),
+      ${quantity}
+    )`, function (err) {
+        if (err) return reject(err);
+          resolve(this.lastID);
+        });
+    });
+};
+
+/**
+ * @function getProduct
+ * @param {number} id - The product_id
+ * @return {Promise} A promise representing an object with all the product data for the given product_id
+ * @description Gets all properties of a product based upon the provided ID
+ */
+module.exports.getProduct = id => {
+  return new Promise((resolve, reject) => {
+    db.get(`SELECT * FROM Products WHERE product_id = ${id}`, (err, data) => {
+      if (err) return reject(err);
+      data ? resolve(data) : reject(new Error("This product doesn't exist."));
+    });
+  });
+};
+
+/**
+ * @function getAllProducts
+ * @return {Promise} A promise representing an array of objects with all the product data for every product in the Products table
+ * @description Gets all products in the Products table
+ */
+module.exports.getAllProducts = () => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM Products`, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+};
+
+/**
+ * @function getProductsByCreator
+ * @param {number} creator_id - The ID of the customer whose products are requested
+ * @return {Promise} A promise representing an array of objects with all the product data for every product created by the specified customer
+ */
+module.exports.getProductsByCreator = creator_id => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM Products WHERE creator_id = ${creator_id}`, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+};
+
+/**
+ * @function deleteProduct
+ * @param {number} id - The ID of the product to be deleted
+ * @returns {Promise} A promise representing the number of products deleted from the Products table (should equal 1)
+ * @description Deletes the product with the given ID from Products
+ */
+module.exports.deleteProduct = id => {
+  return new Promise((resolve, reject) => {
+    db.run(`DELETE FROM Products WHERE product_id = ${id}`, function(err) {
+      if (err) return reject(err);
+      resolve(this.changes);
+    });
+  });
+};
+
+/**
+ * @function getAllStockedProducts
+ * @returns {Promise} A promise representing an array of objects, each containing the data for every stocked product
+ * @description Gets all products in the Products table whose quantity is greater than the number of appearances of its ID on the Product_Orders table. In other words, gets products that are still available for purchase
+ */
+module.exports.getAllStockedProducts = () => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT
+      p.*,
+      COUNT(po.order_id) as quantity_sold
+    FROM Products p
+    LEFT JOIN Product_Orders po
+      ON po.product_id = p.product_id
+    GROUP BY p.product_id
+    HAVING p.quantity > quantity_sold`, (err, data) => {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
+};
+
+/**
+ * @function getQuantityRemaining
+ * @param {number} product_id - The ID of the product whose remaining quantity is requested
+ * @returns {Promise} A promise representing a number, i.e., the quantity of products remaining for the given product
+ */
+module.exports.getQuantityRemaining = product_id => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT quantity FROM Products WHERE product_id = ${product_id}`, (err, maxQty) => {
+      if (err) return reject(err);
+      db.all(`SELECT COUNT(*) as count FROM Product_Orders WHERE product_id = ${product_id}`, (err, data) => {
+        if (err) return reject(err);
+        if (maxQty[0].quantity - data[0].count &lt;= 0) {
+          reject("I'm sorry, this product is no longer available.");
+        }
+        else {
+          resolve(maxQty[0].quantity - data[0].count);
+        }
+      });
+    });
+  });
+};
+
+/**
+ * @function updateProduct
+ * @param {number} id
+ * @param {object} product - An object containing all responses from the prompt
+ * @param {string} product.name - Name of the product
+ * @param {string} product.price - A floating point integer, saved as a string for SQLite's restrictions on data types
+ * @param {string} product.description - Description of the product
+ * @param {number} product.productType - ID of the product type
+ * @param {number} product.quantity - Initial quantity of the product
+ * @returns {Promise} A promise representing the number of successful changes made to the database.
+ * @description Updates an existing product
+ */
+module.exports.updateProduct = (id, product) => {
+  return new Promise((resolve, reject) => {
+    let { name, price, description, productType, quantity } = product;
+    db.run(`REPLACE INTO Products (
+      product_id,
+      current_price,
+      title,
+      description,
+      product_type_id,
+      quantity
+    ) VALUES (
+        ${id},
+        "${price}",
+        "${name}",
+        "${description}",
+        ${productType},
+        ${quantity}
+    )`, function(err) {
+      if (err) return reject(err);
+      resolve(this.changes);
+    })
+  });
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-activeCustomerController.html">activeCustomerController</a></li><li><a href="module-customersModel.html">customersModel</a></li><li><a href="module-ordersModel.html">ordersModel</a></li><li><a href="module-paymentOptionsModel.html">paymentOptionsModel</a></li><li><a href="module-productOrdersModel.html">productOrdersModel</a></li><li><a href="module-productsModel.html">productsModel</a></li><li><a href="module-productTypesModel.html">productTypesModel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 10 2018 10:30:44 GMT-0500 (CDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
