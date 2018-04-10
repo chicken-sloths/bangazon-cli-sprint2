@@ -50,6 +50,8 @@ module.exports.updateProduct = () => {
               description,
               product_type_id,
               quantity,
+              creator_id: getActiveCustomer(),
+              
             }
             updateProduct(updatedProductId, newProductObject)
             .then(prodId=>{

@@ -166,21 +166,25 @@ module.exports.getQuantityRemaining = product_id => {
  */
 module.exports.updateProduct = (id, product) => {
   return new Promise((resolve, reject) => {
-    let { title, price, description, product_type_id, quantity } = product;
+    let { title, current_price, description, product_type_id, quantity, creator_id } = product;
     db.run(`REPLACE INTO Products (
       product_id,
       current_price,
       title,
       description,
       product_type_id,
-      quantity
+      quantity,
+      creator_id,
+      creation_date
     ) VALUES (
         ${id},
-        "${price}",
+        "${current_price}",
         "${title}",
         "${description}",
-        ${product_type},
-        ${quantity}
+        ${product_type_id},
+        ${quantity},
+        ${creator_id},
+        date('now')
     )`, function(err) {
       if (err) return reject(err);
       resolve(this.changes);
