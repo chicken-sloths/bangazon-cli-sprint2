@@ -399,7 +399,7 @@ Allows users to add a new payment option for the active customer</div>
     
 
     
-    <h4 class="name" id="~addProduct()"><span class="type-signature">(inner) </span>addProduct()<span class="signature">(order, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProduct"><span class="type-signature">(inner) </span>addProduct<span class="signature">(order, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -575,7 +575,7 @@ Allows users to add a new payment option for the active customer</div>
     
 
     
-    <h4 class="name" id="~addProductToExistingOrder()"><span class="type-signature">(inner) </span>addProductToExistingOrder()<span class="signature">(orderId, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProductToExistingOrder"><span class="type-signature">(inner) </span>addProductToExistingOrder<span class="signature">(orderId, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -751,7 +751,7 @@ Allows users to add a new payment option for the active customer</div>
     
 
     
-    <h4 class="name" id="~addProductToOrder()"><span class="type-signature">(inner) </span>addProductToOrder()<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProductToOrder"><span class="type-signature">(inner) </span>addProductToOrder<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -855,7 +855,7 @@ Allows users to add a new payment option for the active customer</div>
     
 
     
-    <h4 class="name" id="~createOrder()"><span class="type-signature">(inner) </span>createOrder()<span class="signature">(customerId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~createOrder"><span class="type-signature">(inner) </span>createOrder<span class="signature">(customerId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -1008,7 +1008,7 @@ Allows users to add a new payment option for the active customer</div>
     
 
     
-    <h4 class="name" id="~newPaymentOption()"><span class="type-signature">(inner) </span>newPaymentOption()<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~newPaymentOption"><span class="type-signature">(inner) </span>newPaymentOption<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -1095,6 +1095,110 @@ Allows users to add a new payment option for the active customer</div>
     <dd>
         
 <span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~payOptCheck"><span class="type-signature">(inner) </span>payOptCheck<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks that the customer doesn't already have a payment option of the same type (i.e. they can't have two Visa payment options)
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_addCustPaymentOptC.js.html">controllers/addCustPaymentOptC.js</a>, <a href="controllers_addCustPaymentOptC.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
 
 
     </dd>
@@ -1497,7 +1601,7 @@ Allows the active customer to add a new product to sell</div>
     
 
     
-    <h4 class="name" id="~addProduct()"><span class="type-signature">(inner) </span>addProduct()<span class="signature">(order, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProduct"><span class="type-signature">(inner) </span>addProduct<span class="signature">(order, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -1673,7 +1777,7 @@ Allows the active customer to add a new product to sell</div>
     
 
     
-    <h4 class="name" id="~addProductToExistingOrder()"><span class="type-signature">(inner) </span>addProductToExistingOrder()<span class="signature">(orderId, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProductToExistingOrder"><span class="type-signature">(inner) </span>addProductToExistingOrder<span class="signature">(orderId, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -1849,7 +1953,7 @@ Allows the active customer to add a new product to sell</div>
     
 
     
-    <h4 class="name" id="~addProductToOrder()"><span class="type-signature">(inner) </span>addProductToOrder()<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProductToOrder"><span class="type-signature">(inner) </span>addProductToOrder<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -1953,7 +2057,7 @@ Allows the active customer to add a new product to sell</div>
     
 
     
-    <h4 class="name" id="~createOrder()"><span class="type-signature">(inner) </span>createOrder()<span class="signature">(customerId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~createOrder"><span class="type-signature">(inner) </span>createOrder<span class="signature">(customerId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -2106,7 +2210,7 @@ Allows the active customer to add a new product to sell</div>
     
 
     
-    <h4 class="name" id="~newPaymentOption()"><span class="type-signature">(inner) </span>newPaymentOption()<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~newPaymentOption"><span class="type-signature">(inner) </span>newPaymentOption<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -2193,6 +2297,110 @@ Allows the active customer to add a new product to sell</div>
     <dd>
         
 <span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~payOptCheck"><span class="type-signature">(inner) </span>payOptCheck<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks that the customer doesn't already have a payment option of the same type (i.e. they can't have two Visa payment options)
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_addCustPaymentOptC.js.html">controllers/addCustPaymentOptC.js</a>, <a href="controllers_addCustPaymentOptC.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
 
 
     </dd>
@@ -2595,7 +2803,7 @@ Allows the active customer to add products to their shopping cart</div>
     
 
     
-    <h4 class="name" id="~addProduct()"><span class="type-signature">(inner) </span>addProduct()<span class="signature">(order, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProduct"><span class="type-signature">(inner) </span>addProduct<span class="signature">(order, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -2771,7 +2979,7 @@ Allows the active customer to add products to their shopping cart</div>
     
 
     
-    <h4 class="name" id="~addProductToExistingOrder()"><span class="type-signature">(inner) </span>addProductToExistingOrder()<span class="signature">(orderId, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProductToExistingOrder"><span class="type-signature">(inner) </span>addProductToExistingOrder<span class="signature">(orderId, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -2947,7 +3155,7 @@ Allows the active customer to add products to their shopping cart</div>
     
 
     
-    <h4 class="name" id="~addProductToOrder()"><span class="type-signature">(inner) </span>addProductToOrder()<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProductToOrder"><span class="type-signature">(inner) </span>addProductToOrder<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -3051,7 +3259,7 @@ Allows the active customer to add products to their shopping cart</div>
     
 
     
-    <h4 class="name" id="~createOrder()"><span class="type-signature">(inner) </span>createOrder()<span class="signature">(customerId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~createOrder"><span class="type-signature">(inner) </span>createOrder<span class="signature">(customerId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -3204,7 +3412,7 @@ Allows the active customer to add products to their shopping cart</div>
     
 
     
-    <h4 class="name" id="~newPaymentOption()"><span class="type-signature">(inner) </span>newPaymentOption()<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~newPaymentOption"><span class="type-signature">(inner) </span>newPaymentOption<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -3303,6 +3511,110 @@ Allows the active customer to add products to their shopping cart</div>
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="~payOptCheck"><span class="type-signature">(inner) </span>payOptCheck<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks that the customer doesn't already have a payment option of the same type (i.e. they can't have two Visa payment options)
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_addCustPaymentOptC.js.html">controllers/addCustPaymentOptC.js</a>, <a href="controllers_addCustPaymentOptC.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -3324,7 +3636,7 @@ Allows the active customer to add products to their shopping cart</div>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 10 2018 11:17:09 GMT-0500 (CDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 10 2018 11:19:42 GMT-0500 (CDT)
 </footer>
 
 <script> prettyPrint(); </script>
