@@ -1,3 +1,11 @@
+'use strict';
+
+/**
+ * A module that connects the Customer Payment Option prompt interface to the Payment Option Model
+ * Allows users to add a new payment option for the active customer
+ * @module addCustomerPaymentOption
+ */
+
 const prompt = require('prompt');
 const { paymentOptionPrompts } = require('../views/addCustPaymentOptV');
 const {
@@ -6,6 +14,12 @@ const {
 } = require('../models/PaymentOptionsM');
 const { getAllPaymentTypes } = require('../models/PaymentTypesM');
 const { getActiveCustomer } = require('./activeCustC');
+
+/**
+ * @function newPaymentOption()
+ * @returns {Promise} 
+ * @description Promises to list all payment types, prompt the user to create a new payment option, and then send their new payment option to the Payment Option Modle
+ */
 
 module.exports.newPaymentOption = () => {
   return new Promise((resolve, reject) => {

@@ -1,11 +1,23 @@
 'use strict';
 
+/**
+ * A module that connects the Add Customer Product prompt interface to the Product Model
+ * Allows the active customer to add a new product to sell
+ * @module addCustomerPaymentOption
+ */
+
 const prompt = require('prompt');
 const { addCustProdV } = require('../views/addCustProdV');
 const { getActiveCustomer } = require('./activeCustC');
 const { getProductTypes } = require('../models/ProductTypesM');
 const { createProduct } = require('../models/ProductsM');
 const { red, green } = require('chalk');
+
+/**
+ * @function addCustomerProduct()
+ * @returns {Promise} 
+ * @description Promises to list all product types, then prompt the customer to enter info about their new product, then pass the new product info along to the Products Model
+ */
 
 module.exports.addCustomerProduct = () => {
   return new Promise( (resolve, reject) => {
