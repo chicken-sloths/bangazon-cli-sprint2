@@ -1,4 +1,8 @@
 'use strict';
+/**
+ * A module that guides the user interaction for new customer creation.
+ * @module createCustomerController
+ */
 
 const prompt = require('prompt');
 const promptObj = require('../views/createCustV');

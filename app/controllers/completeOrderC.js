@@ -1,5 +1,8 @@
-
-"use strict";
+'use strict';
+/**
+ * A module that guides the user interaction for order completion.
+ * @module completeOrderController
+ */
 
 const prompt = require('prompt'),
   { createPrompt } = require('../views/completeOrderV'),
@@ -22,7 +25,7 @@ module.exports.completeOrder = () => {
     let userId = getActiveCustomer();
     checkForActiveOrder(userId)
       .then(order => {
-        if (!order) return reject("This customer has no active orders.");
+        if (!order) return reject('This customer has no active orders.');
         Promise.all([
           getOrderTotal(order),
           getPaymentOptionsForCustomer(userId)
@@ -51,6 +54,6 @@ module.exports.completeOrder = () => {
           })
           .catch(err => reject(err));
       })
-      .catch(err => reject("This customer has no active orders."));
+      .catch(err => reject('This customer has no active orders.'));
   });
 };
