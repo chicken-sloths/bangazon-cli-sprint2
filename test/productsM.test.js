@@ -15,11 +15,13 @@ const {
 let sampleProduct = {
   creator_id: 4,
   title: 'Name',
-  current_price: 235,
+  current_price: 235.76,
   description: 'Description',
   product_type_id: 3,
+  creation_date: "2018-04-06T00:55:09.250Z",
   quantity: 4,
 };
+
 const { generateSqlTable } = require('../db/sqlRunTemplate');
 const makeProductsTable = require('../db/makeProductsTable');
 
@@ -74,7 +76,7 @@ describe('getProductsByCreator', () => {
         assert.isObject(products[0]);
       });
   });
-  it('creator 2 should have 6 products', () => {
+  it('creator 2 should have 1 product', () => {
     return getProductsByCreator(2)
       .then(response => {
         assert.equal(response.length, 1);
