@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: models/ProductTypesM.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,56 +17,38 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: models/ProductTypesM.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>Bangazon</h1><h2>The Command Line Ordering System</h2><p>In this group project, you will be allowing a user to interact with a basic product ordering database via a command line interface.</p>
-<h2>Ordering System Interface</h2><h3>Main Menu</h3><pre class="prettyprint source lang-bash"><code>*********************************************************
-**  Welcome to Bangazon! Command Line Ordering System  **
-*********************************************************
-1. Create a customer account
-2. Choose active customer
-3. Create a payment option
-4. Add product to sell
-5. Add product to shopping cart
-6. Complete an order
-7. Remove customer product
-8. Update product information
-9. Show stale products
-10. Show customer revenue report
-11. Show overall product popularity
-12. Leave Bangazon!
-></code></pre><h2>Requirements</h2><p>You will create a series of prompts that will allow the user to create various types of data in your ordering system.</p>
-<ol>
-<li>Start with writing unit tests. As a group, determine the core functionality of the application. Define classes, controllers and methods that you think you need to build. Do that before writing the implementation code for core logic. DO NOT WRITE TESTS FOR THE USER INTERFACE (menu and prompts).</li>
-<li>All classes and methods must be fully documented.</li>
-</ol></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+/**
+ * A module that accesses the Products_Types table in the bangazon.sqlite DB
+ * @module productTypesModel
+ */
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database('db/bangazon.sqlite');
+
+/**
+ * @function getProductTypes
+ * @returns {Promise} A promise representing an array of objects; each object has all the product type data for it
+ */
+module.exports.getProductTypes = () => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM Product_Types`, (err, productTypes) => {
+      if (err) return reject(err);
+      resolve(productTypes);
+    });
+  });
+};
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

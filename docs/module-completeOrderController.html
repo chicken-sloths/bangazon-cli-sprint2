@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: productTypesModel</title>
+    <title>JSDoc: Module: completeOrderController</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: productTypesModel</h1>
+    <h1 class="page-title">Module: completeOrderController</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">A module that accesses the Products_Types table in the bangazon.sqlite DB</div>
+            <div class="description">A module that guides the user interaction for order completion.</div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_ProductTypesM.js.html">models/ProductTypesM.js</a>, <a href="models_ProductTypesM.js.html#line2">line 2</a>
+        <a href="controllers_completeOrderC.js.html">controllers/completeOrderC.js</a>, <a href="controllers_completeOrderC.js.html#line2">line 2</a>
     </li></ul></dd>
     
 
@@ -142,12 +142,16 @@
     
 
     
-    <h4 class="name" id="~getProductTypes"><span class="type-signature">(inner) </span>getProductTypes<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~completeOrder"><span class="type-signature">(inner) </span>completeOrder<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    Confirms the customer's willingness to pay the order total and updates the payment type of an active order, completing it.
+</div>
 
 
 
@@ -190,7 +194,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_ProductTypesM.js.html">models/ProductTypesM.js</a>, <a href="models_ProductTypesM.js.html#line9">line 9</a>
+        <a href="controllers_completeOrderC.js.html">controllers/completeOrderC.js</a>, <a href="controllers_completeOrderC.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -217,7 +221,7 @@
 
         
 <div class="param-desc">
-    A promise representing an array of objects; each object has all the product type data for it
+    A promise that represents the successful completion and update of an order in the database.
 </div>
 
 
