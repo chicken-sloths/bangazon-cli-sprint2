@@ -1,5 +1,8 @@
-
-"use strict";
+'use strict';
+/**
+ * A module that guides the user interaction for order completion.
+ * @module completeOrderController
+ */
 
 const prompt = require('prompt'),
   { createPrompt } = require('../views/completeOrderV'),
@@ -12,12 +15,17 @@ const prompt = require('prompt'),
   { getPaymentOptionsForCustomer } = require('../models/PaymentOptionsM'),
   { getActiveCustomer } = require('./activeCustC');
 
+/**
+ * @function completeOrder
+ * @returns {Promise} A promise that represents the successful completion and update of an order in the database.
+ * @description Confirms the customer's willingness to pay the order total and updates the payment type of an active order, completing it.
+ */
 module.exports.completeOrder = () => {
   return new Promise((resolve, reject) => {
     let userId = getActiveCustomer();
     checkForActiveOrder(userId)
       .then(order => {
-        if (!order) return reject("This customer has no active orders.");
+        if (!order) return reject('This customer has no active orders.');
         Promise.all([
           getOrderTotal(order),
           getPaymentOptionsForCustomer(userId)
@@ -46,6 +54,6 @@ module.exports.completeOrder = () => {
           })
           .catch(err => reject(err));
       })
-      .catch(err => reject("This customer has no active orders."));
+      .catch(err => reject('This customer has no active orders.'));
   });
 };
