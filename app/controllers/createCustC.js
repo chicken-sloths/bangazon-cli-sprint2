@@ -4,6 +4,11 @@ const prompt = require('prompt');
 const promptObj = require('../views/createCustV');
 const { getCustomerByPhoneNumber, addNewCustomer } = require('../models/CustomersM.js')
 
+/**
+ * @function newCustomer
+ * @returns {Promise} A promise that represents the successful construction and insertion into the database of a new customer.
+ * @description Creates a new customer based on the results of the promptObj required from the view.
+ */
 module.exports.newCustomer = () => {
   return new Promise((resolve, reject) => {
     prompt.get(promptObj, (error, customerObj) => {

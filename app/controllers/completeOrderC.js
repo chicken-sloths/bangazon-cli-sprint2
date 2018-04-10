@@ -12,6 +12,11 @@ const prompt = require('prompt'),
   { getPaymentOptionsForCustomer } = require('../models/PaymentOptionsM'),
   { getActiveCustomer } = require('./activeCustC');
 
+/**
+ * @function completeOrder
+ * @returns {Promise} A promise that represents the successful completion and update of an order in the database.
+ * @description Confirms the customer's willingness to pay the order total and updates the payment type of an active order, completing it.
+ */
 module.exports.completeOrder = () => {
   return new Promise((resolve, reject) => {
     let userId = getActiveCustomer();
