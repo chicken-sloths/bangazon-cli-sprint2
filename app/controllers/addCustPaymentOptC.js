@@ -3,7 +3,7 @@
 /**
  * A module that connects the Customer Payment Option prompt interface to the Payment Option Model
  * Allows users to add a new payment option for the active customer
- * @module addCustomerPaymentOption
+ * @module addCustomerPaymentOptionController
  */
 
 const prompt = require('prompt');

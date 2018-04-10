@@ -13,7 +13,7 @@ const prompt = require('prompt');
  * @constant activeCustomer
  * @type {Object}
  * @default
- * @description Stores the active customer id, which can be accessed in other modules through the the exported function [getActiveCustomer function]{@link getActiveCustomer}
+ * @description Stores the active customer id, which can be accessed in other modules through the the exported function [getActiveCustomer]{@link getActiveCustomer}
 */
 const activeCustomer = {
   id: null

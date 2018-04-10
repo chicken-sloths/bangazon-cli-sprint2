@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: productTypesModel</title>
+    <title>JSDoc: Module: addCustomerProductController</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: productTypesModel</h1>
+    <h1 class="page-title">Module: addCustomerProductController</h1>
 
     
 
@@ -38,7 +38,8 @@
     <div class="container-overview">
     
         
-            <div class="description">A module that accesses the Products_Types table in the bangazon.sqlite DB</div>
+            <div class="description">A module that connects the Add Customer Product prompt interface to the Product Model
+Allows the active customer to add a new product to sell</div>
         
 
         
@@ -87,7 +88,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_ProductTypesM.js.html">models/ProductTypesM.js</a>, <a href="models_ProductTypesM.js.html#line2">line 2</a>
+        <a href="controllers_addCustProdC.js.html">controllers/addCustProdC.js</a>, <a href="controllers_addCustProdC.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -142,12 +143,16 @@
     
 
     
-    <h4 class="name" id="~getProductTypes"><span class="type-signature">(inner) </span>getProductTypes<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addCustomerProduct"><span class="type-signature">(inner) </span>addCustomerProduct<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    Promises to list all product types, then prompt the customer to enter info about their new product, then pass the new product info along to the Products Model
+</div>
 
 
 
@@ -190,7 +195,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_ProductTypesM.js.html">models/ProductTypesM.js</a>, <a href="models_ProductTypesM.js.html#line9">line 9</a>
+        <a href="controllers_addCustProdC.js.html">controllers/addCustProdC.js</a>, <a href="controllers_addCustProdC.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -216,10 +221,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    A promise representing an array of objects; each object has all the product type data for it
-</div>
-
 
 
 <dl>

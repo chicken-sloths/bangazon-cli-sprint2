@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: customersModel</title>
+    <title>JSDoc: Module: addProductToOrderController</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: customersModel</h1>
+    <h1 class="page-title">Module: addProductToOrderController</h1>
 
     
 
@@ -38,7 +38,8 @@
     <div class="container-overview">
     
         
-            <div class="description">A module that access the Customer table in the bangazon.sqlite DB</div>
+            <div class="description">A module that connects the Add Products To Order prompt interface to the Product Orders Model
+Allows the active customer to add products to their shopping cart</div>
         
 
         
@@ -87,7 +88,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_CustomersM.js.html">models/CustomersM.js</a>, <a href="models_CustomersM.js.html#line2">line 2</a>
+        <a href="controllers_addProdToOrderC.js.html">controllers/addProdToOrderC.js</a>, <a href="controllers_addProdToOrderC.js.html#line2">line 2</a>
     </li></ul></dd>
     
 
@@ -142,7 +143,7 @@
     
 
     
-    <h4 class="name" id="~addNewCustomer"><span class="type-signature">(inner) </span>addNewCustomer<span class="signature">(customerObj)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProduct"><span class="type-signature">(inner) </span>addProduct<span class="signature">(order, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -150,7 +151,7 @@
 
 
 <div class="description">
-    Adds a customer & their account information to the Customers table in the bangazon.sqlite DB
+    This is function's main purpose is to figure out if the active user already has an open order and call other functions accordingly. If they do have an active order, it calls the function addProductToExistingOrder(). If not, it creates a new order and then calls addProductToExistingOrder().
 </div>
 
 
@@ -186,7 +187,7 @@
 
         <tr>
             
-                <td class="name"><code>customerObj</code></td>
+                <td class="name"><code>order</code></td>
             
 
             <td class="type">
@@ -202,62 +203,20 @@
 
             
 
-            <td class="description last">
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>first_name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Customer's first name</td>
+            <td class="description last">The whole order object, will eventually extract the order id</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>last_name</code></td>
+                <td class="name"><code>prodId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">String</span>
 
 
             
@@ -267,129 +226,7 @@
 
             
 
-            <td class="description last">Customer's last name</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>account_creation_date</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Creation date, in ISO format, of the customer's account</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>street_address</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Customer's street address (e.g., 123 Main St.)</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>city</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">City for the customer's address</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>postal_code</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Postal code for the customer's address</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>phone_number</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Customer's phone number</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last">The numerical ID of the product they want to add, which is stored as a string</td>
         </tr>
 
     
@@ -430,7 +267,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_CustomersM.js.html">models/CustomersM.js</a>, <a href="models_CustomersM.js.html#line40">line 40</a>
+        <a href="controllers_addProdToOrderC.js.html">controllers/addProdToOrderC.js</a>, <a href="controllers_addProdToOrderC.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -456,10 +293,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    A promise that represents the customer_id of a newly added customer
-</div>
-
 
 
 <dl>
@@ -486,7 +319,7 @@
     
 
     
-    <h4 class="name" id="~getAllCustomers"><span class="type-signature">(inner) </span>getAllCustomers<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="~addProductToExistingOrder"><span class="type-signature">(inner) </span>addProductToExistingOrder<span class="signature">(orderId, prodId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -494,115 +327,7 @@
 
 
 <div class="description">
-    Gets all customers if resolves, else returns an error related to the DB
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_CustomersM.js.html">models/CustomersM.js</a>, <a href="models_CustomersM.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A Promise object that represents the an array of objects. Each object contains customer data.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~getCustomerByPhoneNumber"><span class="type-signature">(inner) </span>getCustomerByPhoneNumber<span class="signature">(phoneNumber)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Used to check for duplicates before addNewCustomer is called
+    This function assumes that the active customer has an open order. It takes the selected product and adds it to their active order. (To be specific: adding a product to an order means adding a new entry to the Product_Orders table in the Bangazon DB. The Product_Orders table includes product_id, order_id, and current_price),
 </div>
 
 
@@ -638,13 +363,13 @@
 
         <tr>
             
-                <td class="name"><code>phoneNumber</code></td>
+                <td class="name"><code>orderId</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Integer</span>
 
 
             
@@ -654,7 +379,30 @@
 
             
 
-            <td class="description last">The phone number of the selected customer</td>
+            <td class="description last">The id of the active customer's active order</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prodId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The numerical ID of the product they want to add, which is stored as a string</td>
         </tr>
 
     
@@ -695,7 +443,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_CustomersM.js.html">models/CustomersM.js</a>, <a href="models_CustomersM.js.html#line25">line 25</a>
+        <a href="controllers_addProdToOrderC.js.html">controllers/addProdToOrderC.js</a>, <a href="controllers_addProdToOrderC.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -721,10 +469,263 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    A Promise object that represents an object containing customer data, if any is found.
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~addProductToOrder"><span class="type-signature">(inner) </span>addProductToOrder<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Promises to list all the products, prompt user for a product id to add to their order, check to make sure the selected product isn't sold out, and then call the appropriate functions to add the product to their order.
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_addProdToOrderC.js.html">controllers/addProdToOrderC.js</a>, <a href="controllers_addProdToOrderC.js.html#line111">line 111</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~createOrder"><span class="type-signature">(inner) </span>createOrder<span class="signature">(customerId)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a new order (with a null payment id) for the active customer
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>customerId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The id of the active customer</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_addProdToOrderC.js.html">controllers/addProdToOrderC.js</a>, <a href="controllers_addProdToOrderC.js.html#line81">line 81</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
