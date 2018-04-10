@@ -7,6 +7,7 @@ const { addProductToOrder } = require('./addProdToOrderC');
 const { completeOrder } = require('./completeOrderC');
 const { newCustomer } = require('./createCustC');
 const { deleteProduct } = require('./deleteProdC');
+const { updateProduct } = require('./updateProdC');
 
 module.exports = {
   setActiveCustomer,
@@ -17,5 +18,6 @@ module.exports = {
   deleteProduct,
   newCustomer,
   newPaymentOption,
-  saveNewPaymentOption
+  saveNewPaymentOption,
+  updateProduct
 };

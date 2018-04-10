@@ -19,8 +19,11 @@ module.exports.updateProd = () => {
       console.log('PRODUCT ID',productId);
       getProduct(productId)
       .then(productObj=>{
-        prompt.get(getProperties(productObj), ()=>{
-
+        prompt.get(getProperties(productObj), (error, newProperties)=>{
+          updateProduct(newProperties)
+          .then(prodId=>{
+            console.log('SUCCESFULLY POSTED',prodId);
+          })
         });
       });
     });
