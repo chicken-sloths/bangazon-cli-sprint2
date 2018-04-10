@@ -24,7 +24,7 @@ module.exports.addCustomerProduct = () => {
           price: results.productPrice,
           title: results.productName,
           description: results.productDescription,
-          productType: results.productType,
+          product_type_id: results.product_type_id,
           quantity: results.productQuantity
         };
         // sends newProduct object to controller for adding to DB

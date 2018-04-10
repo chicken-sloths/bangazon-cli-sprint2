@@ -51,7 +51,7 @@ module.exports.updateProduct = () => {
               product_type_id,
               quantity,
             }
-            updateProduct(newProductObject)
+            updateProduct(updatedProductId, newProductObject)
             .then(prodId=>{
               console.log('SUCCESFULLY POSTED',prodId);
             })
