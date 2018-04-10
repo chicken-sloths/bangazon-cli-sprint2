@@ -11,33 +11,33 @@ const prompt = require('prompt');
 
 /** 
  * @constant activeCustomer
- * @type {object}
+ * @type {Object}
  * @default
- * @description Stores the active customer id, which can be accessed in other modules through the the exported function [getActiveCustomer Function]{@link module:activeCustomerController.function:getActiveCustomer}
+ * @description Stores the active customer id, which can be accessed in other modules through the the exported function [getActiveCustomer function]{@link getActiveCustomer}
 */
 const activeCustomer = {
   id: null
 }	
 
 /**
- * @function setActiveId
+ * @function setActiveId()
  * @param {string} customerId accepts the id of the customer to be activated (Prompt returns it as a string, but it's a numerical id)
- * @description Called internally in [setActiveCustomer]{@link module:activeCustomerController.function:setActiveCustomer} and sets the id property of [the activeCustomer object]{@link module:activeCustomerController.constant:activeCustomer}
+ * @description Called internally in [setActiveCustomer]{@link function:setActiveCustomer} and sets the id property of [the activeCustomer object]{@link constant:activeCustomer}
  */
 const setActiveId = id => {
   activeCustomer.id = id;
 }
 
 /**
- * @function getActiveCustomer
- * @returns {string} returns the customer id, which is stored as a string
+ * @function getActiveCustomer()
+ * @returns {string} Returns the customer id, which is stored as a string
  */
 module.exports.getActiveCustomer = () => activeCustomer.id;
 
 /**
- * @function setActiveCustomer
+ * @function setActiveCustomer()
  * @returns {Promise} 
- * @description Called in ui.js in option two, promises to a) list all the customers, b) prompt the user for a customer id to activate, and c) set the given customer as active by calling [setActiveId]{@link module:activeCustomerController.function:setActiveId}
+ * @description Called in ui.js in option two, promises to a) list all the customers, b) prompt the user for a customer id to activate, and c) set the given customer as active by calling [setActiveId]{@link setActiveId}
  */
 module.exports.setActiveCustomer = () => {
   return new Promise ((resolve, reject) => {    
