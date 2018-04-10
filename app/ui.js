@@ -30,7 +30,7 @@ let options = {
   5: addProductToOrder,
   6: completeOrder,
   7: deleteProduct,
-  8: updateProduct
+  8: updateProd
 };
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));

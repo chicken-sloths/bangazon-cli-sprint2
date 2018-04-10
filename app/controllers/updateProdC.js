@@ -13,7 +13,7 @@ const prompt = require('prompt');
 
 */
 
-module.exports.updateProd = () => {
+module.exports.updateProduct = () => {
   return new Promise((resolve, reject)=>{
     prompt.get(getProductId, (error, productId)=>{
       console.log('PRODUCT ID',productId);
