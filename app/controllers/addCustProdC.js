@@ -2,7 +2,7 @@
 
 /**
  * A module that connects the Add Customer Product prompt interface to the Product Model
- * Allows the active customer to add a new product to sell
+ * and allows the active customer to add a new product to sell
  * @module addCustomerProductController
  */
 

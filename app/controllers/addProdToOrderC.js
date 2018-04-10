@@ -1,7 +1,7 @@
 'use strict';
 /**
  * A module that connects the Add Products To Order prompt interface to the Product Orders Model
- * Allows the active customer to add products to their shopping cart
+ * and allows the active customer to add products to their shopping cart
  * @module addProductToOrderController 
  */
 
