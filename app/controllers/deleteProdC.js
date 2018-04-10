@@ -1,34 +1,51 @@
 'use strict';
 
 const prompt = require('prompt');
-const promptObj = require('../views/deleteProdV');
-const model = require("../models/ProductsM");
+const { createDeletePrompt } = require('../views/deleteProdV');
+const {
+  getProductsByCreator,
+  updateProduct,
+  deleteProduct
+} = require("../models/ProductsM");
 const { getActiveCustomer } = require("../controllers/activeCustC");
 const { red, magenta, blue } = require('chalk');
 
 module.exports.deleteProduct = () => {
   return new Promise((resolve, reject) => {
-    model.getProductsByCreator(getActiveCustomer())
+    getProductsByCreator(getActiveCustomer())
       .then(products => {
         console.log('Here is a list of your products:');
+
         if (products.length == 0) reject("This customer has no products.");
+
         products.map(p => {
           console.log(`${p.product_id}. ${p.title}`);
         });
-        prompt.get(promptObj, (err, data) => {
+
+        const validIds = products.map(({product_id}) => product_id);
+
+        prompt.get(createDeletePrompt(validIds), (err, {objectId}) => {
           if (err) return reject(err);
-          model.getProduct(data.objectId)
-            .then(product => {
-              if (product && product.creator_id == getActiveCustomer()) {
-                return model.deleteProduct(product.product_id);
-              } else {
-                reject("This product doesn't belong to you.");
-              }
-            })
-            .then(changed => {
-              changed ? resolve("You have successfully deleted the product.") : reject("Something went wrong. This product was not deleted.");
-            })
+
+          const productToCheck = products.find(({product_id}) => product_id === objectId);
+          const canDelete = productToCheck.quantity_sold === 0 ? true : false;
+
+          if (canDelete) {
+            deleteProduct(objectId)
+              .then(changes =>
+                changes ? resolve("Successfully removed product from available products") : reject("Something went wrong. Product not successfully removed")
+            )
             .catch(err => reject(err));
+          } else {
+            productToCheck.quantity = productToCheck.quantity_sold;
+
+            updateProduct(objectId, productToCheck)
+            .then(changes =>
+              changes ? resolve("Successfully removed product from available products") : reject("Something went wrong. Product not successfully removed")
+            )
+            .catch(err => reject(err));
+          }
+
         });
       })
       .catch(err => reject(err));
