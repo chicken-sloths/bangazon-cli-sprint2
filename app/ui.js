@@ -18,7 +18,8 @@ const {
   deleteProduct,
   newCustomer,
   newPaymentOption,
-  saveNewPaymentOption
+  saveNewPaymentOption,
+  updateProduct
 } = require("./controllers/index");
 
 let options = {
@@ -28,7 +29,8 @@ let options = {
   4: addCustomerProduct,
   5: addProductToOrder,
   6: completeOrder,
-  7: deleteProduct
+  7: deleteProduct,
+  8: updateProduct
 };
 
 const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
@@ -40,7 +42,7 @@ let mainMenuHandler = (err, userInput) => {
   let intChoice = parseInt(userInput.choice);
   if (intChoice > 13 || intChoice <= 0) {
     warning("Please select a number corresponding to an option on the menu.");
-  } else if (intChoice > 7 && intChoice != 12) {
+  } else if (intChoice > 8 && intChoice != 12) {
     warning("This option is not avaible at this time.");
   } else if (intChoice > 2 && intChoice != 12 && getActiveCustomer() == null) {
     warning("Please select an active customer.");

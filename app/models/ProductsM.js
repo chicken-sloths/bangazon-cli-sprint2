@@ -25,7 +25,7 @@ const db = new Database(path.join(__dirname, '../..', 'db', 'bangazon.sqlite'));
  */
 module.exports.createProduct = (product) => {
   return new Promise((resolve, reject) => {
-    let { id, name, price, description, productType, quantity } = product;
+    let { creator_id, title, price, description, product_type_id, quantity } = product;
     db.run(`INSERT INTO Products (
       product_id,
       current_price,
@@ -38,10 +38,10 @@ module.exports.createProduct = (product) => {
     ) VALUES (
       null,
       "${price}",
-      "${name}",
+      "${title}",
       "${description}",
-      ${productType},
-      ${id},
+      ${product_type_id},
+      ${creator_id},
       date('now'),
       ${quantity}
     )`, function (err) {
@@ -166,21 +166,25 @@ module.exports.getQuantityRemaining = product_id => {
  */
 module.exports.updateProduct = (id, product) => {
   return new Promise((resolve, reject) => {
-    let { name, price, description, productType, quantity } = product;
+    let { title, current_price, description, product_type_id, quantity, creator_id, creation_date } = product;
     db.run(`REPLACE INTO Products (
       product_id,
       current_price,
       title,
       description,
       product_type_id,
-      quantity
+      quantity,
+      creator_id,
+      creation_date
     ) VALUES (
         ${id},
-        "${price}",
-        "${name}",
+        "${current_price}",
+        "${title}",
         "${description}",
-        ${productType},
-        ${quantity}
+        ${product_type_id},
+        ${quantity},
+        ${creator_id},
+        "${creation_date}"
     )`, function(err) {
       if (err) return reject(err);
       resolve(this.changes);

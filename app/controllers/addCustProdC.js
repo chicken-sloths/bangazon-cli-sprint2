@@ -32,11 +32,11 @@ module.exports.addCustomerProduct = () => {
       prompt.get(addCustProdV, (err,results) => {
         if (err) return reject(err);
         let newProduct = {
-          id: getActiveCustomer(),
+          creator_id: getActiveCustomer(),
           price: results.productPrice,
-          name: results.productName,
+          title: results.productName,
           description: results.productDescription,
-          productType: results.productType,
+          product_type_id: results.product_type_id,
           quantity: results.productQuantity
         };
         // sends newProduct object to controller for adding to DB
