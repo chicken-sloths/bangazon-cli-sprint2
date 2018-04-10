@@ -20,7 +20,7 @@ const activeCustomer = {
 }	
 
 /**
- * @function setActiveId()
+ * @function setActiveId
  * @param {string} customerId accepts the id of the customer to be activated (Prompt returns it as a string, but it's a numerical id)
  * @description Called internally in [setActiveCustomer]{@link function:setActiveCustomer} and sets the id property of [the activeCustomer object]{@link constant:activeCustomer}
  */
@@ -29,13 +29,13 @@ const setActiveId = id => {
 }
 
 /**
- * @function getActiveCustomer()
+ * @function getActiveCustomer
  * @returns {string} Returns the customer id, which is stored as a string
  */
 module.exports.getActiveCustomer = () => activeCustomer.id;
 
 /**
- * @function setActiveCustomer()
+ * @function setActiveCustomer
  * @returns {Promise} 
  * @description Called in ui.js in option two, promises to a) list all the customers, b) prompt the user for a customer id to activate, and c) set the given customer as active by calling [setActiveId]{@link setActiveId}
  */
