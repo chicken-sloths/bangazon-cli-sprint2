@@ -13,7 +13,7 @@ const {
 } = require('../app/models/ProductsM');
 
 let sampleProduct = {
-  id: 4,
+  creator_id: 4,
   name: 'Name',
   price: 235,
   description: 'Description',

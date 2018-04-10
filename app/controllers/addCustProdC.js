@@ -20,7 +20,7 @@ module.exports.addCustomerProduct = () => {
       prompt.get(addCustProdV, (err,results) => {
         if (err) return reject(err);
         let newProduct = {
-          id: getActiveCustomer(),
+          creator_id: getActiveCustomer(),
           price: results.productPrice,
           name: results.productName,
           description: results.productDescription,

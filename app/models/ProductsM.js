@@ -25,7 +25,7 @@ const db = new Database(path.join(__dirname, '../..', 'db', 'bangazon.sqlite'));
  */
 module.exports.createProduct = (product) => {
   return new Promise((resolve, reject) => {
-    let { id, name, price, description, productType, quantity } = product;
+    let { creator_id, name, price, description, productType, quantity } = product;
     db.run(`INSERT INTO Products (
       product_id,
       current_price,
@@ -41,7 +41,7 @@ module.exports.createProduct = (product) => {
       "${name}",
       "${description}",
       ${productType},
-      ${id},
+      ${creator_id},
       date('now'),
       ${quantity}
     )`, function (err) {

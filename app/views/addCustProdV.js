@@ -1,5 +1,6 @@
-const colors = require('colors/safe');
+'use strict';
 
+const colors = require('colors/safe');
 
 module.exports.addCustProdV = [{
   name: 'productType',
