@@ -22,7 +22,7 @@ module.exports.createPrompt = (total, opts) => {
       pattern: optionsRegEx,
       required: true,
       ask: function () {
-        return prompt.history('checkout').value === 'Y'
+        return prompt.history('checkout').value === 'Y' || prompt.history('checkout').value === 'y'
       }
     }
   ];

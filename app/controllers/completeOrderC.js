@@ -30,29 +30,30 @@ module.exports.completeOrder = () => {
           getOrderTotal(order),
           getPaymentOptionsForCustomer(userId)
         ])
-          .then(([{ orderTotal }, paymentOptions]) => {
-            if (!paymentOptions || paymentOptions.length == 0) {
-              return reject('Customer has no payment options.');
-            }
+        .then(([{ orderTotal }, paymentOptions]) => {
+          if (!paymentOptions || paymentOptions.length == 0) {
+            return reject('Customer has no payment options.');
+          }
+          console.log(paymentOptions);
 
-            prompt.get(
-              createPrompt(orderTotal, paymentOptions),
-              (err, { checkout, paymentOpt }) => {
-                if (err) return reject(err);
-                if (checkout === 'N') {
-                  return resolve(`Order not completed.`);
-                }
-
-                patchPaymentTypeOntoOrder(
-                  order,
-                  paymentOptions[paymentOpt - 1].payment_option_id
-                )
-                  .then(id => resolve(`Order ${order.order_id} closed.`))
-                  .catch(err => reject(err));
+          prompt.get(
+            createPrompt(orderTotal, paymentOptions),
+            (err, { checkout, paymentOpt }) => {
+              if (err) return reject(err);
+              if (checkout === 'N' || checkout === 'n') {
+                return resolve(`Order not completed.`);
               }
-            );
-          })
-          .catch(err => reject(err));
+
+              patchPaymentTypeOntoOrder(
+                order,
+                paymentOptions[paymentOpt - 1].payment_option_id
+              )
+                .then(id => resolve(`Order ${order.order_id} closed.`))
+                .catch(err => reject(err));
+            }
+          );
+        })
+        .catch(err => reject(err));
       })
       .catch(err => reject('This customer has no active orders.'));
   });
