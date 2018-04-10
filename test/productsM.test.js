@@ -14,11 +14,11 @@ const {
 
 let sampleProduct = {
   creator_id: 4,
-  name: 'Name',
-  price: 235,
+  title: 'Name',
+  current_price: 235,
   description: 'Description',
-  productType: 3,
-  quantity: 4
+  product_type_id: 3,
+  quantity: 4,
 };
 const { generateSqlTable } = require('../db/sqlRunTemplate');
 const makeProductsTable = require('../db/makeProductsTable');

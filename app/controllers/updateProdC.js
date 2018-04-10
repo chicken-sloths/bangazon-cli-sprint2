@@ -51,11 +51,10 @@ module.exports.updateProduct = () => {
               product_type_id,
               quantity,
               creator_id: getActiveCustomer(),
-              
+              creation_date: productObj.creation_date,
             }
             updateProduct(updatedProductId, newProductObject)
             .then(prodId=>{
-              console.log('SUCCESFULLY POSTED',prodId);
             })
           });
           
