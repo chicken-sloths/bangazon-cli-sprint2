@@ -9,20 +9,22 @@ const {
 } = require("../models/ProductsM");
 const { getActiveCustomer } = require("../controllers/activeCustC");
 const { red, magenta, blue } = require('chalk');
+const validIds = [];
 
 module.exports.deleteProduct = () => {
   return new Promise((resolve, reject) => {
     getProductsByCreator(getActiveCustomer())
       .then(products => {
+
+        products = products.filter(({quantity, quantity_sold}) => quantity > quantity_sold);
+
+        if (products.length == 0) return reject("This customer has no products to delete.");
+
         console.log('Here is a list of your products:');
-
-        if (products.length == 0) reject("This customer has no products.");
-
-        products.map(p => {
+        products.forEach(p => {
           console.log(`${p.product_id}. ${p.title}`);
+          validIds.push(p.product_id)
         });
-
-        const validIds = products.map(({product_id}) => product_id);
 
         prompt.get(createDeletePrompt(validIds), (err, {objectId}) => {
           if (err) return reject(err);
