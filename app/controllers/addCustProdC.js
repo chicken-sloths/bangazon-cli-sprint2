@@ -22,7 +22,7 @@ module.exports.addCustomerProduct = () => {
         let newProduct = {
           creator_id: getActiveCustomer(),
           price: results.productPrice,
-          name: results.productName,
+          title: results.productName,
           description: results.productDescription,
           productType: results.productType,
           quantity: results.productQuantity

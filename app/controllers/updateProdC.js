@@ -2,6 +2,8 @@
 const { updateProduct, getProduct, getProductsByCreator } = require('../models/ProductsM');
 const { getProductId, getProperties } = require('../views/updateProdV');
 const { getActiveCustomer } = require('./activeCustC');
+const { getProductTypes } = require('../models/ProductTypesM');
+const { green } = require('colors');
 const prompt = require('prompt');
 
 
@@ -21,16 +23,41 @@ module.exports.updateProduct = () => {
       theirProds.forEach(prod=>{
         console.log(`${prod.product_id}. ${prod.title}`);
       });
-      prompt.get(getProductId, (error, productId)=>{
-        console.log('PRODUCT ID',productId);
-        getProduct(productId)
+      
+      prompt.get(getProductId, (error, results)=>{
+        getProductTypes()
+        .then(prodTypes=>{
+        console.log(green('Please select a product category from the list below:'));
+        prodTypes.map( (pt) => {
+          console.log(`${pt.product_type_id}. ${pt.title}`);
+        });
+        let updatedProductId = results.objectId;
+        getProduct(updatedProductId)
         .then(productObj=>{
-          prompt.get(getProperties(productObj), (error, newProperties)=>{
-            updateProduct(newProperties)
+          prompt.get(getProperties(productObj), (error, 
+            {
+              product_id,
+              current_price,
+              title,
+              description,
+              product_type_id,
+              quantity,
+            })=>{
+            const newProductObject = {
+              product_id: updatedProductId,
+              current_price,
+              title,
+              description,
+              product_type_id,
+              quantity,
+            }
+            updateProduct(newProductObject)
             .then(prodId=>{
               console.log('SUCCESFULLY POSTED',prodId);
             })
           });
+          
+        });
         });
       });
     });

@@ -12,33 +12,33 @@ module.exports.getProductId = [{
 
 module.exports.getProperties = (product) => {
   return [{
-    name: 'productType',
+    name: 'product_type_id',
     description: 'Enter Product Category by number',
     pattern: /^[0-9]$/,
     message: colors.red("Selection invalid: product type does not exist, please select a numerical value from the list above"),
     required: true,
     default: product.product_type_id
   }, {
-    name: 'productName',
+    name: 'title',
     description: 'Enter product name',
     type: 'string',
     required: true,
     default: product.title
   }, {
-    name: 'productPrice',
+    name: 'current_price',
     description: 'Enter product price',
     pattern: /^\d+\.\d{2}$/,
     message: colors.red("Selection invalid: please use standard price format (e.g., 123.45, 9.99) without the $ sign"),
     required: true,
     default: product.current_price
   }, {
-    name: 'productDescription',
+    name: 'description',
     description: 'Enter product description',
     type: 'string',
     required: true,
     default: product.description
   }, {
-    name: 'productQuantity',
+    name: 'quantity',
     description: 'Enter product quantity',
     pattern: /^\d+$/,
     message: colors.red("Please enter a whole, positive integer"),
