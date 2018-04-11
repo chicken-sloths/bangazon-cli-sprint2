@@ -1,9 +1,13 @@
 # Bangazon
 ## Contributors
-Team lead: [Joe Chesney](https://github.com/joechesney)
+[Joe Chesney](https://github.com/joechesney) (Team lead)
+
 [Jordan Castelloe](https://github.com/jordan-castelloe)
+
 [Kenzie Bottoms](https://github.com/kenziebottoms)
+
 [Melissa Bell](https://github.com/melissabell456)
+
 [David Lars Ketch](https://github.com/DavidLarsKetch)
 
 ## Context
