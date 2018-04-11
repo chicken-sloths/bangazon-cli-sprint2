@@ -1,4 +1,22 @@
-# Bangazon
+# Bangazon CLI
+## Summary
+A sales CLI for a mock Amazon + Etsy platform. Written by Nashville Software School Apprentice Developers during a week-long Agile sprint.
+
+Users can: 
+1. Create customer information
+1. Create customer payment information
+1. Create & edit product information
+1. Create & close orders
+
+A simple, no frills system!
+
+## Context
+We were presented with 12 User Stories and selected 7 of them. Those selected User Stories were captured in [Issues 1 - 7](https://github.com/chicken-sloths/bangazon-cli-sprint2/issues?q=is%3Aissue+is%3Aclosed+label%3Afeature). For this sprint, we prioritized:
+1. An accurate measurement of our velocity based upon participants' availability
+1. TDD (test-driven development), extensive edge-case testing, & in-depth code reviews
+
+The product's feature took a secondary role, as we wanted to focus our attention on the development process & not the code, per se.  Thus, we identified [Issues 1 - 7](https://github.com/chicken-sloths/bangazon-cli-sprint2/issues?q=is%3Aissue+is%3Aclosed+label%3Afeature) as the most integral features of the product and should be prioritized. The measurement of our velocity was a little off, however, in that we were able to complete an additional feature, formalized in [Issue 8](https://github.com/chicken-sloths/bangazon-cli-sprint2/issues/8).
+
 ## Contributors
 [Joe Chesney](https://github.com/joechesney) (Team lead)
 
@@ -10,16 +28,12 @@
 
 [David Lars Ketch](https://github.com/DavidLarsKetch)
 
-## Context
-We were presented with 12 User Stories and selected 7 of them. Those selected User Stories were captured in [Issues 1 - 7](https://github.com/chicken-sloths/bangazon-cli-sprint2/issues?q=is%3Aissue+is%3Aclosed+label%3Afeature). For this sprint, we prioritized:
-1. An accurate measurement of our velocity based upon participants' availability
-1. TDD (test-driven development), extensive edge-case testing, & in-depth code reviews
-
-The product's feature took a secondary role, as we wanted to focus our attention on the development process & not the code, per se.  Thus, we identified [Issues 1 - 7](https://github.com/chicken-sloths/bangazon-cli-sprint2/issues?q=is%3Aissue+is%3Aclosed+label%3Afeature) as the most integral features of the product and should be prioritized. The measurement of our velocity was a little off, however, in that we were able to complete an additional feature, formalized in [Issue 8](https://github.com/chicken-sloths/bangazon-cli-sprint2/issues/8).
-
 ## Tech Stack
 - SQLite
 - Node.js
+
+### Retrospective
+Take a look at our [Retrospective](https://github.com/chicken-sloths/bangazon-cli-sprint2/projects/2) for our analysis of the sprint and our takeaways.
 
 ## _Original Requirements_
 
