@@ -1,4 +1,9 @@
 # Bangazon CLI
+
+## Installation
+1. In your terminal first enter: `npm install` (this installs the appropriate dependencies)
+1. Then: `npm start`
+
 ## Summary
 A sales CLI for a mock Amazon + Etsy platform. Written by Nashville Software School Apprentice Developers during a week-long Agile sprint.
 
